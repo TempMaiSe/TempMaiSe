@@ -1,0 +1,13 @@
+{
+  "version": 2,
+  "dependencies": {
+    "net8.0": {
+      "Microsoft.AspNetCore.SpaProxy": {
+        "type": "Direct",
+        "requested": "[8.0.0-preview.4.23260.4, )",
+        "resolved": "8.0.0-preview.4.23260.4",
+        "contentHash": "U9nVkURp/qG0vl8kHks/vTaunGscKD/LPzDFWMvfdNeGXe7TIyzpycZvXCZFLlGVEa7M3fkuF7GHjnOjgUGFCg=="
+      }
+    }
+  }
+}

@@ -1,0 +1,24 @@
+<Project>
+  <PropertyGroup>
+    <ManagePackageVersionsCentrally>true</ManagePackageVersionsCentrally>
+    <CentralPackageTransitivePinningEnabled>true</CentralPackageTransitivePinningEnabled>
+    <RestorePackagesWithLockFile>true</RestorePackagesWithLockFile>
+  </PropertyGroup>
+  <PropertyGroup>
+    <FluentEmailVersion>3.0.2</FluentEmailVersion>
+  </PropertyGroup>
+  <ItemGroup>
+    <PackageVersion Include="Microsoft.AspNetCore.SpaProxy" Version="8.0.0-preview.4.23260.4" />
+  </ItemGroup>
+  <ItemGroup>
+    <PackageVersion Include="FluentEmail.Core" Version="$(FluentEmailVersion)" />
+    <PackageVersion Include="FluentEmail.Smtp" Version="$(FluentEmailVersion)" />
+    <PackageVersion Include="FluentEmail.Mailgun" Version="$(FluentEmailVersion)" />
+    <PackageVersion Include="FluentEmail.SendGrid" Version="$(FluentEmailVersion)" />
+    <PackageVersion Include="FluentEmail.MailKit" Version="$(FluentEmailVersion)" />
+    <PackageVersion Include="FluentEmail.Liquid" Version="$(FluentEmailVersion)" />
+    <PackageVersion Include="FluentEmail.Mailtrap" Version="$(FluentEmailVersion)" />
+    <PackageVersion Include="FluentEmail.Graph" Version="$(FluentEmailVersion)" />
+    <PackageVersion Include="Fluid.Core" Version="2.4.0" />
+  </ItemGroup>
+</Project>
