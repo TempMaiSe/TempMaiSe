@@ -6,10 +6,10 @@
   </PropertyGroup>
   <PropertyGroup>
     <FluentEmailVersion>3.0.2</FluentEmailVersion>
+    <BlazoriseVersion>1.2.4</BlazoriseVersion>
+    <EntityFrameworkCoreVersion>8.0.0-preview.5.23280.1</EntityFrameworkCoreVersion>
+    <AspNetCoreEntityFrameworkCoreVersion>8.0.0-preview.5.23302.2</AspNetCoreEntityFrameworkCoreVersion>
   </PropertyGroup>
-  <ItemGroup>
-    <PackageVersion Include="Microsoft.AspNetCore.SpaProxy" Version="8.0.0-preview.4.23260.4" />
-  </ItemGroup>
   <ItemGroup>
     <PackageVersion Include="FluentEmail.Core" Version="$(FluentEmailVersion)" />
     <PackageVersion Include="FluentEmail.Smtp" Version="$(FluentEmailVersion)" />
@@ -17,8 +17,38 @@
     <PackageVersion Include="FluentEmail.SendGrid" Version="$(FluentEmailVersion)" />
     <PackageVersion Include="FluentEmail.MailKit" Version="$(FluentEmailVersion)" />
     <PackageVersion Include="FluentEmail.Liquid" Version="$(FluentEmailVersion)" />
-    <PackageVersion Include="FluentEmail.Mailtrap" Version="$(FluentEmailVersion)" />
-    <PackageVersion Include="FluentEmail.Graph" Version="$(FluentEmailVersion)" />
-    <PackageVersion Include="Fluid.Core" Version="2.4.0" />
+    <PackageVersion Include="FluentEmail.Mailtrap" Version="2.7.0" />
+    <PackageVersion Include="FluentEmail.Graph" Version="2.4.0" />
+  </ItemGroup>
+  <ItemGroup>
+    <PackageVersion Include="Blazorise.Bootstrap5" Version="$(BlazoriseVersion)" />
+    <PackageVersion Include="Blazorise.Icons.FontAwesome" Version="$(BlazoriseVersion)" />
+    <PackageVersion Include="Blazorise.RichTextEdit" Version="$(BlazoriseVersion)" />
+  </ItemGroup>
+  <ItemGroup>
+    <PackageVersion Include="Newtonsoft.Json" Version="13.0.3" />
+    <PackageVersion Include="Newtonsoft.Json.Schema" Version="3.0.15" />
+  </ItemGroup>
+  <ItemGroup>
+    <PackageVersion Include="OpenTelemetry.Extensions.Hosting" Version="1.5.1" />
+    <PackageVersion Include="OpenTelemetry.Exporter.Console" Version="1.5.1" />
+    <PackageVersion Include="OpenTelemetry.Exporter.OpenTelemetryProtocol" Version="1.5.1" />
+    <PackageVersion Include="OpenTelemetry.Instrumentation.AspNetCore" Version="1.5.0-beta.1" />
+    <PackageVersion Include="OpenTelemetry.Instrumentation.Http" Version="1.5.0-beta.1" />
+    <PackageVersion Include="OpenTelemetry.Exporter.Jaeger" Version="1.5.1" />
+    <PackageVersion Include="OpenTelemetry.Exporter.Prometheus.AspNetCore" Version="1.5.0-rc.1" />
+    <PackageVersion Include="OpenTelemetry.Exporter.Zipkin" Version="1.5.1" />
+  </ItemGroup>
+  <ItemGroup>
+    <PackageVersion Include="Microsoft.EntityFrameworkCore" Version="$(EntityFrameworkCoreVersion)" />
+    <PackageVersion Include="Microsoft.EntityFrameworkCore.Design" Version="$(EntityFrameworkCoreVersion)" />
+    <PackageVersion Include="Microsoft.EntityFrameworkCore.Relational" Version="$(EntityFrameworkCoreVersion)" />
+    <PackageVersion Include="Microsoft.EntityFrameworkCore.Tools" Version="$(EntityFrameworkCoreVersion)" />
+    <PackageVersion Include="Microsoft.EntityFrameworkCore.InMemory" Version="$(EntityFrameworkCoreVersion)" />
+    <PackageVersion Include="Microsoft.EntityFrameworkCore.Sqlite" Version="$(EntityFrameworkCoreVersion)" />
+    <PackageVersion Include="Microsoft.EntityFrameworkCore.SqlServer" Version="$(EntityFrameworkCoreVersion)" />
+    <PackageVersion Include="Microsoft.AspNetCore.Diagnostics.EntityFrameworkCore" Version="$(AspNetCoreEntityFrameworkCoreVersion)" />
+    <PackageVersion Include="Microsoft.Extensions.Diagnostics.HealthChecks.EntityFrameworkCore" Version="$(AspNetCoreEntityFrameworkCoreVersion)" />
+    <PackageVersion Include="Npgsql.EntityFrameworkCore.PostgreSQL" Version="8.0.0-preview.4" />
   </ItemGroup>
 </Project>

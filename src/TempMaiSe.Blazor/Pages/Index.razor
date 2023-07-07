@@ -1,0 +1,70 @@
+﻿@page "/"
+@attribute [StreamRendering(true)]
+@inject Fluid.IFluidParser TemplateParser
+
+<PageTitle>Index</PageTitle>
+
+<h1>Hello, You!</h1>
+
+Welcome to your new app.
+
+<div style="width: 100%">
+<RichTextEdit @ref="richTextEditRef"
+              Theme="RichTextEditTheme.Snow"
+              ContentChanged="@OnContentChanged"
+              PlaceHolder="Type your post here..."
+              SubmitOnEnter="false"
+              EnterPressed="@OnSave"
+              ToolbarPosition="Placement.Bottom">
+    <Toolbar>
+        <RichTextEditToolbarGroup>
+            <RichTextEditToolbarButton Action="RichTextEditAction.Bold" />
+            <RichTextEditToolbarButton Action="RichTextEditAction.Italic" />
+            <RichTextEditToolbarSelect Action="RichTextEditAction.Size">
+                <RichTextEditToolbarSelectItem Value="small" />
+                <RichTextEditToolbarSelectItem Selected />
+                <RichTextEditToolbarSelectItem Value="large" />
+                <RichTextEditToolbarSelectItem Value="huge">Very Big</RichTextEditToolbarSelectItem>
+            </RichTextEditToolbarSelect>
+            <RichTextEditToolbarButton Action="RichTextEditAction.List" Value="ordered" />
+            <RichTextEditToolbarButton Action="RichTextEditAction.List" Value="bullet" />
+        </RichTextEditToolbarGroup>
+        <!-- Custom toolbar content -->
+        <RichTextEditToolbarGroup Float="Float.End">
+            <Button onClick="window.open('https://www.quilljs.com/','quilljs')"><Icon Name="IconName.InfoCircle" /></Button>
+            <Button Clicked="@OnSave">SAVE<Icon Name="IconName.Save" /></Button>
+        </RichTextEditToolbarGroup>
+    </Toolbar>
+</RichTextEdit>
+
+<Alert Color="Color.Success" Visible>
+    <AlertMessage>Well done!</AlertMessage>
+    <AlertDescription>You successfully read this important alert message.</AlertDescription>
+</Alert>
+</div>
+
+<div>@stuff</div>
+
+@code {
+
+    private static readonly object s_model = new { Firstname = "Billy", Lastname = "Gates" };
+    private MarkupString? stuff;
+
+    protected RichTextEdit? richTextEditRef;
+    protected bool readOnly;
+
+    public async Task OnContentChanged()
+    {
+        var source = await richTextEditRef.GetHtmlAsync();
+        /*if (TemplateParser.TryParse(source, out var template, out var error))
+        {
+            var context = new TemplateContext(s_model);
+            stuff = new MarkupString(template.Render(context));
+        }*/
+    }
+
+    public async Task OnSave()
+    {
+        await richTextEditRef.ClearAsync();
+    }
+}
