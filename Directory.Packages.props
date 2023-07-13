@@ -7,8 +7,9 @@
   <PropertyGroup>
     <FluentEmailVersion>3.0.2</FluentEmailVersion>
     <BlazoriseVersion>1.2.4</BlazoriseVersion>
-    <EntityFrameworkCoreVersion>8.0.0-preview.5.23280.1</EntityFrameworkCoreVersion>
-    <AspNetCoreEntityFrameworkCoreVersion>8.0.0-preview.5.23302.2</AspNetCoreEntityFrameworkCoreVersion>
+    <EntityFrameworkCoreVersion>8.0.0-preview.6.23329.4</EntityFrameworkCoreVersion>
+    <AspNetCoreEntityFrameworkCoreVersion>8.0.0-preview.6.23329.11</AspNetCoreEntityFrameworkCoreVersion>
+    <OpenTelemetryVersion>1.6.0-alpha.1</OpenTelemetryVersion>
   </PropertyGroup>
   <ItemGroup>
     <PackageVersion Include="FluentEmail.Core" Version="$(FluentEmailVersion)" />
@@ -30,14 +31,14 @@
     <PackageVersion Include="Newtonsoft.Json.Schema" Version="3.0.15" />
   </ItemGroup>
   <ItemGroup>
-    <PackageVersion Include="OpenTelemetry.Extensions.Hosting" Version="1.5.1" />
-    <PackageVersion Include="OpenTelemetry.Exporter.Console" Version="1.5.1" />
-    <PackageVersion Include="OpenTelemetry.Exporter.OpenTelemetryProtocol" Version="1.5.1" />
+    <PackageVersion Include="OpenTelemetry.Extensions.Hosting" Version="$(OpenTelemetryVersion)" />
+    <PackageVersion Include="OpenTelemetry.Exporter.Console" Version="$(OpenTelemetryVersion)" />
+    <PackageVersion Include="OpenTelemetry.Exporter.OpenTelemetryProtocol" Version="$(OpenTelemetryVersion)" />
     <PackageVersion Include="OpenTelemetry.Instrumentation.AspNetCore" Version="1.5.0-beta.1" />
     <PackageVersion Include="OpenTelemetry.Instrumentation.Http" Version="1.5.0-beta.1" />
-    <PackageVersion Include="OpenTelemetry.Exporter.Jaeger" Version="1.5.1" />
-    <PackageVersion Include="OpenTelemetry.Exporter.Prometheus.AspNetCore" Version="1.5.0-rc.1" />
-    <PackageVersion Include="OpenTelemetry.Exporter.Zipkin" Version="1.5.1" />
+    <PackageVersion Include="OpenTelemetry.Exporter.Jaeger" Version="$(OpenTelemetryVersion)" />
+    <PackageVersion Include="OpenTelemetry.Exporter.Prometheus.AspNetCore" Version="$(OpenTelemetryVersion)" />
+    <PackageVersion Include="OpenTelemetry.Exporter.Zipkin" Version="$(OpenTelemetryVersion)" />
   </ItemGroup>
   <ItemGroup>
     <PackageVersion Include="Microsoft.EntityFrameworkCore" Version="$(EntityFrameworkCoreVersion)" />
