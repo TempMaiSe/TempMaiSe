@@ -77,10 +77,7 @@ builder.Services
     .AddFontAwesomeIcons()
     .AddBlazoriseRichTextEdit();
 
-builder.Services
-    .AddFluentEmail("test@example.org")
-    .AddLiquidRenderer()
-    .AddSmtpSender("127.0.0.1", 25);
+builder.Services.AddFluentEmail(config);
 
 var app = builder.Build();
 
