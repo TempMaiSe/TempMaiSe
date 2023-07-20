@@ -11,51 +11,14 @@ using Newtonsoft.Json.Schema;
 using System.Text;
 using FluentEmail.Core;
 using System.Diagnostics;
-
-using Microsoft.EntityFrameworkCore;
 using TempMaiSe.Models;
-using static TempMaiSe.Blazor.Provider;
 
 Activity.DefaultIdFormat = ActivityIdFormat.W3C;
 
-var builder = WebApplication.CreateBuilder(args);
-var config = builder.Configuration;
-builder.Services.AddDbContext<MailingContext>(options =>
-{
-    string? provider = config.GetValue("provider", InMemory.Name);
-    if (string.IsNullOrWhiteSpace(provider) || provider == InMemory.Name)
-    {
-        options.UseInMemoryDatabase(nameof(TempMaiSe));
-        return;
-    }
+WebApplicationBuilder builder = WebApplication.CreateBuilder(args);
+ConfigurationManager config = builder.Configuration;
 
-    if (provider == Sqlite.Name)
-    {
-        options.UseSqlite(
-            config.GetConnectionString(Sqlite.Name)!,
-            x => x.MigrationsAssembly(Sqlite.Assembly)
-        );
-        return;
-    }
-
-    if (provider == SqlServer.Name)
-    {
-        options.UseNpgsql(
-            config.GetConnectionString(SqlServer.Name)!,
-            x => x.MigrationsAssembly(SqlServer.Assembly)
-        );
-        return;
-    }
-
-    if (provider == PostgreSql.Name)
-    {
-        options.UseNpgsql(
-            config.GetConnectionString(PostgreSql.Name)!,
-            x => x.MigrationsAssembly(PostgreSql.Assembly)
-        );
-        return;
-    }
-});
+builder.Services.AddMailingContext(config);
 
 builder.AddOpenTelemetry();
 
@@ -79,7 +42,7 @@ builder.Services
 
 builder.Services.AddFluentEmail(config);
 
-var app = builder.Build();
+WebApplication app = builder.Build();
 
 // Configure the HTTP request pipeline.
 if (!app.Environment.IsDevelopment())
