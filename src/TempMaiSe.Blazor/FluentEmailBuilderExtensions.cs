@@ -21,7 +21,6 @@ public static class FluentEmailBuilderExtensions
         return services.AddFluentEmail(
             fluentEmailConfigSection.GetValue("FromAddress", "dummy@example.org"),
             fluentEmailConfigSection.GetValue("FromName", ""))
-            .AddLiquidRenderer()
             .AddSenderFromConfiguration(fluentEmailConfigSection);
     }
 

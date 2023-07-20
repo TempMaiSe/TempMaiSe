@@ -27,7 +27,7 @@ builder.Services.AddHealthChecks()
     .AddDbContextCheck<MailingContext>();
 
 builder.Services.AddProblemDetails();
-builder.Services.AddSingleton<IFluidParser>(new FluidParserFactory().CreateParser());
+builder.Services.AddSingleton<FluidParser>();
 builder.Services.AddRazorComponents()
     .AddServerComponents();
 
@@ -65,7 +65,7 @@ app.UseStaticFiles();
 
 app.MapRazorComponents<App>();
 
-app.MapPost("/send/{id}", async (int id, Stream data, IFluentEmail mailer, Instrumentation instrumentation, MailingContext mailingContext, CancellationToken cancellationToken) =>
+app.MapPost("/send/{id}", async (int id, Stream data, IFluentEmail mailer, Instrumentation instrumentation, MailingContext mailingContext, FluidParser fluidParser, CancellationToken cancellationToken) =>
 {
     using Activity? activity = instrumentation.ActivitySource.StartActivity("SendMail")!;
     activity?.AddTag("TemplateId", id);
@@ -95,7 +95,11 @@ app.MapPost("/send/{id}", async (int id, Stream data, IFluentEmail mailer, Instr
         return Results.BadRequest(errors);
     }
 
-    IFluentEmail mail = mailer.Subject(template.SubjectTemplate);
+    IFluidTemplate fluidSubjectTemplate = fluidParser.Parse(template.SubjectTemplate);
+    TemplateContext templateContext = new(dynamic);
+    string subject = await fluidSubjectTemplate.RenderAsync(templateContext).ConfigureAwait(false);
+
+    IFluentEmail mail = mailer.Subject(subject);
     if (template.From is MailAddress from)
     {
         mail = mail.SetFrom(from.Address, from.Name);
@@ -143,14 +147,21 @@ app.MapPost("/send/{id}", async (int id, Stream data, IFluentEmail mailer, Instr
 
     if (string.IsNullOrWhiteSpace(template.HtmlBodyTemplate))
     {
-        mail = mail.UsingTemplate(template.PlainTextBodyTemplate, dynamic, false);
+        IFluidTemplate plainTextFluidTemplate = fluidParser.Parse(template.PlainTextBodyTemplate);
+        string plainTextBody = await plainTextFluidTemplate.RenderAsync(templateContext).ConfigureAwait(false);
+        mail = mail.Body(plainTextBody, false);
     }
     else
     {
-        mail = mail.UsingTemplate(template.HtmlBodyTemplate, dynamic, true);
+        IFluidTemplate htmlFluidTemplate = fluidParser.Parse(template.HtmlBodyTemplate);
+        string htmlBody = await htmlFluidTemplate.RenderAsync(templateContext, System.Text.Encodings.Web.HtmlEncoder.Default).ConfigureAwait(false);
+        mail = mail.Body(htmlBody, true);
+
         if (!string.IsNullOrWhiteSpace(template.PlainTextBodyTemplate))
         {
-            mail = mail.PlaintextAlternativeUsingTemplate(template.PlainTextBodyTemplate, dynamic);
+            IFluidTemplate plainTextFluidTemplate = fluidParser.Parse(template.PlainTextBodyTemplate);
+            string plainTextBody = await plainTextFluidTemplate.RenderAsync(templateContext).ConfigureAwait(false);
+            mail = mail.PlaintextAlternativeBody(plainTextBody);
         }
     }
 

@@ -17,7 +17,6 @@
     <PackageVersion Include="FluentEmail.Mailgun" Version="$(FluentEmailVersion)" />
     <PackageVersion Include="FluentEmail.SendGrid" Version="$(FluentEmailVersion)" />
     <PackageVersion Include="FluentEmail.MailKit" Version="$(FluentEmailVersion)" />
-    <PackageVersion Include="FluentEmail.Liquid" Version="$(FluentEmailVersion)" />
     <PackageVersion Include="FluentEmail.Mailtrap" Version="2.7.0" />
     <PackageVersion Include="FluentEmail.Graph" Version="2.4.0" />
   </ItemGroup>
@@ -51,5 +50,8 @@
     <PackageVersion Include="Microsoft.AspNetCore.Diagnostics.EntityFrameworkCore" Version="$(AspNetCoreEntityFrameworkCoreVersion)" />
     <PackageVersion Include="Microsoft.Extensions.Diagnostics.HealthChecks.EntityFrameworkCore" Version="$(AspNetCoreEntityFrameworkCoreVersion)" />
     <PackageVersion Include="Npgsql.EntityFrameworkCore.PostgreSQL" Version="8.0.0-preview.4" />
+  </ItemGroup>
+  <ItemGroup>
+    <PackageVersion Include="Fluid.Core" Version="2.4.0" />
   </ItemGroup>
 </Project>
