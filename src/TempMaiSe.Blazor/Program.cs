@@ -101,6 +101,11 @@ app.MapPost("/send/{id}", async (int id, Stream data, IFluentEmail mailer, Instr
         mail = mail.SetFrom(from.Address, from.Name);
     }
 
+    foreach (MailAddress to in template.To)
+    {
+        mail = mail.To(to.Address, to.Name);
+    }
+
     foreach (MailAddress cc in template.Cc)
     {
         mail = mail.CC(cc.Address, cc.Name);
