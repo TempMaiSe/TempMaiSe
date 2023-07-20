@@ -70,7 +70,7 @@ app.MapPost("/send/{id}", async (int id, Stream data, IFluentEmail mailer, Instr
     using Activity? activity = instrumentation.ActivitySource.StartActivity("SendMail")!;
     activity?.AddTag("TemplateId", id);
 
-    Template? template = await mailingContext.Templates.FindAsync(id, cancellationToken).ConfigureAwait(false);
+    Template? template = await mailingContext.Templates.FindAsync(new object[] { id }, cancellationToken).ConfigureAwait(false);
     if (template is null)
     {
         return Results.NotFound();
