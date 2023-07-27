@@ -12,6 +12,7 @@ using System.Text;
 using FluentEmail.Core;
 using System.Diagnostics;
 using TempMaiSe.Models;
+using TempMaiSe.Mailer;
 
 Activity.DefaultIdFormat = ActivityIdFormat.W3C;
 
@@ -42,6 +43,8 @@ builder.Services
 
 builder.Services.AddFluentEmail(config);
 
+builder.Services.AddSingleton<ITemplateToMailHeadersMapper, TemplateToMailHeadersMapper>();
+
 WebApplication app = builder.Build();
 
 // Configure the HTTP request pipeline.
@@ -65,7 +68,7 @@ app.UseStaticFiles();
 
 app.MapRazorComponents<App>();
 
-app.MapPost("/send/{id}", async (int id, Stream data, IFluentEmail mailer, Instrumentation instrumentation, MailingContext mailingContext, FluidParser fluidParser, CancellationToken cancellationToken) =>
+app.MapPost("/send/{id}", async (int id, Stream data, IFluentEmail mailer, Instrumentation instrumentation, MailingContext mailingContext, FluidParser fluidParser, ITemplateToMailHeadersMapper mailHeaderMapper, CancellationToken cancellationToken) =>
 {
     using Activity? activity = instrumentation.ActivitySource.StartActivity("SendMail")!;
     activity?.AddTag("TemplateId", id);
@@ -100,50 +103,7 @@ app.MapPost("/send/{id}", async (int id, Stream data, IFluentEmail mailer, Instr
     string subject = await fluidSubjectTemplate.RenderAsync(templateContext).ConfigureAwait(false);
 
     IFluentEmail mail = mailer.Subject(subject);
-    if (template.From is MailAddress from)
-    {
-        mail = mail.SetFrom(from.Address, from.Name);
-    }
-
-    foreach (MailAddress to in template.To)
-    {
-        mail = mail.To(to.Address, to.Name);
-    }
-
-    foreach (MailAddress cc in template.Cc)
-    {
-        mail = mail.CC(cc.Address, cc.Name);
-    }
-
-    foreach (MailAddress bcc in template.Bcc)
-    {
-        mail = mail.BCC(bcc.Address, bcc.Name);
-    }
-
-    foreach (MailAddress replyTo in template.ReplyTo)
-    {
-        mail = mail.ReplyTo(replyTo.Address, replyTo.Name);
-    }
-
-    foreach (Tag tag in template.Tags)
-    {
-        mail = mail.Tag(tag.Name);
-    }
-
-    foreach (Header header in template.Headers)
-    {
-        mail = mail.Header(header.Name, header.Value);
-    }
-
-    switch (template.Priority)
-    {
-        case Priority.High:
-            mail = mail.HighPriority();
-            break;
-        case Priority.Low:
-            mail = mail.LowPriority();
-            break;
-    }
+    mail = mailHeaderMapper.Map(template, mail);
 
     if (string.IsNullOrWhiteSpace(template.HtmlBodyTemplate))
     {

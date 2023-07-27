@@ -1,0 +1,27 @@
+﻿
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <ItemGroup>
+    <PackageReference Include="FluentEmail.Core" />
+    <PackageReference Include="FluentEmail.Smtp" />
+    <PackageReference Include="FluentEmail.Mailgun" />
+    <PackageReference Include="FluentEmail.SendGrid" />
+    <PackageReference Include="FluentEmail.MailKit" />
+    <PackageReference Include="FluentEmail.Mailtrap" />
+    <PackageReference Include="FluentEmail.Graph" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Newtonsoft.Json" />
+    <PackageReference Include="Newtonsoft.Json.Schema" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Fluid.Core" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\TempMaiSe.Models\TempMaiSe.Models.csproj" />
+  </ItemGroup>
+
+</Project>

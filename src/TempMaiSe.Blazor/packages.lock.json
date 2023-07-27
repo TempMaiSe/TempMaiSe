@@ -1233,6 +1233,22 @@
         "resolved": "6.0.1",
         "contentHash": "vvhLOgRSOvfq5fBv0/Dd1S3N7K2ibO5wp06B5AkuxUpXkgv2aDHw9jB5ZvPg83y9sy+jF9qE7qWybMK46BXBuw=="
       },
+      "tempmaise.mailer": {
+        "type": "Project",
+        "dependencies": {
+          "FluentEmail.Core": "[3.0.2, )",
+          "FluentEmail.Graph": "[2.4.0, )",
+          "FluentEmail.MailKit": "[3.0.2, )",
+          "FluentEmail.Mailgun": "[3.0.2, )",
+          "FluentEmail.Mailtrap": "[2.7.0, )",
+          "FluentEmail.SendGrid": "[3.0.2, )",
+          "FluentEmail.Smtp": "[3.0.2, )",
+          "Fluid.Core": "[2.4.0, )",
+          "Newtonsoft.Json": "[13.0.3, )",
+          "Newtonsoft.Json.Schema": "[3.0.15, )",
+          "TempMaiSe.Models": "[1.0.0, )"
+        }
+      },
       "tempmaise.models": {
         "type": "Project",
         "dependencies": {
