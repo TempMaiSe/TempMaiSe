@@ -4,7 +4,6 @@ using Blazorise;
 using Blazorise.Bootstrap5;
 using Blazorise.Icons.FontAwesome;
 using Blazorise.RichTextEdit;
-using System.Dynamic;
 
 using Newtonsoft.Json;
 using Newtonsoft.Json.Schema;
@@ -44,6 +43,7 @@ builder.Services
 builder.Services.AddFluentEmail(config);
 
 builder.Services.AddSingleton<ITemplateToMailHeadersMapper, TemplateToMailHeadersMapper>();
+builder.Services.AddSingleton<IMailInformationToMailHeadersMapper, MailInformationToMailHeadersMapper>();
 
 WebApplication app = builder.Build();
 
@@ -68,7 +68,7 @@ app.UseStaticFiles();
 
 app.MapRazorComponents<App>();
 
-app.MapPost("/send/{id}", async (int id, Stream data, IFluentEmail mailer, Instrumentation instrumentation, MailingContext mailingContext, FluidParser fluidParser, ITemplateToMailHeadersMapper mailHeaderMapper, CancellationToken cancellationToken) =>
+app.MapPost("/send/{id}", async (int id, Stream data, IFluentEmail mailer, Instrumentation instrumentation, MailingContext mailingContext, FluidParser fluidParser, ITemplateToMailHeadersMapper mailHeaderMapper, IMailInformationToMailHeadersMapper mailInfoMapper, CancellationToken cancellationToken) =>
 {
     using Activity? activity = instrumentation.ActivitySource.StartActivity("SendMail")!;
     activity?.AddTag("TemplateId", id);
@@ -88,22 +88,23 @@ app.MapPost("/send/{id}", async (int id, Stream data, IFluentEmail mailer, Instr
         Schema = JSchema.Parse(template.JsonSchema)
     };
 
-    List<Newtonsoft.Json.Schema.ValidationError> errors = new();
+    List<Newtonsoft.Json.Schema.ValidationError> errors = [];
     validatingReader.ValidationEventHandler += (o, a) => errors.Add(a.ValidationError);
 
     JsonSerializer serializer = new();
-    dynamic dynamic = serializer.Deserialize<ExpandoObject>(validatingReader)!;
+    MailInformation mailInformation = serializer.Deserialize<MailInformation>(validatingReader)!;
     if (errors.Count > 0)
     {
         return Results.BadRequest(errors);
     }
 
     IFluidTemplate fluidSubjectTemplate = fluidParser.Parse(template.SubjectTemplate);
-    TemplateContext templateContext = new(dynamic);
+    TemplateContext templateContext = new(mailInformation.Data);
     string subject = await fluidSubjectTemplate.RenderAsync(templateContext).ConfigureAwait(false);
 
     IFluentEmail mail = mailer.Subject(subject);
     mail = mailHeaderMapper.Map(template, mail);
+    mail = mailInfoMapper.Map(mailInformation, mail);
 
     if (string.IsNullOrWhiteSpace(template.HtmlBodyTemplate))
     {
