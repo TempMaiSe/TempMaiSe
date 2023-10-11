@@ -1,0 +1,26 @@
+{
+  "name": "tempmaise.razor",
+  "scripts": {
+    "dev": "esbuild ./wwwroot/ts/site.ts --format=esm --bundle --sourcemap --outdir=wwwroot/dist",
+    "buil": "esbuild ./wwwroot/ts/site.ts --format=esm --bundle --sourcemap --minify --outdir=wwwroot/dist"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/hangy/solid-train.git"
+  },
+  "author": "hangy <hangy@hangy.de>",
+  "license": "GPL-3.0",
+  "bugs": {
+    "url": "https://github.com/hangy/solid-train/issues"
+  },
+  "homepage": "https://github.com/hangy/solid-train#readme",
+  "devDependencies": {
+    "esbuild": "0.19.4"
+  },
+  "dependencies": {
+    "bootstrap": "^5.3.2",
+    "jquery": "^3.7.1",
+    "jquery-validation": "^1.20.0",
+    "jquery-validation-unobtrusive": "^4.0.0"
+  }
+}

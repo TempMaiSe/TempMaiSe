@@ -1,6 +1,7 @@
 ﻿@page "/"
 @attribute [StreamRendering(true)]
 @inject Fluid.FluidParser TemplateParser
+@inject Models.MailingContext MailingContext
 
 <PageTitle>Index</PageTitle>
 
@@ -9,62 +10,89 @@
 Welcome to your new app.
 
 <div style="width: 100%">
-<RichTextEdit @ref="richTextEditRef"
-              Theme="RichTextEditTheme.Snow"
-              ContentChanged="@OnContentChanged"
-              PlaceHolder="Type your post here..."
-              SubmitOnEnter="false"
-              EnterPressed="@OnSave"
-              ToolbarPosition="Placement.Bottom">
-    <Toolbar>
-        <RichTextEditToolbarGroup>
-            <RichTextEditToolbarButton Action="RichTextEditAction.Bold" />
-            <RichTextEditToolbarButton Action="RichTextEditAction.Italic" />
-            <RichTextEditToolbarSelect Action="RichTextEditAction.Size">
-                <RichTextEditToolbarSelectItem Value="small" />
-                <RichTextEditToolbarSelectItem Selected />
-                <RichTextEditToolbarSelectItem Value="large" />
-                <RichTextEditToolbarSelectItem Value="huge">Very Big</RichTextEditToolbarSelectItem>
-            </RichTextEditToolbarSelect>
-            <RichTextEditToolbarButton Action="RichTextEditAction.List" Value="ordered" />
-            <RichTextEditToolbarButton Action="RichTextEditAction.List" Value="bullet" />
-        </RichTextEditToolbarGroup>
-        <!-- Custom toolbar content -->
-        <RichTextEditToolbarGroup Float="Float.End">
-            <Button onClick="window.open('https://www.quilljs.com/','quilljs')"><Icon Name="IconName.InfoCircle" /></Button>
-            <Button Clicked="@OnSave">SAVE<Icon Name="IconName.Save" /></Button>
-        </RichTextEditToolbarGroup>
-    </Toolbar>
-</RichTextEdit>
+    <RichTextEdit @ref="richTextEditRef" Theme="RichTextEditTheme.Snow" ContentChanged="@OnContentChanged"
+        PlaceHolder="Type your post here..." SubmitOnEnter="false" EnterPressed="@OnSave"
+        ToolbarPosition="Placement.Bottom">
+        <Toolbar>
+            <RichTextEditToolbarGroup>
+                <RichTextEditToolbarButton Action="RichTextEditAction.Bold" />
+                <RichTextEditToolbarButton Action="RichTextEditAction.Italic" />
+                <RichTextEditToolbarSelect Action="RichTextEditAction.Size">
+                    <RichTextEditToolbarSelectItem Value="small" />
+                    <RichTextEditToolbarSelectItem Selected />
+                     <RichTextEditToolbarSelectItem Value="large" />
+                     <RichTextEditToolbarSelectItem Value="huge">Very Big</RichTextEditToolbarSelectItem>
+                 </RichTextEditToolbarSelect>
+                 <RichTextEditToolbarButton Action="RichTextEditAction.List" Value="ordered" />
+                 <RichTextEditToolbarButton Action="RichTextEditAction.List" Value="bullet" />
+             </RichTextEditToolbarGroup>
+             <!-- Custom toolbar content -->
+             <RichTextEditToolbarGroup Float="Float.End">
+                 <Button onClick="window.open('https://www.quilljs.com/','quilljs')">
+                     <Icon Name="IconName.InfoCircle" />
+                 </Button>
+                 <Button Clicked="@OnSave">SAVE
+                     <Icon Name="IconName.Save" />
+                 </Button>
+             </RichTextEditToolbarGroup>
+         </Toolbar>
+     </RichTextEdit>
+ </div>
 
-<Alert Color="Color.Success" Visible>
-    <AlertMessage>Well done!</AlertMessage>
-    <AlertDescription>You successfully read this important alert message.</AlertDescription>
-</Alert>
-</div>
-
-<div>@stuff</div>
+ <div>@stuff</div>
 
 @code {
 
     private static readonly object s_model = new { Firstname = "Billy", Lastname = "Gates" };
+
     private MarkupString? stuff;
 
     protected RichTextEdit? richTextEditRef;
     protected bool readOnly;
 
+    public async Task OnGet(CancellationToken cancellationToken)
+    {
+        System.Diagnostics.Debugger.Break();
+        if (richTextEditRef is not RichTextEdit edit)
+        {
+            return;
+        }
+
+        TempMaiSe.Models.Template? template = await MailingContext.Templates.FindAsync(new object[] { 12 }, cancellationToken).ConfigureAwait(false);
+        if (template is null)
+        {
+            return;
+        }
+
+        await edit.SetHtmlAsync(template.HtmlBodyTemplate).ConfigureAwait(false);
+    }
+
     public async Task OnContentChanged()
     {
-        var source = await richTextEditRef.GetHtmlAsync();
-        /*if (TemplateParser.TryParse(source, out var template, out var error))
+        if (richTextEditRef is not RichTextEdit edit)
+        {
+            return;
+        }
+
+        var source = await edit!.GetHtmlAsync();
+        if (TemplateParser.TryParse(source, out var template, out var error))
         {
             var context = new TemplateContext(s_model);
             stuff = new MarkupString(template.Render(context));
-        }*/
+        }
+        else
+        {
+            stuff = null;
+        }
     }
 
     public async Task OnSave()
     {
-        await richTextEditRef.ClearAsync();
+        if (richTextEditRef is not RichTextEdit edit)
+        {
+            return;
+        }
+
+        await edit!.ClearAsync();
     }
 }

@@ -49,6 +49,8 @@
     <PackageVersion Include="Microsoft.EntityFrameworkCore.SqlServer" Version="$(EntityFrameworkCoreVersion)" />
     <PackageVersion Include="Microsoft.AspNetCore.Diagnostics.EntityFrameworkCore" Version="$(AspNetCoreEntityFrameworkCoreVersion)" />
     <PackageVersion Include="Microsoft.Extensions.Diagnostics.HealthChecks.EntityFrameworkCore" Version="$(AspNetCoreEntityFrameworkCoreVersion)" />
+    <PackageVersion Include="Microsoft.AspNetCore.Identity.EntityFrameworkCore" Version="$(AspNetCoreEntityFrameworkCoreVersion)" />
+    <PackageVersion Include="Microsoft.AspNetCore.Identity.UI" Version="$(AspNetCoreEntityFrameworkCoreVersion)" />
     <PackageVersion Include="Npgsql.EntityFrameworkCore.PostgreSQL" Version="8.0.0-rc.1" />
   </ItemGroup>
   <ItemGroup>
