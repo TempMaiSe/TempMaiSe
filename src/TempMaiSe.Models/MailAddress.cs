@@ -1,6 +1,8 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿namespace TempMaiSe.Models;
 
-namespace TempMaiSe.Models;
+public class MailAddress
+{
+    public required string Address { get; set; }
 
-[Keyless]
-public record MailAddress(string Address, string? Name = null);
+    public string? Name { get; set; }
+}

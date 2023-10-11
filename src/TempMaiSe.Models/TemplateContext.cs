@@ -10,7 +10,7 @@ public class MailingContext(DbContextOptions<MailingContext> options) : Identity
     protected override void OnModelCreating(ModelBuilder builder)
     {
         ArgumentNullException.ThrowIfNull(builder);
-        base.OnModelCreating(builder);
         builder.ApplyConfiguration(new TemplateConfiguration());
+        base.OnModelCreating(builder);
     }
 }

@@ -1,6 +1,6 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿namespace TempMaiSe.Models;
 
-namespace TempMaiSe.Models;
-
-[Keyless]
-public record Tag(string Name);
+public class Tag
+{
+    public required string Name { get; set; }
+}

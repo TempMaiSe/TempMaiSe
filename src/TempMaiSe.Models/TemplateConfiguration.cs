@@ -12,15 +12,15 @@ public class TemplateConfiguration : IEntityTypeConfiguration<Template>
         builder.OwnsOne(
             template => template.Data,
             ownedNavigationBuilder =>
-        {
-            ownedNavigationBuilder.ToJson();
-            ownedNavigationBuilder.OwnsOne(template => template.From);
-            ownedNavigationBuilder.OwnsMany(template => template.To);
-            ownedNavigationBuilder.OwnsMany(template => template.Cc);
-            ownedNavigationBuilder.OwnsMany(template => template.Bcc);
-            ownedNavigationBuilder.OwnsMany(template => template.ReplyTo);
-            ownedNavigationBuilder.OwnsMany(template => template.Tags);
-            ownedNavigationBuilder.OwnsMany(template => template.Headers);
-        });
+            {
+                ownedNavigationBuilder.ToJson();
+                ownedNavigationBuilder.OwnsOne(data => data.From);
+                ownedNavigationBuilder.OwnsMany(data => data.To);
+                ownedNavigationBuilder.OwnsMany(data => data.Cc);
+                ownedNavigationBuilder.OwnsMany(data => data.Bcc);
+                ownedNavigationBuilder.OwnsMany(data => data.ReplyTo);
+                ownedNavigationBuilder.OwnsMany(data => data.Tags);
+                ownedNavigationBuilder.OwnsMany(data => data.Headers);
+            });
     }
 }

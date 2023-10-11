@@ -1,6 +1,8 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿namespace TempMaiSe.Models;
 
-namespace TempMaiSe.Models;
+public class Header
+{
+    public required string Name { get; set; }
 
-[Keyless]
-public record Header(string Name, string Value);
+    public required string Value { get; set; }
+}

@@ -18,7 +18,7 @@ public class TemplateData
 
     public Collection<Header> Headers { get; } = new();
 
-    public string SubjectTemplate { get; set; } = string.Empty;
+    public required string SubjectTemplate { get; set; }
 
     public string? HtmlBodyTemplate { get; set; }
 
@@ -26,5 +26,5 @@ public class TemplateData
 
     public Priority Priority { get; set; } = Priority.None;
 
-    public string JsonSchema { get; set; } = string.Empty;
+    public required string JsonSchema { get; set; }
 }
