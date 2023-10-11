@@ -1,7 +1,7 @@
 using System.Diagnostics;
 using System.Diagnostics.Metrics;
 
-namespace TempMaiSe.Blazor;
+namespace TempMaiSe.Razor;
 
 /// <summary>
 /// It is recommended to use a custom type to hold references for

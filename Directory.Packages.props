@@ -6,7 +6,6 @@
   </PropertyGroup>
   <PropertyGroup>
     <FluentEmailVersion>3.0.2</FluentEmailVersion>
-    <BlazoriseVersion>1.3.1</BlazoriseVersion>
     <EntityFrameworkCoreVersion>8.0.0-rc.2.23480.1</EntityFrameworkCoreVersion>
     <AspNetCoreEntityFrameworkCoreVersion>8.0.0-rc.2.23480.2</AspNetCoreEntityFrameworkCoreVersion>
     <OpenTelemetryVersion>1.6.0</OpenTelemetryVersion>
@@ -19,11 +18,6 @@
     <PackageVersion Include="FluentEmail.MailKit" Version="$(FluentEmailVersion)" />
     <PackageVersion Include="FluentEmail.Mailtrap" Version="2.7.0" />
     <PackageVersion Include="FluentEmail.Graph" Version="2.4.0" />
-  </ItemGroup>
-  <ItemGroup>
-    <PackageVersion Include="Blazorise.Bootstrap5" Version="$(BlazoriseVersion)" />
-    <PackageVersion Include="Blazorise.Icons.FontAwesome" Version="$(BlazoriseVersion)" />
-    <PackageVersion Include="Blazorise.RichTextEdit" Version="$(BlazoriseVersion)" />
   </ItemGroup>
   <ItemGroup>
     <PackageVersion Include="Newtonsoft.Json" Version="13.0.3" />
@@ -52,6 +46,7 @@
     <PackageVersion Include="Microsoft.AspNetCore.Identity.EntityFrameworkCore" Version="$(AspNetCoreEntityFrameworkCoreVersion)" />
     <PackageVersion Include="Microsoft.AspNetCore.Identity.UI" Version="$(AspNetCoreEntityFrameworkCoreVersion)" />
     <PackageVersion Include="Npgsql.EntityFrameworkCore.PostgreSQL" Version="8.0.0-rc.1" />
+    <PackageVersion Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="8.0.0-rc.2.23509.1" />
   </ItemGroup>
   <ItemGroup>
     <PackageVersion Include="Fluid.Core" Version="2.5.0" />

@@ -5,5 +5,5 @@ namespace TempMaiSe.Mailer;
 
 public interface ITemplateToMailHeadersMapper
 {
-    IFluentEmail Map(Template configuredTemplate, IFluentEmail email);
+    IFluentEmail Map(TemplateData configuredTemplate, IFluentEmail email);
 }

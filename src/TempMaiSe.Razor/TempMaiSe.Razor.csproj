@@ -9,15 +9,56 @@
   </ItemGroup>
 
   <ItemGroup>
-    <PackageReference Include="Microsoft.AspNetCore.Diagnostics.EntityFrameworkCore" />
-    <PackageReference Include="Microsoft.AspNetCore.Identity.UI" />
-    <PackageReference Include="Microsoft.EntityFrameworkCore.Sqlite" />
-    <PackageReference Include="Microsoft.EntityFrameworkCore.Tools" />
+    <PackageReference Include="FluentEmail.Core" />
+    <PackageReference Include="FluentEmail.Smtp" />
+    <PackageReference Include="FluentEmail.Mailgun" />
+    <PackageReference Include="FluentEmail.SendGrid" />
+    <PackageReference Include="FluentEmail.MailKit" />
+    <PackageReference Include="FluentEmail.Mailtrap" />
+    <PackageReference Include="FluentEmail.Graph" />
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\TempMaiSe.Models\TempMaiSe.Models.csproj" />
+    <PackageReference Include="Newtonsoft.Json" />
+    <PackageReference Include="Newtonsoft.Json.Schema" />
   </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="OpenTelemetry.Extensions.Hosting" />
+    <PackageReference Include="OpenTelemetry.Exporter.Console" />
+    <PackageReference Include="OpenTelemetry.Exporter.OpenTelemetryProtocol" />
+    <PackageReference Include="OpenTelemetry.Instrumentation.AspNetCore" />
+    <PackageReference Include="OpenTelemetry.Instrumentation.Http" />
+    <PackageReference Include="OpenTelemetry.Exporter.Jaeger" />
+    <PackageReference Include="OpenTelemetry.Exporter.Prometheus.AspNetCore" />
+    <PackageReference Include="OpenTelemetry.Exporter.Zipkin" />
+  </ItemGroup>
+
+   <ItemGroup>
+    <PackageReference Include="Microsoft.EntityFrameworkCore" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Design" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Tools" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.InMemory" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Sqlite" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Tools" />
+    <PackageReference Include="Microsoft.AspNetCore.Diagnostics.EntityFrameworkCore" />
+    <PackageReference Include="Microsoft.Extensions.Diagnostics.HealthChecks.EntityFrameworkCore" />
+    <PackageReference Include="Microsoft.AspNetCore.Identity.UI" />
+    <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Fluid.Core" />
+  </ItemGroup>
+
+   <ItemGroup>
+     <ProjectReference Include="..\TempMaiSe.Models\TempMaiSe.Models.csproj" />
+     <ProjectReference Include="..\TempMaiSe.PostgreSql\TempMaiSe.PostgreSql.csproj" />
+     <ProjectReference Include="..\TempMaiSe.Sqlite\TempMaiSe.Sqlite.csproj" />
+     <ProjectReference Include="..\TempMaiSe.SqlServer\TempMaiSe.SqlServer.csproj" />
+     <ProjectReference Include="..\TempMaiSe.Mailer\TempMaiSe.Mailer.csproj" />
+   </ItemGroup>
 
     <Target Name="NPM Install" AfterTargets="PreBuildEvent">
         <Exec Command="npm install" />

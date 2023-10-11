@@ -5,7 +5,7 @@ namespace TempMaiSe.Mailer;
 
 public class TemplateToMailHeadersMapper : ITemplateToMailHeadersMapper
 {
-    public IFluentEmail Map(Template configuredTemplate, IFluentEmail email)
+    public IFluentEmail Map(TemplateData configuredTemplate, IFluentEmail email)
     {
         ArgumentNullException.ThrowIfNull(configuredTemplate);
         ArgumentNullException.ThrowIfNull(email);

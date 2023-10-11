@@ -6,7 +6,7 @@ using System.Diagnostics.Metrics;
 using OpenTelemetry.Logs;
 using OpenTelemetry.Metrics;
 
-namespace TempMaiSe.Blazor;
+namespace TempMaiSe.Razor;
 
 internal static class OpenTelemetryExtensions
 {

@@ -1,7 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using TempMaiSe.Models;
 
-namespace TempMaiSe.Blazor;
+namespace TempMaiSe.Razor;
 
 public static class DbContextOptionsBuilderExtensions
 {
@@ -12,36 +12,36 @@ public static class DbContextOptionsBuilderExtensions
 
         return services.AddDbContext<MailingContext>(options =>
         {
-            string? provider = config.GetValue("provider", Provider.InMemory.Name);
-            if (string.IsNullOrWhiteSpace(provider) || provider == Provider.InMemory.Name)
+            string? provider = config.GetValue("provider", DbProvider.InMemory.Name);
+            if (string.IsNullOrWhiteSpace(provider) || provider == DbProvider.InMemory.Name)
             {
                 options.UseInMemoryDatabase(nameof(TempMaiSe));
                 return;
             }
 
-            if (provider == Provider.Sqlite.Name)
+            if (provider == DbProvider.Sqlite.Name)
             {
                 options.UseSqlite(
-                    config.GetConnectionString(Provider.Sqlite.Name)!,
-                    x => x.MigrationsAssembly(Provider.Sqlite.Assembly)
+                    config.GetConnectionString(DbProvider.Sqlite.Name)!,
+                    x => x.MigrationsAssembly(DbProvider.Sqlite.Assembly)
                 );
                 return;
             }
 
-            if (provider == Provider.SqlServer.Name)
+            if (provider == DbProvider.SqlServer.Name)
             {
                 options.UseNpgsql(
-                    config.GetConnectionString(Provider.SqlServer.Name)!,
-                    x => x.MigrationsAssembly(Provider.SqlServer.Assembly)
+                    config.GetConnectionString(DbProvider.SqlServer.Name)!,
+                    x => x.MigrationsAssembly(DbProvider.SqlServer.Assembly)
                 );
                 return;
             }
 
-            if (provider == Provider.PostgreSql.Name)
+            if (provider == DbProvider.PostgreSql.Name)
             {
                 options.UseNpgsql(
-                    config.GetConnectionString(Provider.PostgreSql.Name)!,
-                    x => x.MigrationsAssembly(Provider.PostgreSql.Assembly)
+                    config.GetConnectionString(DbProvider.PostgreSql.Name)!,
+                    x => x.MigrationsAssembly(DbProvider.PostgreSql.Assembly)
                 );
                 return;
             }

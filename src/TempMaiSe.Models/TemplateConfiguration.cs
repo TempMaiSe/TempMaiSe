@@ -9,12 +9,18 @@ public class TemplateConfiguration : IEntityTypeConfiguration<Template>
     {
         ArgumentNullException.ThrowIfNull(builder);
 
-        builder.OwnsOne(template => template.From);
-        builder.OwnsMany(template => template.To);
-        builder.OwnsMany(template => template.Cc);
-        builder.OwnsMany(template => template.Bcc);
-        builder.OwnsMany(template => template.ReplyTo);
-        builder.OwnsMany(template => template.Tags);
-        builder.OwnsMany(template => template.Headers);
+        builder.OwnsOne(
+            template => template.Data,
+            ownedNavigationBuilder =>
+        {
+            ownedNavigationBuilder.ToJson();
+            ownedNavigationBuilder.OwnsOne(template => template.From);
+            ownedNavigationBuilder.OwnsMany(template => template.To);
+            ownedNavigationBuilder.OwnsMany(template => template.Cc);
+            ownedNavigationBuilder.OwnsMany(template => template.Bcc);
+            ownedNavigationBuilder.OwnsMany(template => template.ReplyTo);
+            ownedNavigationBuilder.OwnsMany(template => template.Tags);
+            ownedNavigationBuilder.OwnsMany(template => template.Headers);
+        });
     }
 }

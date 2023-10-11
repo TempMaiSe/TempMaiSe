@@ -1,7 +1,7 @@
 ﻿using FluentEmail.Mailgun;
 using FluentEmail.MailKitSmtp;
 
-namespace TempMaiSe.Blazor;
+namespace TempMaiSe.Razor;
 
 public static class FluentEmailBuilderExtensions
 {

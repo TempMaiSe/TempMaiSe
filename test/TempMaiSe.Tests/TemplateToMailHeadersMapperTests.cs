@@ -12,7 +12,7 @@ public class TemplateToMailHeadersMapperTests
     public void Map_Returns_Original_Email_Instance()
     {
         // Arrange
-        Template template = new() { To = { new("dummy@example.org") } };
+        TemplateData template = new() { To = { new("dummy@example.org") } };
         Email email = new();
 
         // Act
@@ -36,7 +36,7 @@ public class TemplateToMailHeadersMapperTests
     public void Map_Throws_ArgumentNullException_When_Given_No_Email()
     {
         // Arrange
-        Template template = new() { To = { new("foo@example.org", "Foo Bar") } };
+        TemplateData template = new() { To = { new("foo@example.org", "Foo Bar") } };
 
         // Act & Assert
         _ = Assert.Throws<ArgumentNullException>("email", () => _mapper.Map(template, null));
@@ -48,7 +48,7 @@ public class TemplateToMailHeadersMapperTests
     public void Map_Sets_From_From_Template(string address, string? name)
     {
         // Arrange
-        Template template = new() { From = new(address, name) };
+        TemplateData template = new() { From = new(address, name) };
         Mock<IFluentEmail> emailMock = new();
         emailMock.Setup(it => it.SetFrom(address, name)).Returns(emailMock.Object).Verifiable();
 
@@ -66,7 +66,7 @@ public class TemplateToMailHeadersMapperTests
     public void Map_Adds_To_From_Template(string address, string? name)
     {
         // Arrange
-        Template template = new() { To = { new(address, name) } };
+        TemplateData template = new() { To = { new(address, name) } };
         Mock<IFluentEmail> emailMock = new();
         emailMock.Setup(it => it.To(address, name)).Returns(emailMock.Object).Verifiable();
 
@@ -84,7 +84,7 @@ public class TemplateToMailHeadersMapperTests
     public void Map_Adds_Cc_From_Template(string address, string? name)
     {
         // Arrange
-        Template template = new() { Cc = { new(address, name) } };
+        TemplateData template = new() { Cc = { new(address, name) } };
         Mock<IFluentEmail> emailMock = new();
         emailMock.Setup(it => it.CC(address, name)).Returns(emailMock.Object).Verifiable();
 
@@ -102,7 +102,7 @@ public class TemplateToMailHeadersMapperTests
     public void Map_Adds_Bcc_From_Template(string address, string? name)
     {
         // Arrange
-        Template template = new() { Bcc = { new(address, name) } };
+        TemplateData template = new() { Bcc = { new(address, name) } };
         Mock<IFluentEmail> emailMock = new();
         emailMock.Setup(it => it.BCC(address, name)).Returns(emailMock.Object).Verifiable();
 
@@ -120,7 +120,7 @@ public class TemplateToMailHeadersMapperTests
     public void Map_Adds_ReplyTo_From_Template(string address, string? name)
     {
         // Arrange
-        Template template = new() { ReplyTo = { new(address, name) } };
+        TemplateData template = new() { ReplyTo = { new(address, name) } };
         Mock<IFluentEmail> emailMock = new();
         emailMock.Setup(it => it.ReplyTo(address, name)).Returns(emailMock.Object).Verifiable();
 
@@ -138,7 +138,7 @@ public class TemplateToMailHeadersMapperTests
     public void Map_Adds_Single_Tag_From_Template(string someTagName)
     {
         // Arrange
-        Template template = new() { Tags = { new(someTagName) } };
+        TemplateData template = new() { Tags = { new(someTagName) } };
         Mock<IFluentEmail> emailMock = new();
         emailMock.Setup(it => it.Tag(someTagName)).Returns(emailMock.Object).Verifiable();
 
@@ -156,7 +156,7 @@ public class TemplateToMailHeadersMapperTests
     public void Map_Adds_Multiple_Tags_From_Template(string someTagName, string someOtherTagName)
     {
         // Arrange
-        Template template = new() { Tags = { new(someTagName), new(someOtherTagName) } };
+        TemplateData template = new() { Tags = { new(someTagName), new(someOtherTagName) } };
         Mock<IFluentEmail> emailMock = new();
         emailMock.Setup(it => it.Tag(someTagName)).Returns(emailMock.Object).Verifiable();
         emailMock.Setup(it => it.Tag(someOtherTagName)).Returns(emailMock.Object).Verifiable();
@@ -175,7 +175,7 @@ public class TemplateToMailHeadersMapperTests
     public void Map_Adds_Single_Header_From_Template(string headerName, string headerValue)
     {
         // Arrange
-        Template template = new() { Headers = { new(headerName, headerValue) } };
+        TemplateData template = new() { Headers = { new(headerName, headerValue) } };
         Mock<IFluentEmail> emailMock = new();
         emailMock.Setup(it => it.Header(headerName, headerValue)).Returns(emailMock.Object).Verifiable();
 
@@ -193,7 +193,7 @@ public class TemplateToMailHeadersMapperTests
     public void Map_Adds_Multiple_Headers_From_Template(string firstHeaderName, string firstHeaderValue, string secondHeaderName, string secondHeaderValue)
     {
         // Arrange
-        Template template = new() { Headers = { new(firstHeaderName, firstHeaderValue), new(secondHeaderName, secondHeaderValue) } };
+        TemplateData template = new() { Headers = { new(firstHeaderName, firstHeaderValue), new(secondHeaderName, secondHeaderValue) } };
         Mock<IFluentEmail> emailMock = new();
         emailMock.Setup(it => it.Header(firstHeaderName, firstHeaderValue)).Returns(emailMock.Object).Verifiable();
         emailMock.Setup(it => it.Header(secondHeaderName, secondHeaderValue)).Returns(emailMock.Object).Verifiable();
@@ -210,7 +210,7 @@ public class TemplateToMailHeadersMapperTests
     public void Map_Sets_LowPriority_From_Template()
     {
         // Arrange
-        Template template = new() { Priority = Priority.Low };
+        TemplateData template = new() { Priority = Priority.Low };
         Mock<IFluentEmail> emailMock = new();
         emailMock.Setup(it => it.LowPriority()).Returns(emailMock.Object).Verifiable();
 
@@ -226,7 +226,7 @@ public class TemplateToMailHeadersMapperTests
     public void Map_Sets_HighPriority_From_Template()
     {
         // Arrange
-        Template template = new() { Priority = Priority.High };
+        TemplateData template = new() { Priority = Priority.High };
         Mock<IFluentEmail> emailMock = new();
         emailMock.Setup(it => it.HighPriority()).Returns(emailMock.Object).Verifiable();
 
