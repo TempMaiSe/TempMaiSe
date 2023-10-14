@@ -10,7 +10,8 @@
 	"extensions": {
 		"recommendations": [
 			"ms-dotnettools.csharp",
-			"ms-dotnettools.csdevkit"
+			"ms-dotnettools.csdevkit",
+			"github.vscode-github-actions"
 		]
 	}
 }
