@@ -2,10 +2,10 @@
 // for details on configuring this project to bundle and minify static web assets.
 
 // Write your JavaScript code.
-import 'bootstrap'
-import 'jquery'
-import 'jquery-validation'
-import 'jquery-validation-unobtrusive'
+import "bootstrap";
+import "jquery";
+import "jquery-validation";
+import "jquery-validation-unobtrusive";
 
-import 'bootstrap/dist/css/bootstrap.css'
-import '../css/site.css'
+import "bootstrap/dist/css/bootstrap.css";
+import "../css/site.css";
