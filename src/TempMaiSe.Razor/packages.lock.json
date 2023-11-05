@@ -2050,6 +2050,7 @@
           "Fluid.Core": "[2.5.0, )",
           "Newtonsoft.Json": "[13.0.3, )",
           "Newtonsoft.Json.Schema": "[3.0.15, )",
+          "OneOf": "[3.0.263, )",
           "TempMaiSe.Models": "[1.0.0, )"
         }
       },
@@ -2116,6 +2117,12 @@
           "Microsoft.EntityFrameworkCore.Relational": "8.0.0-rc.1.23419.6",
           "Npgsql": "8.0.0-preview.4"
         }
+      },
+      "OneOf": {
+        "type": "CentralTransitive",
+        "requested": "[3.0.263, )",
+        "resolved": "3.0.263",
+        "contentHash": "2xXFnUxkAA0rJ2sJz9FPeW/gzJIBvyj+xIvfTIkz42pz9JlcYse4/rwRnkmCsYxw6osy1whnBO6Ox6HBKEqDMw=="
       }
     }
   }

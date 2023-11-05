@@ -96,6 +96,12 @@
           "Newtonsoft.Json": "13.0.3"
         }
       },
+      "OneOf": {
+        "type": "Direct",
+        "requested": "[3.0.263, )",
+        "resolved": "3.0.263",
+        "contentHash": "2xXFnUxkAA0rJ2sJz9FPeW/gzJIBvyj+xIvfTIkz42pz9JlcYse4/rwRnkmCsYxw6osy1whnBO6Ox6HBKEqDMw=="
+      },
       "Azure.Core": {
         "type": "Transitive",
         "resolved": "1.29.0",

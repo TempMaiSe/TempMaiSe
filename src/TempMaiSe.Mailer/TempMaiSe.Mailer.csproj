@@ -21,6 +21,10 @@
   </ItemGroup>
 
   <ItemGroup>
+    <PackageReference Include="OneOf" />
+  </ItemGroup>
+
+  <ItemGroup>
     <ProjectReference Include="..\TempMaiSe.Models\TempMaiSe.Models.csproj" />
   </ItemGroup>
 

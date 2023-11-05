@@ -11,6 +11,7 @@ using System.Diagnostics;
 using TempMaiSe.Mailer;
 using TempMaiSe.Models;
 using TempMaiSe.Razor;
+using OneOf;
 
 Activity.DefaultIdFormat = ActivityIdFormat.W3C;
 
@@ -27,6 +28,8 @@ builder.Services.AddFluentEmail(config);
 
 builder.Services.AddSingleton<ITemplateToMailHeadersMapper, TemplateToMailHeadersMapper>();
 builder.Services.AddSingleton<IMailInformationToMailHeadersMapper, MailInformationToMailHeadersMapper>();
+
+builder.Services.AddSingleton<DataParser>();
 
 // Add services to the container.
 builder.Services.AddMailingContext(config);
@@ -63,7 +66,7 @@ app.UseAuthorization();
 
 app.MapRazorPages();
 
-app.MapPost("/send/{id}", async (int id, Stream data, IFluentEmail mailer, Instrumentation instrumentation, MailingContext mailingContext, FluidParser fluidParser, ITemplateToMailHeadersMapper mailHeaderMapper, IMailInformationToMailHeadersMapper mailInfoMapper, CancellationToken cancellationToken) =>
+app.MapPost("/send/{id}", async (int id, Stream data, IFluentEmail mailer, Instrumentation instrumentation, MailingContext mailingContext, DataParser dataParser, FluidParser fluidParser, ITemplateToMailHeadersMapper mailHeaderMapper, IMailInformationToMailHeadersMapper mailInfoMapper, CancellationToken cancellationToken) =>
 {
     using Activity? activity = instrumentation.ActivitySource.StartActivity("SendMail")!;
     activity?.AddTag("TemplateId", id);
@@ -76,21 +79,8 @@ app.MapPost("/send/{id}", async (int id, Stream data, IFluentEmail mailer, Instr
 
     TemplateData templateData = template.Data;
 
-    using var sr = new StreamReader(data, Encoding.UTF8);
-    string str = await sr.ReadToEndAsync(cancellationToken).ConfigureAwait(false);
-    JsonTextReader reader = new(new StringReader(str));
-
-    JSchemaValidatingReader validatingReader = new(reader)
-    {
-        Schema = JSchema.Parse(templateData.JsonSchema)
-    };
-
-    List<ValidationError> errors = [];
-    validatingReader.ValidationEventHandler += (o, a) => errors.Add(a.ValidationError);
-
-    JsonSerializer serializer = new();
-    MailInformation mailInformation = serializer.Deserialize<MailInformation>(validatingReader)!;
-    if (errors.Count > 0)
+    OneOf<MailInformation, List<ValidationError>> mailInformationOrErrors = await dataParser.ParseAsync(templateData.JsonSchema, data, cancellationToken).ConfigureAwait(false);
+    if (mailInformationOrErrors.TryPickT1(out List<ValidationError>? errors, out MailInformation? mailInformation))
     {
         return Results.BadRequest(errors);
     }

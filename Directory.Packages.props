@@ -58,4 +58,7 @@
     <PackageVersion Include="coverlet.collector" Version="6.0.0" />
     <PackageVersion Include="Moq" Version="4.20.69" />
   </ItemGroup>
+  <ItemGroup>
+    <PackageVersion Include="OneOf" Version="3.0.263" />
+  </ItemGroup>
 </Project>
