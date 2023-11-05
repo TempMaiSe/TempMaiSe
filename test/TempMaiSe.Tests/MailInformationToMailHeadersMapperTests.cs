@@ -175,7 +175,7 @@ public class MailInformationToMailHeadersMapperTests
     public void Map_Adds_Single_Header_From_Information(string headerName, string headerValue)
     {
         // Arrange
-        MailInformation info = new() { Headers = { new(headerName, headerValue) } };
+        MailInformation info = new() { Headers = { new() { Name = headerName, Value = headerValue } } };
         Mock<IFluentEmail> emailMock = new();
         emailMock.Setup(it => it.Header(headerName, headerValue)).Returns(emailMock.Object).Verifiable();
 
@@ -193,7 +193,7 @@ public class MailInformationToMailHeadersMapperTests
     public void Map_Adds_Multiple_Headers_From_Information(string firstHeaderName, string firstHeaderValue, string secondHeaderName, string secondHeaderValue)
     {
         // Arrange
-        MailInformation info = new() { Headers = { new(firstHeaderName, firstHeaderValue), new(secondHeaderName, secondHeaderValue) } };
+        MailInformation info = new() { Headers = { new() { Name = firstHeaderName, Value = firstHeaderValue }, new() { Name = secondHeaderName, Value = secondHeaderValue } } };
         Mock<IFluentEmail> emailMock = new();
         emailMock.Setup(it => it.Header(firstHeaderName, firstHeaderValue)).Returns(emailMock.Object).Verifiable();
         emailMock.Setup(it => it.Header(secondHeaderName, secondHeaderValue)).Returns(emailMock.Object).Verifiable();
