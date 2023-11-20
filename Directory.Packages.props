@@ -6,8 +6,8 @@
   </PropertyGroup>
   <PropertyGroup>
     <FluentEmailVersion>3.0.2</FluentEmailVersion>
-    <EntityFrameworkCoreVersion>8.0.0-rc.2.23480.1</EntityFrameworkCoreVersion>
-    <AspNetCoreEntityFrameworkCoreVersion>8.0.0-rc.2.23480.2</AspNetCoreEntityFrameworkCoreVersion>
+    <EntityFrameworkCoreVersion>8.0.0</EntityFrameworkCoreVersion>
+    <AspNetCoreEntityFrameworkCoreVersion>8.0.0</AspNetCoreEntityFrameworkCoreVersion>
     <OpenTelemetryVersion>1.6.0</OpenTelemetryVersion>
   </PropertyGroup>
   <ItemGroup>
@@ -17,7 +17,6 @@
     <PackageVersion Include="FluentEmail.SendGrid" Version="$(FluentEmailVersion)" />
     <PackageVersion Include="FluentEmail.MailKit" Version="$(FluentEmailVersion)" />
     <PackageVersion Include="FluentEmail.Mailtrap" Version="2.7.0" />
-    <PackageVersion Include="FluentEmail.Graph" Version="2.4.0" />
   </ItemGroup>
   <ItemGroup>
     <PackageVersion Include="Newtonsoft.Json" Version="13.0.3" />
@@ -27,9 +26,8 @@
     <PackageVersion Include="OpenTelemetry.Extensions.Hosting" Version="$(OpenTelemetryVersion)" />
     <PackageVersion Include="OpenTelemetry.Exporter.Console" Version="$(OpenTelemetryVersion)" />
     <PackageVersion Include="OpenTelemetry.Exporter.OpenTelemetryProtocol" Version="$(OpenTelemetryVersion)" />
-    <PackageVersion Include="OpenTelemetry.Instrumentation.AspNetCore" Version="1.5.1-beta.1" />
-    <PackageVersion Include="OpenTelemetry.Instrumentation.Http" Version="1.5.1-beta.1" />
-    <PackageVersion Include="OpenTelemetry.Exporter.Jaeger" Version="1.6.0-rc.1" />
+    <PackageVersion Include="OpenTelemetry.Instrumentation.AspNetCore" Version="1.6.0-beta.3" />
+    <PackageVersion Include="OpenTelemetry.Instrumentation.Http" Version="1.6.0-beta.3" />
     <PackageVersion Include="OpenTelemetry.Exporter.Prometheus.AspNetCore" Version="1.6.0-rc.1" />
     <PackageVersion Include="OpenTelemetry.Exporter.Zipkin" Version="$(OpenTelemetryVersion)" />
   </ItemGroup>
@@ -45,16 +43,16 @@
     <PackageVersion Include="Microsoft.Extensions.Diagnostics.HealthChecks.EntityFrameworkCore" Version="$(AspNetCoreEntityFrameworkCoreVersion)" />
     <PackageVersion Include="Microsoft.AspNetCore.Identity.EntityFrameworkCore" Version="$(AspNetCoreEntityFrameworkCoreVersion)" />
     <PackageVersion Include="Microsoft.AspNetCore.Identity.UI" Version="$(AspNetCoreEntityFrameworkCoreVersion)" />
-    <PackageVersion Include="Npgsql.EntityFrameworkCore.PostgreSQL" Version="8.0.0-rc.1" />
-    <PackageVersion Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="8.0.0-rc.2.23509.1" />
+    <PackageVersion Include="Npgsql.EntityFrameworkCore.PostgreSQL" Version="8.0.0-rc.2" />
+    <PackageVersion Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="8.0.0" />
   </ItemGroup>
   <ItemGroup>
     <PackageVersion Include="Fluid.Core" Version="2.5.0" />
   </ItemGroup>
   <ItemGroup>
-    <PackageVersion Include="Microsoft.NET.Test.Sdk" Version="17.9.0-preview-23503-02" />
-    <PackageVersion Include="xunit" Version="2.5.2-pre.6" />
-    <PackageVersion Include="xunit.runner.visualstudio" Version="2.5.2-pre.8" />
+    <PackageVersion Include="Microsoft.NET.Test.Sdk" Version="17.9.0-preview-23531-01" />
+    <PackageVersion Include="xunit" Version="2.6.2" />
+    <PackageVersion Include="xunit.runner.visualstudio" Version="2.5.4" />
     <PackageVersion Include="coverlet.collector" Version="6.0.0" />
     <PackageVersion Include="Moq" Version="4.20.69" />
   </ItemGroup>

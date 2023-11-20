@@ -56,19 +56,6 @@ internal static class OpenTelemetryExtensions
 
                 switch (tracingExporter)
                 {
-                    case "jaeger":
-                        builder.AddJaegerExporter();
-
-                        builder.ConfigureServices(services =>
-                        {
-                            // Use IConfiguration binding for Jaeger exporter options.
-                            services.Configure<JaegerExporterOptions>(appBuilder.Configuration.GetSection("Jaeger"));
-
-                            // Customize the HttpClient that will be used when JaegerExporter is configured for HTTP transport.
-                            services.AddHttpClient("JaegerExporter", configureClient: (client) => client.DefaultRequestHeaders.Add("X-MyCustomHeader", "value"));
-                        });
-                        break;
-
                     case "zipkin":
                         builder.AddZipkinExporter();
 
