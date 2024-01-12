@@ -52,7 +52,7 @@ internal static class OpenTelemetryExtensions
                     .AddAspNetCoreInstrumentation();
 
                 // Use IConfiguration binding for AspNetCore instrumentation options.
-                appBuilder.Services.Configure<AspNetCoreInstrumentationOptions>(appBuilder.Configuration.GetSection("AspNetCoreInstrumentation"));
+                appBuilder.Services.Configure<AspNetCoreTraceInstrumentationOptions>(appBuilder.Configuration.GetSection("AspNetCoreTraceInstrumentation"));
 
                 switch (tracingExporter)
                 {
@@ -139,13 +139,13 @@ internal static class OpenTelemetryExtensions
 
             switch (logExporter)
             {
-                /*case "otlp":
+                case "otlp":
                     options?.AddOtlpExporter(otlpOptions =>
                     {
                         // Use IConfiguration directly for Otlp exporter endpoint option.
                         otlpOptions.Endpoint = new Uri(appBuilder.Configuration.GetValue<string>("Otlp:Endpoint"));
                     });
-                    break;*/
+                    break;
                 default:
                     options.AddConsoleExporter();
                     break;

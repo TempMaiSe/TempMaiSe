@@ -6,9 +6,9 @@
   </PropertyGroup>
   <PropertyGroup>
     <FluentEmailVersion>3.0.2</FluentEmailVersion>
-    <EntityFrameworkCoreVersion>8.0.0</EntityFrameworkCoreVersion>
-    <AspNetCoreEntityFrameworkCoreVersion>8.0.0</AspNetCoreEntityFrameworkCoreVersion>
-    <OpenTelemetryVersion>1.6.0</OpenTelemetryVersion>
+    <EntityFrameworkCoreVersion>8.0.1</EntityFrameworkCoreVersion>
+    <AspNetCoreEntityFrameworkCoreVersion>8.0.1</AspNetCoreEntityFrameworkCoreVersion>
+    <OpenTelemetryVersion>1.7.0</OpenTelemetryVersion>
   </PropertyGroup>
   <ItemGroup>
     <PackageVersion Include="FluentEmail.Core" Version="$(FluentEmailVersion)" />
@@ -26,8 +26,8 @@
     <PackageVersion Include="OpenTelemetry.Extensions.Hosting" Version="$(OpenTelemetryVersion)" />
     <PackageVersion Include="OpenTelemetry.Exporter.Console" Version="$(OpenTelemetryVersion)" />
     <PackageVersion Include="OpenTelemetry.Exporter.OpenTelemetryProtocol" Version="$(OpenTelemetryVersion)" />
-    <PackageVersion Include="OpenTelemetry.Instrumentation.AspNetCore" Version="1.6.0-beta.3" />
-    <PackageVersion Include="OpenTelemetry.Instrumentation.Http" Version="1.6.0-beta.3" />
+    <PackageVersion Include="OpenTelemetry.Instrumentation.AspNetCore" Version="$(OpenTelemetryVersion)-rc.1" />
+    <PackageVersion Include="OpenTelemetry.Instrumentation.Http" Version="$(OpenTelemetryVersion)" />
     <PackageVersion Include="OpenTelemetry.Exporter.Prometheus.AspNetCore" Version="1.6.0-rc.1" />
     <PackageVersion Include="OpenTelemetry.Exporter.Zipkin" Version="$(OpenTelemetryVersion)" />
   </ItemGroup>
@@ -43,18 +43,18 @@
     <PackageVersion Include="Microsoft.Extensions.Diagnostics.HealthChecks.EntityFrameworkCore" Version="$(AspNetCoreEntityFrameworkCoreVersion)" />
     <PackageVersion Include="Microsoft.AspNetCore.Identity.EntityFrameworkCore" Version="$(AspNetCoreEntityFrameworkCoreVersion)" />
     <PackageVersion Include="Microsoft.AspNetCore.Identity.UI" Version="$(AspNetCoreEntityFrameworkCoreVersion)" />
-    <PackageVersion Include="Npgsql.EntityFrameworkCore.PostgreSQL" Version="8.0.0-rc.2" />
+    <PackageVersion Include="Npgsql.EntityFrameworkCore.PostgreSQL" Version="8.0.0" />
     <PackageVersion Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="8.0.0" />
   </ItemGroup>
   <ItemGroup>
     <PackageVersion Include="Fluid.Core" Version="2.5.0" />
   </ItemGroup>
   <ItemGroup>
-    <PackageVersion Include="Microsoft.NET.Test.Sdk" Version="17.9.0-preview-23531-01" />
-    <PackageVersion Include="xunit" Version="2.6.2" />
-    <PackageVersion Include="xunit.runner.visualstudio" Version="2.5.4" />
+    <PackageVersion Include="Microsoft.NET.Test.Sdk" Version="17.9.0-release-21691-01" />
+    <PackageVersion Include="xunit" Version="2.6.5" />
+    <PackageVersion Include="xunit.runner.visualstudio" Version="2.5.6" />
     <PackageVersion Include="coverlet.collector" Version="6.0.0" />
-    <PackageVersion Include="Moq" Version="4.20.69" />
+    <PackageVersion Include="Moq" Version="4.20.70" />
   </ItemGroup>
   <ItemGroup>
     <PackageVersion Include="OneOf" Version="3.0.263" />
