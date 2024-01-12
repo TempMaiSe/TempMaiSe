@@ -2,15 +2,34 @@ using OpenTelemetry.Exporter;
 using OpenTelemetry.Instrumentation.AspNetCore;
 using OpenTelemetry.Resources;
 using OpenTelemetry.Trace;
-using System.Diagnostics.Metrics;
 using OpenTelemetry.Logs;
 using OpenTelemetry.Metrics;
 
-namespace TempMaiSe.Razor;
+using System.Diagnostics.Metrics;
 
-internal static class OpenTelemetryExtensions
+using Microsoft.AspNetCore.Builder;
+using Microsoft.Extensions.Configuration;
+using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Logging;
+
+namespace TempMaiSe.OpenTelemetry;
+
+/// <summary>
+/// Provides extension methods for configuring OpenTelemetry tracing and metrics in a <see cref="WebApplicationBuilder"/>.
+/// </summary>
+public static class OpenTelemetryExtensions
 {
-    public static void AddOpenTelemetry(this WebApplicationBuilder appBuilder)
+    /// <summary>
+    /// Adds OpenTelemetry tracing and metrics configuration to the <see cref="WebApplicationBuilder"/>.
+    /// </summary>
+    /// <typeparam name="TService">The type of the service.</typeparam>
+    /// <param name="appBuilder">The <see cref="WebApplicationBuilder"/> to configure.</param>
+    /// <summary>
+    /// Adds OpenTelemetry tracing and metrics configuration to the <see cref="WebApplicationBuilder"/>.
+    /// </summary>
+    /// <typeparam name="TService">The type of the service.</typeparam>
+    /// <param name="appBuilder">The <see cref="WebApplicationBuilder"/> to configure.</param>
+    public static void AddOpenTelemetry<TService>(this WebApplicationBuilder appBuilder)
     {
         ArgumentNullException.ThrowIfNull(appBuilder);
 
@@ -29,7 +48,7 @@ internal static class OpenTelemetryExtensions
         // Build a resource configuration action to set service information.
         Action<ResourceBuilder> configureResource = r => r.AddService(
             serviceName: appBuilder.Configuration?.GetValue<string>("ServiceName") ?? "unknown",
-            serviceVersion: typeof(Program).Assembly.GetName().Version?.ToString() ?? "unknown",
+            serviceVersion: typeof(TService).Assembly.GetName().Version?.ToString() ?? "unknown",
             serviceInstanceId: Environment.MachineName);
 
         // Create a service to expose ActivitySource, and Metric Instruments

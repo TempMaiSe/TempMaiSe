@@ -23,6 +23,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TempMaiSe.Mailer", "src\Tem
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TempMaiSe.Razor", "src\TempMaiSe.Razor\TempMaiSe.Razor.csproj", "{0F9B0B5A-6B16-4EE5-BB7E-DBF2DC2913E3}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TempMaiSe.OpenTelemetry", "src\TempMaiSe.OpenTelemetry\TempMaiSe.OpenTelemetry.csproj", "{1CA58D4F-5814-4ECD-B69A-36B3F0D0EC2F}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -57,6 +59,10 @@ Global
 		{0F9B0B5A-6B16-4EE5-BB7E-DBF2DC2913E3}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{0F9B0B5A-6B16-4EE5-BB7E-DBF2DC2913E3}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{0F9B0B5A-6B16-4EE5-BB7E-DBF2DC2913E3}.Release|Any CPU.Build.0 = Release|Any CPU
+		{1CA58D4F-5814-4ECD-B69A-36B3F0D0EC2F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{1CA58D4F-5814-4ECD-B69A-36B3F0D0EC2F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{1CA58D4F-5814-4ECD-B69A-36B3F0D0EC2F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{1CA58D4F-5814-4ECD-B69A-36B3F0D0EC2F}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -70,5 +76,6 @@ Global
 		{8269B569-758C-4BC4-A419-8246F56F5D39} = {6D652D9E-053B-4761-99D9-70DF7C2A0CC5}
 		{2044D183-8565-47EB-A88C-CBF52969E916} = {C721274E-B6AE-4954-A94C-60E4DE29FE4F}
 		{0F9B0B5A-6B16-4EE5-BB7E-DBF2DC2913E3} = {C721274E-B6AE-4954-A94C-60E4DE29FE4F}
+		{1CA58D4F-5814-4ECD-B69A-36B3F0D0EC2F} = {C721274E-B6AE-4954-A94C-60E4DE29FE4F}
 	EndGlobalSection
 EndGlobal

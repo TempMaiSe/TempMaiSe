@@ -1,7 +1,7 @@
 using System.Diagnostics;
 using System.Diagnostics.Metrics;
 
-namespace TempMaiSe.Razor;
+namespace TempMaiSe.OpenTelemetry;
 
 /// <summary>
 /// It is recommended to use a custom type to hold references for
@@ -10,8 +10,8 @@ namespace TempMaiSe.Razor;
 /// </summary>
 public sealed class Instrumentation : IDisposable
 {
-    internal const string ActivitySourceName = "TempMaiSe.Blazor";
-    internal const string MeterName = "TempMaiSe.Blazor";
+    internal const string ActivitySourceName = "TempMaiSe";
+    internal const string MeterName = "TempMaiSe";
     private readonly Meter _meter;
 
     public Instrumentation()
