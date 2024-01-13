@@ -5,7 +5,7 @@ namespace TempMaiSe.Models;
 
 public class MailingContext(DbContextOptions<MailingContext> options) : IdentityDbContext(options)
 {
-    public DbSet<Template> Templates { get; set; }
+    public virtual DbSet<Template> Templates { get; set; }
 
     protected override void OnModelCreating(ModelBuilder builder)
     {

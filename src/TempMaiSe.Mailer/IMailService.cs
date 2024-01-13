@@ -24,5 +24,5 @@ public interface IMailService
     /// - NotFound: The template with the specified ID was not found.
     /// - List&lt;ValidationError&gt;: A list of validation errors if the email data is invalid.
     /// </returns>
-    Task<OneOf<SendResponse, NotFound, List<ValidationError>>> SendMailAsync(int id, Stream data, CancellationToken cancellationToken);
+    Task<OneOf<SendResponse, NotFound, List<ValidationError>>> SendMailAsync(int id, Stream data, CancellationToken cancellationToken = default);
 }

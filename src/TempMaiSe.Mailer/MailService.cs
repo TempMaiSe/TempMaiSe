@@ -19,7 +19,7 @@ public class MailService : IMailService
 {
     private readonly IFluentEmail _mailer;
 
-    private readonly Instrumentation _instrumentation;
+    private readonly IMailingInstrumentation _instrumentation;
 
     private readonly MailingContext _mailingContext;
 
@@ -33,7 +33,7 @@ public class MailService : IMailService
 
     public MailService(
         IFluentEmail mailer,
-        Instrumentation instrumentation,
+        IMailingInstrumentation instrumentation,
         MailingContext mailingContext,
         DataParser dataParser,
         FluidParser fluidParser,
@@ -50,7 +50,7 @@ public class MailService : IMailService
     }
 
     /// <inheritdoc/>
-    public async Task<OneOf<SendResponse, NotFound, List<ValidationError>>> SendMailAsync(int id, Stream data, CancellationToken cancellationToken)
+    public async Task<OneOf<SendResponse, NotFound, List<ValidationError>>> SendMailAsync(int id, Stream data, CancellationToken cancellationToken = default)
     {
         using Activity? activity = _instrumentation.ActivitySource.StartActivity("SendMail")!;
         activity?.AddTag("TemplateId", id);

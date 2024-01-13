@@ -8,15 +8,17 @@ namespace TempMaiSe.OpenTelemetry;
 /// ActivitySource and Instruments. This avoids possible type collisions
 /// with other components in the DI container.
 /// </summary>
-public sealed class Instrumentation : IDisposable
+public sealed class MailingInstrumentation : IMailingInstrumentation, IDisposable
 {
     internal const string ActivitySourceName = "TempMaiSe";
+
     internal const string MeterName = "TempMaiSe";
+
     private readonly Meter _meter;
 
-    public Instrumentation()
+    public MailingInstrumentation()
     {
-        string? version = typeof(Instrumentation).Assembly.GetName().Version?.ToString();
+        string? version = typeof(MailingInstrumentation).Assembly.GetName().Version?.ToString();
         ActivitySource = new ActivitySource(ActivitySourceName, version);
         _meter = new Meter(MeterName, version);
         MailsSent = _meter.CreateCounter<long>("mail.sent.count", "E-Mails sent");

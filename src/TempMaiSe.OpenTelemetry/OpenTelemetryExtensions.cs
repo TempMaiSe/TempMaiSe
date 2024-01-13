@@ -53,7 +53,7 @@ public static class OpenTelemetryExtensions
 
         // Create a service to expose ActivitySource, and Metric Instruments
         // for manual instrumentation
-        appBuilder.Services.AddSingleton<Instrumentation>();
+        appBuilder.Services.AddSingleton<IMailingInstrumentation, MailingInstrumentation>();
 
         // Configure OpenTelemetry tracing & metrics with auto-start using the
         // AddOpenTelemetry extension from OpenTelemetry.Extensions.Hosting.
@@ -65,7 +65,7 @@ public static class OpenTelemetryExtensions
 
                 // Ensure the TracerProvider subscribes to any custom ActivitySources.
                 builder
-                    .AddSource(Instrumentation.ActivitySourceName)
+                    .AddSource(MailingInstrumentation.ActivitySourceName)
                     .SetSampler(new AlwaysOnSampler())
                     .AddHttpClientInstrumentation()
                     .AddAspNetCoreInstrumentation();
@@ -104,7 +104,7 @@ public static class OpenTelemetryExtensions
 
                 // Ensure the MeterProvider subscribes to any custom Meters.
                 builder
-                    .AddMeter(Instrumentation.MeterName)
+                    .AddMeter(MailingInstrumentation.MeterName)
                     //.SetExemplarFilter(new TraceBasedExemplarFilter())
                     //.AddRuntimeInstrumentation()
                     .AddHttpClientInstrumentation()
