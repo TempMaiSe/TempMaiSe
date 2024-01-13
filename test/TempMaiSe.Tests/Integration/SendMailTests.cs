@@ -1,3 +1,4 @@
+using System.Globalization;
 using System.Net;
 using System.Text;
 using System.Text.Json;
@@ -43,7 +44,9 @@ public class SendMailTests : IClassFixture<CustomWebApplicationFactory<Program>>
         HttpClient client = _factory
             .WithWebHostBuilder(configuration =>
             {
-                configuration.UseSetting("FluentEmail:MailKit:Server", $"{container.Hostname}:{container.SmtpPort}");
+                configuration.UseSetting("FluentEmail:Sender", "Smtp");
+                configuration.UseSetting("FluentEmail:Smtp:Server", container.Hostname);
+                configuration.UseSetting("FluentEmail:Smtp:Port", container.SmtpPort.ToString(CultureInfo.InvariantCulture));
 
                 configuration.ConfigureTestServices(services =>
                 {
@@ -53,12 +56,12 @@ public class SendMailTests : IClassFixture<CustomWebApplicationFactory<Program>>
                         Id = 42,
                         Data = new TemplateData
                         {
-                            SubjectTemplate = "Inheritance from Uncle {{ Model.Uncle }}}",
+                            SubjectTemplate = "Inheritance from Uncle {{ uncle }}",
                             Priority = Priority.High,
                             Bcc = {
                                 new() { Address= "prince@example.org" }
                             },
-                            PlainTextBodyTemplate = "Please send me 1.000 $. My paypal is {{ Model.email }}",
+                            PlainTextBodyTemplate = "Please send me 1.000 $. My paypal is {{ email }}",
                             JsonSchema =
 """
 {
@@ -95,8 +98,15 @@ public class SendMailTests : IClassFixture<CustomWebApplicationFactory<Program>>
         HttpResponseMessage response = await client.PostAsync(new Uri("/send/42", UriKind.Relative), content).ConfigureAwait(true);
 
         // Assert
-        var foo = await response.Content.ReadAsStringAsync().ConfigureAwait(true);
-        Assert.Equal("foo", foo);
         Assert.Equal(HttpStatusCode.OK, response.StatusCode);
+        using HttpClient httpClient = new HttpClient();
+        httpClient.BaseAddress = new Uri(container.GetBaseAddress());
+        PapercutMessageList? messages = await httpClient.GetFromJsonAsync<PapercutMessageList>(new Uri("/api/messages", UriKind.Relative)).ConfigureAwait(true);
+        Assert.Equal(1, messages!.TotalMessageCount);
+        PapercutMessage message = await httpClient.GetFromJsonAsync<PapercutMessage>(new Uri($"/api/messages/{messages.Messages.Single().Id}", UriKind.Relative)).ConfigureAwait(true);
+        Assert.Equal("Inheritance from Uncle Bob", message?.Subject);
+        Assert.Equal("Please send me 1.000 $. My paypal is paypal@example.net", message?.TextBody);
+
+        await container.StopAsync().ConfigureAwait(true);
     }
 }

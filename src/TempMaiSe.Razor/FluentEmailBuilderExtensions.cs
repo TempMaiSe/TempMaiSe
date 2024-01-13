@@ -5,12 +5,13 @@ namespace TempMaiSe.Razor;
 
 public static class FluentEmailBuilderExtensions
 {
+    private const string Smtp = nameof(Smtp);
     private const string MailKit = nameof(MailKit);
     private const string MailGun = nameof(MailGun);
     private const string Mailtrap = nameof(Mailtrap);
     private const string SendGrid = nameof(SendGrid);
 
-    private static readonly HashSet<string> s_supportedSenders = new(4) { MailKit, MailGun, Mailtrap, SendGrid };
+    private static readonly HashSet<string> s_supportedSenders = [ Smtp, MailKit, MailGun, Mailtrap, SendGrid ];
 
     public static FluentEmailServicesBuilder AddFluentEmail(this IServiceCollection services, ConfigurationManager config)
     {
@@ -37,6 +38,12 @@ public static class FluentEmailBuilderExtensions
 
         switch (sender)
         {
+            case Smtp:
+                IConfigurationSection smtpConfigSection = fluentEmailConfigSection.GetRequiredSection(Smtp);
+                string host = smtpConfigSection.GetValue("Server", "example.org")!;
+                int port = smtpConfigSection.GetValue("Port", 21)!;
+                builder = builder.AddSmtpSender(host, port);
+                break;
             case MailKit:
                 SmtpClientOptions mailKitOptions = fluentEmailConfigSection.GetRequiredSection(MailKit).Get<SmtpClientOptions>()
                     ?? throw new InvalidOperationException($"Sender '{sender}' requires a valid config section.");
