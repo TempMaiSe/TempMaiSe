@@ -1,11 +1,11 @@
 ﻿using System.Text;
-using FluentEmail.Core;
 using Newtonsoft.Json.Schema;
 using TempMaiSe.Mailer;
 using TempMaiSe.Models;
 
 namespace TempMaiSe.Tests;
 
+[Trait("Category", "Unit")]
 public class DataParserTests
 {
     private readonly DataParser _parser = new();

@@ -15,6 +15,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace TempMaiSe.Tests;
 
+[Trait("Category", "Unit")]
 public class MailServiceTests
 {
     [Fact]

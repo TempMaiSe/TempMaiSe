@@ -4,6 +4,7 @@ using TempMaiSe.Models;
 
 namespace TempMaiSe.Tests;
 
+[Trait("Category", "Unit")]
 public class MailInformationToMailHeadersMapperTests
 {
     private readonly MailInformationToMailHeadersMapper _mapper = new();

@@ -34,7 +34,7 @@ builder.Services.AddSingleton<DataParser>();
 builder.Services.AddMailingContext(config);
 builder.Services.AddDatabaseDeveloperPageExceptionFilter();
 
-builder.Services.AddSingleton<IMailService, MailService>();
+builder.Services.AddScoped<IMailService, MailService>();
 
 builder.Services.AddDefaultIdentity<IdentityUser>(options => options.SignIn.RequireConfirmedAccount = true)
     .AddEntityFrameworkStores<MailingContext>();
@@ -67,7 +67,7 @@ app.UseAuthorization();
 
 app.MapRazorPages();
 
-app.MapPost("/send/{id}", async (int id, Stream data, MailService mailService, CancellationToken cancellationToken) =>
+app.MapPost("/send/{id}", async (int id, Stream data, IMailService mailService, CancellationToken cancellationToken) =>
 {
     OneOf<FluentEmail.Core.Models.SendResponse, NotFound, List<ValidationError>> result = await mailService.SendMailAsync(id, data, cancellationToken).ConfigureAwait(false);
 
@@ -79,3 +79,5 @@ app.MapPost("/send/{id}", async (int id, Stream data, MailService mailService, C
 });
 
 app.Run();
+
+public partial class Program { }
