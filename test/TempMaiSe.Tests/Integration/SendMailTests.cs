@@ -84,7 +84,7 @@ public class SendMailTests : IClassFixture<CustomWebApplicationFactory<Program>>
         {
             From = "government@example.org",
             ReplyTo = new[] { "lawyer@example.com" },
-            To = new[] { "please-scam-me@examle.org" },
+            To = new[] { "please-scam-me@example.com" },
             Priority = Priority.Normal,
             Data = new Dictionary<string, object>()
             {
@@ -98,15 +98,24 @@ public class SendMailTests : IClassFixture<CustomWebApplicationFactory<Program>>
         HttpResponseMessage response = await client.PostAsync(new Uri("/send/42", UriKind.Relative), content).ConfigureAwait(true);
 
         // Assert
-        Assert.Equal(HttpStatusCode.OK, response.StatusCode);
+        Assert.Equal(HttpStatusCode.OK, response.StatusCode);        
         using HttpClient httpClient = new HttpClient();
         httpClient.BaseAddress = new Uri(container.GetBaseAddress());
         PapercutMessageList? messages = await httpClient.GetFromJsonAsync<PapercutMessageList>(new Uri("/api/messages", UriKind.Relative)).ConfigureAwait(true);
         Assert.Equal(1, messages!.TotalMessageCount);
-        PapercutMessage message = await httpClient.GetFromJsonAsync<PapercutMessage>(new Uri($"/api/messages/{messages.Messages.Single().Id}", UriKind.Relative)).ConfigureAwait(true);
-        Assert.Equal("Inheritance from Uncle Bob", message?.Subject);
-        Assert.Equal("Please send me 1.000 $. My paypal is paypal@example.net", message?.TextBody);
+        PapercutMessage? message = await httpClient.GetFromJsonAsync<PapercutMessage>(new Uri($"/api/messages/{messages.Messages.Single().Id}", UriKind.Relative)).ConfigureAwait(true);
+        Assert.NotNull(message);
+        Assert.Equal("Inheritance from Uncle Bob", message.Subject);
+        Assert.Equal("Please send me 1.000 $. My paypal is paypal@example.net", message.TextBody);
+        Assert.Null(message.HtmlBody);
 
-        await container.StopAsync().ConfigureAwait(true);
+        Assert.NotNull(message.From);
+        Assert.Contains(message.From, address => address.Address == "government@example.org");
+
+        Assert.NotNull(message.To);
+        Assert.Contains(message.To, address => address.Address == "please-scam-me@example.com");
+
+        Assert.NotNull(message.Bcc);
+        Assert.Contains(message.Bcc, address => address.Address == "prince@example.org");
     }
 }
