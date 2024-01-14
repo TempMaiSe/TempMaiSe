@@ -69,12 +69,22 @@ app.MapRazorPages();
 
 app.MapPost("/send/{id}", async (int id, Stream data, IMailService mailService, CancellationToken cancellationToken) =>
 {
+    static IDictionary<string, string[]> ConvertValidationErrorsToValidationProblem(List<ValidationError> validationErrors)
+    {
+        return validationErrors
+            .GroupBy(error => error.Path)
+            .ToDictionary(
+                group => group.Key,
+                group => group.Select(error => error.Message).ToArray()
+            );
+    }
+
     OneOf<FluentEmail.Core.Models.SendResponse, NotFound, List<ValidationError>> result = await mailService.SendMailAsync(id, data, cancellationToken).ConfigureAwait(false);
 
     return result.Match(
         sent => Results.Ok(sent),
         notFound => Results.NotFound(),
-        validationErrors => Results.BadRequest(validationErrors)
+        validationErrors => Results.ValidationProblem(ConvertValidationErrorsToValidationProblem(validationErrors))
     );
 });
 

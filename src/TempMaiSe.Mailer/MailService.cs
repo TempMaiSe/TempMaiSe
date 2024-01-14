@@ -4,6 +4,8 @@ using FluentEmail.Core;
 using FluentEmail.Core.Models;
 
 using System.Diagnostics;
+using System.Text.Encodings.Web;
+
 using TempMaiSe.Models;
 using TempMaiSe.OpenTelemetry;
 
@@ -77,17 +79,32 @@ public class MailService : IMailService
         mail = _mailHeaderMapper.Map(templateData, mail);
         mail = _mailInfoMapper.Map(mailInformation, mail);
 
-        if (string.IsNullOrWhiteSpace(templateData.HtmlBodyTemplate))
+        string? plainTextBody = null;
+        if (!string.IsNullOrWhiteSpace(templateData.PlainTextBodyTemplate))
         {
             IFluidTemplate plainTextFluidTemplate = _fluidParser.Parse(templateData.PlainTextBodyTemplate);
-            string plainTextBody = await plainTextFluidTemplate.RenderAsync(templateContext).ConfigureAwait(false);
-            mail = mail.Body(plainTextBody, false);
+            plainTextBody = await plainTextFluidTemplate.RenderAsync(templateContext).ConfigureAwait(false);
         }
-        else
+
+        string? htmlBody = null;
+        if (!string.IsNullOrWhiteSpace(templateData.HtmlBodyTemplate))
         {
             IFluidTemplate htmlFluidTemplate = _fluidParser.Parse(templateData.HtmlBodyTemplate);
-            string htmlBody = await htmlFluidTemplate.RenderAsync(templateContext).ConfigureAwait(false);
+            htmlBody = await htmlFluidTemplate.RenderAsync(templateContext, HtmlEncoder.Default).ConfigureAwait(false);
+        }
+
+        if (!string.IsNullOrWhiteSpace(htmlBody) && !string.IsNullOrWhiteSpace(plainTextBody))
+        {
+            mail = mail.Body(htmlBody, true)
+                .PlaintextAlternativeBody(plainTextBody);
+        }
+        else if (!string.IsNullOrWhiteSpace(htmlBody))
+        {
             mail = mail.Body(htmlBody, true);
+        }
+        else if (!string.IsNullOrWhiteSpace(plainTextBody))
+        {
+            mail = mail.Body(plainTextBody);
         }
 
         SendResponse resp = await mail.SendAsync(cancellationToken).ConfigureAwait(false);
