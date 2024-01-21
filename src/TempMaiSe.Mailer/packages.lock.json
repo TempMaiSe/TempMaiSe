@@ -11,54 +11,6 @@
           "Microsoft.Extensions.DependencyInjection.Abstractions": "5.0.0"
         }
       },
-      "FluentEmail.Mailgun": {
-        "type": "Direct",
-        "requested": "[3.0.2, )",
-        "resolved": "3.0.2",
-        "contentHash": "9nC9jhlNWQgqhWFpi1h4KYDqP26adAMrGxulP/jVlDa1jy0lyk5Xanu+apXR3YwfVEkXW1QNzlSEjTu94KJ+Ew==",
-        "dependencies": {
-          "FluentEmail.Core": "3.0.2",
-          "Newtonsoft.Json": "12.0.3"
-        }
-      },
-      "FluentEmail.MailKit": {
-        "type": "Direct",
-        "requested": "[3.0.2, )",
-        "resolved": "3.0.2",
-        "contentHash": "RkaHMbYL+tU3Eaj2JjOOGo94/mu2LbCRVCwtGEnQdQAzYWJqxST6KSXYVl816gHTB7jnAS1JDDuXY2jvwMHsug==",
-        "dependencies": {
-          "FluentEmail.Core": "3.0.2",
-          "MailKit": "2.10.1"
-        }
-      },
-      "FluentEmail.Mailtrap": {
-        "type": "Direct",
-        "requested": "[2.7.0, )",
-        "resolved": "2.7.0",
-        "contentHash": "ak0TgLO6kWno9Whmmo/poklmQ0XRH4uomqQh2Jj1QMWvpYhwAiS7F0zo0j1SheQv37/AXCfFrJ3l6BenYmYPcQ==",
-        "dependencies": {
-          "FluentEmail.Smtp": "2.7.1"
-        }
-      },
-      "FluentEmail.SendGrid": {
-        "type": "Direct",
-        "requested": "[3.0.2, )",
-        "resolved": "3.0.2",
-        "contentHash": "R2cbz3C2s/bxle1X5aHzz6/vpI1gflD7j78I78wFETUq7wrT4hIhTeOABK7rr7Lca3irnGdXCx2S5jgXiPiWcw==",
-        "dependencies": {
-          "FluentEmail.Core": "3.0.2",
-          "Sendgrid": "9.22.0"
-        }
-      },
-      "FluentEmail.Smtp": {
-        "type": "Direct",
-        "requested": "[3.0.2, )",
-        "resolved": "3.0.2",
-        "contentHash": "Y5pZKS/mXSl7D5WJWecvfo1kpIMDc6U0VRU6wRbE9wEv2IqMH3cQXa/97Pwi+m31COepIqc6dMhGMtAJ2Qh7rw==",
-        "dependencies": {
-          "FluentEmail.Core": "3.0.2"
-        }
-      },
       "Fluid.Core": {
         "type": "Direct",
         "requested": "[2.5.0, )",
@@ -119,14 +71,6 @@
         "contentHash": "di9qzpdx525IxumZdYmu6sG2y/gXJyYeZ1ruFUzB9BJ1nj4kU1/dTAioNCMt1VLRvNVDqh8S8B1oBdKhHJ4xRg==",
         "dependencies": {
           "Grpc.Core.Api": "2.52.0"
-        }
-      },
-      "MailKit": {
-        "type": "Transitive",
-        "resolved": "2.10.1",
-        "contentHash": "CG0utzggjYutAzlOnuY+2yS2HGL4WFTbAYtU73vBSGdHKMXNRnVy9onITGqz1Rmmq5Q63de/ZJBXzNyNPCx9Mw==",
-        "dependencies": {
-          "MimeKit": "2.10.1"
         }
       },
       "Microsoft.Extensions.Configuration": {
@@ -256,23 +200,6 @@
         "resolved": "8.0.0",
         "contentHash": "bXJEZrW9ny8vjMF1JV253WeLhpEVzFo1lyaZu1vQ4ZxWUlVvknZ/+ftFgVheLubb4eZPSwwxBeqS1JkCOjxd8g=="
       },
-      "Microsoft.NETCore.Platforms": {
-        "type": "Transitive",
-        "resolved": "2.0.0",
-        "contentHash": "VdLJOCXhZaEMY7Hm2GKiULmn7IEPFE4XC5LPSfBVCUIA8YLZVh846gtfBJalsPQF2PlzdD7ecX7DZEulJ402ZQ=="
-      },
-      "MimeKit": {
-        "type": "Transitive",
-        "resolved": "2.10.1",
-        "contentHash": "rBpIsOdgpMvcNraBDgQSSNCk/MVxxFv7VX2Qq1WnFJ4AnvjIU+r12gaKs6r+SRvCEZWvC5CQlKHuoQbIbO/brA==",
-        "dependencies": {
-          "Portable.BouncyCastle": "1.8.8",
-          "System.Buffers": "4.5.1",
-          "System.Reflection.TypeExtensions": "4.4.0",
-          "System.Security.Cryptography.Pkcs": "4.7.0",
-          "System.Text.Encoding.CodePages": "4.4.0"
-        }
-      },
       "OpenTelemetry": {
         "type": "Transitive",
         "resolved": "1.7.0",
@@ -305,30 +232,6 @@
         "resolved": "0.0.24",
         "contentHash": "jdhTa3NK1Vy8CdiWitfIPfQfmg9KvEdrVSYU6wquPQxF4FfGGtuTZyeduUDWDwU51ql6X9o/mDpHqHQQUy5k6w=="
       },
-      "Portable.BouncyCastle": {
-        "type": "Transitive",
-        "resolved": "1.8.8",
-        "contentHash": "1rxdf8NfyAxLlqIEciCl/yNhmz1YiLkmp6rrF8p3/NVmyHHzPWLx8djtDvSAwhPLg64BXvsRcM3+5bP1HAUdYg=="
-      },
-      "SendGrid": {
-        "type": "Transitive",
-        "resolved": "9.22.0",
-        "contentHash": "5vXkfOqPhi6W5/tEmRcTVJakT69SXiCGqVRERYF4ZAtJ4alylzlOqin6w8Xrog0Brf3RL+4BKXI+CwKbFLtteA==",
-        "dependencies": {
-          "Newtonsoft.Json": "9.0.1",
-          "starkbank-ecdsa": "[1.2.0, 2.0.0)"
-        }
-      },
-      "starkbank-ecdsa": {
-        "type": "Transitive",
-        "resolved": "1.2.0",
-        "contentHash": "hP53QPYOOEIR44EK9phz+DYliM6DEieDZxpb8GZzE+++qyrWqUscKcyHCC6L9yu/ehllYtqxtT4qrjWDsuQlUQ=="
-      },
-      "System.Buffers": {
-        "type": "Transitive",
-        "resolved": "4.5.1",
-        "contentHash": "Rw7ijyl1qqRS0YQD/WycNst8hUUMgrMH4FCn1nNm27M4VxchZ1js3fVjQaANHO5f3sN4isvP4a+Met9Y4YomAg=="
-      },
       "System.Diagnostics.DiagnosticSource": {
         "type": "Transitive",
         "resolved": "8.0.0",
@@ -338,32 +241,6 @@
         "type": "Transitive",
         "resolved": "4.5.3",
         "contentHash": "3oDzvc/zzetpTKWMShs1AADwZjQ/36HnsufHRPcOjyRAAMLDlu2iD33MBI2opxnezcVUtXyqDXXjoFMOU9c7SA=="
-      },
-      "System.Reflection.TypeExtensions": {
-        "type": "Transitive",
-        "resolved": "4.4.0",
-        "contentHash": "dkmh/ySlwnXJp/1qYP9uyKkCK1CXR/REFzl7abHcArxBcV91mY2CgrrzSRA5Z/X4MevJWwXsklGRdR3A7K9zbg=="
-      },
-      "System.Security.Cryptography.Cng": {
-        "type": "Transitive",
-        "resolved": "4.7.0",
-        "contentHash": "4WQjFuypWtxb/bl/YwEE7LYGn4fgpsikFfBU6xwEm4YBYiRAhXAEJ62lILBu2JJSFbClIAntFTGfDZafn8yZTg=="
-      },
-      "System.Security.Cryptography.Pkcs": {
-        "type": "Transitive",
-        "resolved": "4.7.0",
-        "contentHash": "0Srzh6YlhjuMxaqMyeCCdZs22cucaUAG6SKDd3gNHBJmre0VZ71ekzWu9rvLD4YXPetyNdPvV6Qst+8C++9v3Q==",
-        "dependencies": {
-          "System.Security.Cryptography.Cng": "4.7.0"
-        }
-      },
-      "System.Text.Encoding.CodePages": {
-        "type": "Transitive",
-        "resolved": "4.4.0",
-        "contentHash": "6JX7ZdaceBiLKLkYt8zJcp4xTJd1uYyXXEkPw6mnlUIjh1gZPIVKPtRXPmY5kLf6DwZmf5YLwR3QUrRonl7l0A==",
-        "dependencies": {
-          "Microsoft.NETCore.Platforms": "2.0.0"
-        }
       },
       "System.Text.Encodings.Web": {
         "type": "Transitive",

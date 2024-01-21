@@ -11,8 +11,6 @@ using TempMaiSe.OpenTelemetry;
 using OneOf;
 using OneOf.Types;
 
-using Microsoft.EntityFrameworkCore;
-
 namespace TempMaiSe.Tests;
 
 [Trait("Category", "Unit")]

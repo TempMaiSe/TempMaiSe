@@ -3,11 +3,6 @@
 
   <ItemGroup>
     <PackageReference Include="FluentEmail.Core" />
-    <PackageReference Include="FluentEmail.Smtp" />
-    <PackageReference Include="FluentEmail.Mailgun" />
-    <PackageReference Include="FluentEmail.SendGrid" />
-    <PackageReference Include="FluentEmail.MailKit" />
-    <PackageReference Include="FluentEmail.Mailtrap" />
   </ItemGroup>
 
   <ItemGroup>
