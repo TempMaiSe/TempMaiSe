@@ -29,7 +29,7 @@ builder.Services.AddFluentEmail(config);
 builder.Services.AddSingleton<ITemplateToMailHeadersMapper, TemplateToMailHeadersMapper>();
 builder.Services.AddSingleton<IMailInformationToMailHeadersMapper, MailInformationToMailHeadersMapper>();
 
-builder.Services.AddSingleton<DataParser>();
+builder.Services.AddSingleton<IDataParser, DataParser>();
 
 builder.Services.AddMailingContext(config);
 builder.Services.AddDatabaseDeveloperPageExceptionFilter();

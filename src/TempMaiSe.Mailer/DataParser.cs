@@ -6,10 +6,11 @@ using OneOf;
 
 namespace TempMaiSe.Mailer;
 
-public class DataParser
+public class DataParser : IDataParser
 {
     private static readonly JSchema s_templateSchema = new JSchemaGenerator().Generate(typeof(MailInformation));
 
+    /// <inheritdoc />
     public async Task<OneOf<MailInformation, List<ValidationError>>> ParseAsync(string jsonSchema, Stream data, CancellationToken cancellationToken = default)
     {
         ArgumentException.ThrowIfNullOrWhiteSpace(jsonSchema);

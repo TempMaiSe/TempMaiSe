@@ -25,7 +25,7 @@ public class MailService : IMailService
 
     private readonly MailingContext _mailingContext;
 
-    private readonly DataParser _dataParser;
+    private readonly IDataParser _dataParser;
 
     private readonly FluidParser _fluidParser;
 
@@ -37,7 +37,7 @@ public class MailService : IMailService
         IFluentEmail mailer,
         IMailingInstrumentation instrumentation,
         MailingContext mailingContext,
-        DataParser dataParser,
+        IDataParser dataParser,
         FluidParser fluidParser,
         ITemplateToMailHeadersMapper mailHeaderMapper,
         IMailInformationToMailHeadersMapper mailInfoMapper)
