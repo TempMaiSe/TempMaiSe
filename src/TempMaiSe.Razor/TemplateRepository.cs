@@ -1,10 +1,12 @@
-namespace TempMaiSe.Models;
+namespace TempMaiSe.Razor;
+
+using TempMaiSe.Models;
 
 public class TemplateRepository : ITemplateRepository
 {
-    private readonly MailingContext _context;
+    private readonly TemplateContext _context;
 
-    public TemplateRepository(MailingContext context)
+    public TemplateRepository(TemplateContext context)
     {
         ArgumentNullException.ThrowIfNull(context);
         _context = context;

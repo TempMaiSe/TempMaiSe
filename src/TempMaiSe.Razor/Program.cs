@@ -31,17 +31,17 @@ builder.Services.AddSingleton<IMailInformationToMailHeadersMapper, MailInformati
 
 builder.Services.AddSingleton<IDataParser, DataParser>();
 
-builder.Services.AddMailingContext(config);
+builder.Services.AddTemplateContext(config);
 builder.Services.AddDatabaseDeveloperPageExceptionFilter();
 
 builder.Services.AddScoped<ITemplateRepository, TemplateRepository>();
 builder.Services.AddScoped<IMailService, MailService>();
 
 builder.Services.AddDefaultIdentity<IdentityUser>(options => options.SignIn.RequireConfirmedAccount = true)
-    .AddEntityFrameworkStores<MailingContext>();
+    .AddEntityFrameworkStores<TempMaiSe.Razor.TemplateContext>();
 
 builder.Services.AddHealthChecks()
-    .AddDbContextCheck<MailingContext>();
+    .AddDbContextCheck<TempMaiSe.Razor.TemplateContext>();
 
 builder.Services.AddRazorPages();
 

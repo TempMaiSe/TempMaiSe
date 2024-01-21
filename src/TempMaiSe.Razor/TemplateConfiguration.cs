@@ -1,7 +1,9 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
-namespace TempMaiSe.Models;
+using TempMaiSe.Models;
+
+namespace TempMaiSe.Razor;
 
 public class TemplateConfiguration : IEntityTypeConfiguration<Template>
 {

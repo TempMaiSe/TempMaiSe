@@ -1,9 +1,11 @@
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 
-namespace TempMaiSe.Models;
+using TempMaiSe.Models;
 
-public class MailingContext(DbContextOptions<MailingContext> options) : IdentityDbContext(options)
+namespace TempMaiSe.Razor;
+
+public class TemplateContext(DbContextOptions<TemplateContext> options) : IdentityDbContext(options)
 {
     public virtual DbSet<Template> Templates { get; set; }
 

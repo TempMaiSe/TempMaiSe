@@ -5,7 +5,7 @@ using TempMaiSe.Models;
 
 namespace TempMaiSe.Razor.Pages.Templates;
 
-public class CreateModel(MailingContext context) : PageModel
+public class CreateModel(TemplateContext context) : PageModel
 {
     public IActionResult OnGet()
     {

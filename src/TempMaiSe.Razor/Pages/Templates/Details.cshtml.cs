@@ -5,7 +5,7 @@ using TempMaiSe.Models;
 
 namespace TempMaiSe.Razor.Pages.Templates;
 
-public class DetailsModel(MailingContext context) : PageModel
+public class DetailsModel(TemplateContext context) : PageModel
 {
     public Template Template { get; set; } = default!;
 

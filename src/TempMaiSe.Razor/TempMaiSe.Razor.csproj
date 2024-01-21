@@ -27,10 +27,9 @@
     <PackageReference Include="Microsoft.EntityFrameworkCore.Design" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.Tools" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.InMemory" />
-    <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" />
-    <PackageReference Include="Microsoft.EntityFrameworkCore.Sqlite" />
     <PackageReference Include="Microsoft.AspNetCore.Diagnostics.EntityFrameworkCore" />
     <PackageReference Include="Microsoft.Extensions.Diagnostics.HealthChecks.EntityFrameworkCore" />
+    <PackageReference Include="Microsoft.AspNetCore.Identity.EntityFrameworkCore" />
     <PackageReference Include="Microsoft.AspNetCore.Identity.UI" />
     <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" />
   </ItemGroup>
@@ -42,9 +41,6 @@
    <ItemGroup>
      <ProjectReference Include="..\TempMaiSe.Models\TempMaiSe.Models.csproj" />
      <ProjectReference Include="..\TempMaiSe.OpenTelemetry\TempMaiSe.OpenTelemetry.csproj" />
-     <ProjectReference Include="..\TempMaiSe.PostgreSql\TempMaiSe.PostgreSql.csproj" />
-     <ProjectReference Include="..\TempMaiSe.Sqlite\TempMaiSe.Sqlite.csproj" />
-     <ProjectReference Include="..\TempMaiSe.SqlServer\TempMaiSe.SqlServer.csproj" />
      <ProjectReference Include="..\TempMaiSe.Mailer\TempMaiSe.Mailer.csproj" />
    </ItemGroup>
 

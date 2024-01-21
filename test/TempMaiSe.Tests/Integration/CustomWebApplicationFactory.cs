@@ -1,7 +1,8 @@
 using System.Data.Common;
 using Microsoft.AspNetCore.Mvc.Testing;
 using Microsoft.EntityFrameworkCore;
-using TempMaiSe.Models;
+
+using TempMaiSe.Razor;
 
 namespace TempMaiSe.Tests.Integration;
 
@@ -16,7 +17,7 @@ public class CustomWebApplicationFactory<TProgram>
         {
             ServiceDescriptor? dbContextDescriptor = services.SingleOrDefault(
                 d => d.ServiceType ==
-                    typeof(DbContextOptions<MailingContext>));
+                    typeof(DbContextOptions<TemplateContext>));
 
             if (dbContextDescriptor is not null)
             {
@@ -32,7 +33,7 @@ public class CustomWebApplicationFactory<TProgram>
                 services.Remove(dbConnectionDescriptor);
             }
 
-            services.AddDbContext<MailingContext>((container, options) =>
+            services.AddDbContext<TemplateContext>((container, options) =>
             {
                options.UseInMemoryDatabase(nameof(TempMaiSe));
             });

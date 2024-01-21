@@ -6,7 +6,7 @@ using TempMaiSe.Models;
 
 namespace TempMaiSe.Razor.Pages.Templates;
 
-public class EditModel(MailingContext context) : PageModel
+public class EditModel(TemplateContext context) : PageModel
 {
     [BindProperty]
     public Template Template { get; set; } = default!;

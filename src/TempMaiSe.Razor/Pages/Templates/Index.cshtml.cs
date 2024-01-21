@@ -5,7 +5,7 @@ using TempMaiSe.Models;
 
 namespace TempMaiSe.Razor.Pages.Templates;
 
-public class IndexModel(MailingContext context) : PageModel
+public class IndexModel(TemplateContext context) : PageModel
 {
     public IList<Template> Templates { get; private set; } = default!;
 

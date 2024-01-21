@@ -22,9 +22,6 @@ public class MailServiceTests
     public async Task SendMailAsync_TemplateNotFound_ReturnsNotFound()
     {
         // Arrange
-        DbContextOptions<MailingContext> options = new DbContextOptionsBuilder<MailingContext>()
-            .UseInMemoryDatabase(databaseName: nameof(SendMailAsync_TemplateNotFound_ReturnsNotFound))
-            .Options;
         Mock<IFluentEmail> mailer = new();
         Mock<IMailingInstrumentation> instrumentation = GetInstrumentationMock();
         Mock<ITemplateRepository> templateRepository = new();

@@ -5,7 +5,7 @@ using TempMaiSe.Models;
 
 namespace TempMaiSe.Razor.Pages.Templates;
 
-public class DeleteModel(MailingContext context) : PageModel
+public class DeleteModel(TemplateContext context) : PageModel
 {
 
     [BindProperty]

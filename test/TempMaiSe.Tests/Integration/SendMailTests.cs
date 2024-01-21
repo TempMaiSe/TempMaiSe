@@ -2,9 +2,13 @@ using System.Globalization;
 using System.Net;
 using System.Text;
 using System.Text.Json;
+
 using Microsoft.AspNetCore.TestHost;
+
 using TempMaiSe.Mailer;
 using TempMaiSe.Models;
+using TempMaiSe.Razor;
+
 using Testcontainers.Papercut;
 
 namespace TempMaiSe.Tests.Integration;
@@ -50,7 +54,7 @@ public class SendMailTests : IClassFixture<CustomWebApplicationFactory<Program>>
 
                 configuration.ConfigureTestServices(services =>
                 {
-                    using MailingContext context = services.BuildServiceProvider().GetRequiredService<MailingContext>();
+                    using TemplateContext context = services.BuildServiceProvider().GetRequiredService<TemplateContext>();
                     context.Templates.Add(new Template
                     {
                         Id = 42,
@@ -136,7 +140,7 @@ public class SendMailTests : IClassFixture<CustomWebApplicationFactory<Program>>
 
                 configuration.ConfigureTestServices(services =>
                 {
-                    using MailingContext context = services.BuildServiceProvider().GetRequiredService<MailingContext>();
+                    using TemplateContext context = services.BuildServiceProvider().GetRequiredService<TemplateContext>();
                     context.Templates.Add(new Template
                     {
                         Id = 69,
@@ -203,7 +207,7 @@ public class SendMailTests : IClassFixture<CustomWebApplicationFactory<Program>>
 
                 configuration.ConfigureTestServices(services =>
                 {
-                    using MailingContext context = services.BuildServiceProvider().GetRequiredService<MailingContext>();
+                    using TemplateContext context = services.BuildServiceProvider().GetRequiredService<TemplateContext>();
                     context.Templates.Add(new Template
                     {
                         Id = 420,
