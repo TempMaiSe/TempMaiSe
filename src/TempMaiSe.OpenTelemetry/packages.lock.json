@@ -57,7 +57,7 @@
       },
       "OpenTelemetry.Instrumentation.AspNetCore": {
         "type": "Direct",
-        "requested": "[1.7.0-rc.1, )",
+        "requested": "[1.7.0, )",
         "resolved": "1.7.0",
         "contentHash": "K/mjCmuR9zgrL6fMC6sbnX/y6BOJJFI3hp42O+tz8nT/w6sxbfjrLcU+fVwfct3lsnohSKdPfrq6fSrxAF5ezw==",
         "dependencies": {
