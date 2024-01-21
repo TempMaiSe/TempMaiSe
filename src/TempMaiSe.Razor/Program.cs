@@ -34,6 +34,7 @@ builder.Services.AddSingleton<IDataParser, DataParser>();
 builder.Services.AddMailingContext(config);
 builder.Services.AddDatabaseDeveloperPageExceptionFilter();
 
+builder.Services.AddScoped<ITemplateRepository, TemplateRepository>();
 builder.Services.AddScoped<IMailService, MailService>();
 
 builder.Services.AddDefaultIdentity<IdentityUser>(options => options.SignIn.RequireConfirmedAccount = true)

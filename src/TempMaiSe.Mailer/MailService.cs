@@ -23,7 +23,7 @@ public class MailService : IMailService
 
     private readonly IMailingInstrumentation _instrumentation;
 
-    private readonly MailingContext _mailingContext;
+    private readonly ITemplateRepository _templateRepository;
 
     private readonly IDataParser _dataParser;
 
@@ -36,7 +36,7 @@ public class MailService : IMailService
     public MailService(
         IFluentEmail mailer,
         IMailingInstrumentation instrumentation,
-        MailingContext mailingContext,
+        ITemplateRepository templateRepository,
         IDataParser dataParser,
         FluidParser fluidParser,
         ITemplateToMailHeadersMapper mailHeaderMapper,
@@ -44,7 +44,7 @@ public class MailService : IMailService
     {
         _mailer = mailer ?? throw new ArgumentNullException(nameof(mailer));
         _instrumentation = instrumentation ?? throw new ArgumentNullException(nameof(instrumentation));
-        _mailingContext = mailingContext ?? throw new ArgumentNullException(nameof(mailingContext));
+        _templateRepository = templateRepository ?? throw new ArgumentNullException(nameof(templateRepository));
         _dataParser = dataParser ?? throw new ArgumentNullException(nameof(dataParser));
         _fluidParser = fluidParser ?? throw new ArgumentNullException(nameof(fluidParser));
         _mailHeaderMapper = mailHeaderMapper ?? throw new ArgumentNullException(nameof(mailHeaderMapper));
@@ -57,7 +57,7 @@ public class MailService : IMailService
         using Activity? activity = _instrumentation.ActivitySource.StartActivity("SendMail")!;
         activity?.AddTag("TemplateId", id);
 
-        Template? template = await _mailingContext.Templates.FindAsync(new object[] { id }, cancellationToken).ConfigureAwait(false);
+        Template? template = await _templateRepository.GetTemplateAsync(id, cancellationToken).ConfigureAwait(false);
         if (template is null)
         {
             return new NotFound();

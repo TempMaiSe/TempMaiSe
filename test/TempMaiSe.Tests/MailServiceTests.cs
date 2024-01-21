@@ -27,22 +27,21 @@ public class MailServiceTests
             .Options;
         Mock<IFluentEmail> mailer = new();
         Mock<IMailingInstrumentation> instrumentation = GetInstrumentationMock();
-        Mock<MailingContext> mailingContext = new(options);
+        Mock<ITemplateRepository> templateRepository = new();
         Mock<DataParser> dataParser = new();
         Mock<FluidParser> fluidParser = new();
         Mock<ITemplateToMailHeadersMapper> mailHeaderMapper = new();
         Mock<IMailInformationToMailHeadersMapper> mailInfoMapper = new();
-        Mock<DbSet<Template>> templates = new();
-
-        mailingContext.SetupGet(c => c.Templates).Returns(templates.Object);
 
         int templateId = 1;
+        templateRepository.Setup(c => c.GetTemplateAsync(templateId, It.IsAny<CancellationToken>())).Returns(Task.FromResult<Template?>(null));
+
         Stream data = new MemoryStream();
 
         MailService mailService = new(
             mailer.Object,
             instrumentation.Object,
-            mailingContext.Object,
+            templateRepository.Object,
             dataParser.Object,
             fluidParser.Object,
             mailHeaderMapper.Object,
@@ -56,7 +55,7 @@ public class MailServiceTests
         Assert.IsType<NotFound>(result.Value);
 
         // Verify
-        mailingContext.Verify();
+        templateRepository.Verify();
     }
 
     private static Mock<IMailingInstrumentation> GetInstrumentationMock()
