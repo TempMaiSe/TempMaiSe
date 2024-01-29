@@ -3,10 +3,18 @@ name: "CodeQL"
 on:
   workflow_dispatch:
   push:
-    branches: [main]
+    branches:
+      - main
+      - next
+      - beta
+      - "*.x"
   pull_request:
     # The branches below must be a subset of the branches above
-    branches: [main]
+    branches:
+      - main
+      - next
+      - beta
+      - "*.x"
   schedule:
     - cron: "42 2 * * 5"
 
