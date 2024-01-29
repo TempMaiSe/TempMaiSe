@@ -43,7 +43,6 @@
             "@semantic-release/github"
         ],
         "npmPublish": false,
-        "nugetServer": "https://nuget.pkg.github.com/hangy/index.json",
         "projectPath": [
             "src/TempMaiSe.Mailer/TempMaiSe.Mailer.csproj",
             "src/TempMaiSe.Models/TempMaiSe.Models.csproj",

@@ -43,6 +43,6 @@ jobs:
       - name: Release
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          NUGET_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          NUGET_TOKEN: ${{ secrets.NUGET_ORG_API_KEY }}
           CI_COMMIT_SHA: ${{ github.sha }}
         run: npx semantic-release
