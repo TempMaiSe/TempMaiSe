@@ -2,7 +2,7 @@
 <Project Sdk="Microsoft.NET.Sdk">
 
   <ItemGroup>
-    <PackageReference Include="FluentEmail.Core" />
+    <PackageReference Include="jcamp.FluentEmail.Core" />
   </ItemGroup>
 
   <ItemGroup>

@@ -1,12 +1,9 @@
 <Project Sdk="Microsoft.NET.Sdk.Web">
 
   <ItemGroup>
-    <PackageReference Include="FluentEmail.Core" />
-    <PackageReference Include="FluentEmail.Smtp" />
-    <PackageReference Include="FluentEmail.Mailgun" />
-    <PackageReference Include="FluentEmail.SendGrid" />
-    <PackageReference Include="FluentEmail.MailKit" />
-    <PackageReference Include="FluentEmail.Mailtrap" />
+    <PackageReference Include="jcamp.FluentEmail.Core" />
+    <PackageReference Include="jcamp.FluentEmail.MailKit" />
+    <PackageReference Include="jcamp.FluentEmail.Smtp" />
   </ItemGroup>
 
   <ItemGroup>
