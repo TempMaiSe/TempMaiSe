@@ -1,22 +1,22 @@
 using System.Diagnostics;
 using System.Diagnostics.Metrics;
 
-namespace TempMaiSe.OpenTelemetry;
+namespace TempMaiSe.Mailer;
 
 /// <summary>
 /// It is recommended to use a custom type to hold references for
 /// ActivitySource and Instruments. This avoids possible type collisions
 /// with other components in the DI container.
 /// </summary>
-public sealed class MailingInstrumentation : IMailingInstrumentation, IDisposable
+public sealed class MailingInstrumentation : IDisposable
 {
-    internal const string ActivitySourceName = "TempMaiSe";
+    public const string ActivitySourceName = "TempMaiSe";
 
-    internal const string MeterName = "TempMaiSe";
+    public const string MeterName = "TempMaiSe";
 
     private readonly Meter _meter;
 
-    public MailingInstrumentation()
+    private MailingInstrumentation()
     {
         string? version = typeof(MailingInstrumentation).Assembly.GetName().Version?.ToString();
         ActivitySource = new ActivitySource(ActivitySourceName, version);
@@ -24,9 +24,11 @@ public sealed class MailingInstrumentation : IMailingInstrumentation, IDisposabl
         MailsSent = _meter.CreateCounter<long>("mail.sent.count", "E-Mails sent");
     }
 
-    public ActivitySource ActivitySource { get; }
+    internal static MailingInstrumentation Instance { get; } = new();
 
-    public Counter<long> MailsSent { get; }
+    internal ActivitySource ActivitySource { get; }
+
+    internal Counter<long> MailsSent { get; }
 
     public void Dispose()
     {

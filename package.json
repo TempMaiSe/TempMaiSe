@@ -45,8 +45,7 @@
         "npmPublish": false,
         "projectPath": [
             "src/TempMaiSe.Mailer/TempMaiSe.Mailer.csproj",
-            "src/TempMaiSe.Models/TempMaiSe.Models.csproj",
-            "src/TempMaiSe.OpenTelemetry/TempMaiSe.OpenTelemetry.csproj"
+            "src/TempMaiSe.Models/TempMaiSe.Models.csproj"
         ],
         "includeSymbols": true,
         "files": [

@@ -5,7 +5,6 @@ using System.Diagnostics;
 
 using TempMaiSe.Mailer;
 using TempMaiSe.Models;
-using TempMaiSe.OpenTelemetry;
 using TempMaiSe.Samples.Api;
 
 using OneOf;

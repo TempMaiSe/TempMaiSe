@@ -7,7 +7,6 @@ using System.Diagnostics;
 using System.Text.Encodings.Web;
 
 using TempMaiSe.Models;
-using TempMaiSe.OpenTelemetry;
 
 using OneOf;
 using OneOf.Types;
@@ -21,8 +20,6 @@ public class MailService : IMailService
 {
     private readonly IFluentEmail _mailer;
 
-    private readonly IMailingInstrumentation _instrumentation;
-
     private readonly ITemplateRepository _templateRepository;
 
     private readonly IDataParser _dataParser;
@@ -35,7 +32,6 @@ public class MailService : IMailService
 
     public MailService(
         IFluentEmail mailer,
-        IMailingInstrumentation instrumentation,
         ITemplateRepository templateRepository,
         IDataParser dataParser,
         FluidParser fluidParser,
@@ -43,7 +39,6 @@ public class MailService : IMailService
         IMailInformationToMailHeadersMapper mailInfoMapper)
     {
         _mailer = mailer ?? throw new ArgumentNullException(nameof(mailer));
-        _instrumentation = instrumentation ?? throw new ArgumentNullException(nameof(instrumentation));
         _templateRepository = templateRepository ?? throw new ArgumentNullException(nameof(templateRepository));
         _dataParser = dataParser ?? throw new ArgumentNullException(nameof(dataParser));
         _fluidParser = fluidParser ?? throw new ArgumentNullException(nameof(fluidParser));
@@ -54,7 +49,7 @@ public class MailService : IMailService
     /// <inheritdoc/>
     public async Task<OneOf<SendResponse, NotFound, List<ValidationError>>> SendMailAsync(int id, Stream data, CancellationToken cancellationToken = default)
     {
-        using Activity? activity = _instrumentation.ActivitySource.StartActivity("SendMail")!;
+        using Activity? activity = MailingInstrumentation.Instance?.ActivitySource.StartActivity("SendMail")!;
         activity?.AddTag("TemplateId", id);
 
         Template? template = await _templateRepository.GetTemplateAsync(id, cancellationToken).ConfigureAwait(false);
@@ -108,6 +103,7 @@ public class MailService : IMailService
         }
 
         SendResponse resp = await mail.SendAsync(cancellationToken).ConfigureAwait(false);
+        MailingInstrumentation.Instance?.MailsSent.Add(1);
         return resp;
     }
 }

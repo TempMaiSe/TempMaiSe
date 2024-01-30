@@ -3,10 +3,8 @@ using Newtonsoft.Json.Schema;
 using FluentEmail.Core;
 using FluentEmail.Core.Models;
 
-using System.Diagnostics;
 using TempMaiSe.Mailer;
 using TempMaiSe.Models;
-using TempMaiSe.OpenTelemetry;
 
 using OneOf;
 using OneOf.Types;
@@ -21,7 +19,6 @@ public class MailServiceTests
     {
         // Arrange
         Mock<IFluentEmail> mailer = new();
-        Mock<IMailingInstrumentation> instrumentation = GetInstrumentationMock();
         Mock<ITemplateRepository> templateRepository = new();
         Mock<DataParser> dataParser = new();
         Mock<FluidParser> fluidParser = new();
@@ -35,7 +32,6 @@ public class MailServiceTests
 
         MailService mailService = new(
             mailer.Object,
-            instrumentation.Object,
             templateRepository.Object,
             dataParser.Object,
             fluidParser.Object,
@@ -51,15 +47,5 @@ public class MailServiceTests
 
         // Verify
         templateRepository.Verify();
-    }
-
-    private static Mock<IMailingInstrumentation> GetInstrumentationMock()
-    {
-#pragma warning disable CA2000 // Dispose objects before losing scope
-        ActivitySource activitySource = new("Test");
-#pragma warning restore CA2000 // Dispose objects before losing scope
-        Mock<IMailingInstrumentation> instrumentation = new();
-        instrumentation.SetupGet(c => c.ActivitySource).Returns(activitySource);
-        return instrumentation;
     }
 }
