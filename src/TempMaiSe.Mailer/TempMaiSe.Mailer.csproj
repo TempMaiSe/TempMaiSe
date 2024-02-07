@@ -20,7 +20,6 @@
 
   <ItemGroup>
     <ProjectReference Include="..\TempMaiSe.Models\TempMaiSe.Models.csproj" />
-    <ProjectReference Include="..\TempMaiSe.OpenTelemetry\TempMaiSe.OpenTelemetry.csproj" />
   </ItemGroup>
 
   <ItemGroup>

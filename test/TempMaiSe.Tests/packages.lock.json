@@ -30,12 +30,12 @@
       },
       "Microsoft.NET.Test.Sdk": {
         "type": "Direct",
-        "requested": "[17.9.0-release-23619-01, )",
-        "resolved": "17.9.0-release-23619-01",
-        "contentHash": "UkDbH06Xsenuu7wYZrg9RDUWDC5Iei/pqcYkL+W/5/EKf9rIkliQgFxwVWQxwbcgjjwxO6dI0RHcS57k174u+g==",
+        "requested": "[17.9.0, )",
+        "resolved": "17.9.0",
+        "contentHash": "7GUNAUbJYn644jzwLm5BD3a2p9C1dmP8Hr6fDPDxgItQk9hBs1Svdxzz07KQ/UphMSmgza9AbijBJGmw5D658A==",
         "dependencies": {
-          "Microsoft.CodeCoverage": "17.9.0-release-23619-01",
-          "Microsoft.TestPlatform.TestHost": "17.9.0-release-23619-01"
+          "Microsoft.CodeCoverage": "17.9.0",
+          "Microsoft.TestPlatform.TestHost": "17.9.0"
         }
       },
       "Moq": {
@@ -119,8 +119,8 @@
       },
       "Microsoft.CodeCoverage": {
         "type": "Transitive",
-        "resolved": "17.9.0-release-23619-01",
-        "contentHash": "qemNsrycXC2yqxtsUFcL0nCMZl970XA+HacDda6CHsW4oFauV2ikG8yv5dy1mlo6C7XqBYhV8lNFWNqVXDgiRQ=="
+        "resolved": "17.9.0",
+        "contentHash": "RGD37ZSrratfScYXm7M0HjvxMxZyWZL4jm+XgMZbkIY1UPgjUpbNA/t+WTGj/rC/0Hm9A3IrH3ywbKZkOCnoZA=="
       },
       "Microsoft.EntityFrameworkCore.Abstractions": {
         "type": "Transitive",
@@ -445,18 +445,18 @@
       },
       "Microsoft.TestPlatform.ObjectModel": {
         "type": "Transitive",
-        "resolved": "17.9.0-release-23619-01",
-        "contentHash": "vRExhpkSvle+NKL4KUaZgYD6lKOf1LtSed2dOOZ9tkhujYTWJfK/fqW9r2ruNcD8U1WsutoAHUzTswZ5vde3bw==",
+        "resolved": "17.9.0",
+        "contentHash": "1ilw/8vgmjLyKU+2SKXKXaOqpYFJCQfGqGz+x0cosl981VzjrY74Sv6qAJv+neZMZ9ZMxF3ArN6kotaQ4uvEBw==",
         "dependencies": {
           "System.Reflection.Metadata": "1.6.0"
         }
       },
       "Microsoft.TestPlatform.TestHost": {
         "type": "Transitive",
-        "resolved": "17.9.0-release-23619-01",
-        "contentHash": "1X9phC/fCdd+SrdhLUZWXK8vJMdJTl8pgFEuxHYmjM8yl59rsrKAsCOMgrvj7NlD9V51SM3ZBWlyHe/rBQQ8AA==",
+        "resolved": "17.9.0",
+        "contentHash": "Spmg7Wx49Ya3SxBjyeAR+nQpjMTKZwTwpZ7KyeOTIqI/WHNPnBU4HUvl5kuHPQAwGWqMy4FGZja1HvEwvoaDiA==",
         "dependencies": {
-          "Microsoft.TestPlatform.ObjectModel": "17.9.0-release-23619-01",
+          "Microsoft.TestPlatform.ObjectModel": "17.9.0",
           "Newtonsoft.Json": "13.0.1"
         }
       },

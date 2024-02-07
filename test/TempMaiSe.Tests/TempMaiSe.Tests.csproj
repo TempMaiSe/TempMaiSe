@@ -27,7 +27,6 @@
 
   <ItemGroup>
     <ProjectReference Include="..\..\src\TempMaiSe.Mailer\TempMaiSe.Mailer.csproj" />
-    <ProjectReference Include="..\..\src\TempMaiSe.Razor\TempMaiSe.Razor.csproj" />
   </ItemGroup>
 
 </Project>
