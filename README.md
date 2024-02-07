@@ -26,11 +26,11 @@ To implement a custom repository and use the TempMaiSe library, follow these ste
 
 Please note that additional authentication and authorization features may need to be implemented according to your specific requirements.
 
-For more information, refer to the [TempMaiSe documentation](https://github.com/hangy/solid-train).
+For more information, refer to the [TempMaiSe documentation](https://github.com/TempMaiSe/TempMaiSe).
 
 ### Custom Repository
 
-The solid-train distribution does not come with a default repository. However, implementing a custom repository is straightforward.
+The TempMaiSe distribution does not come with a default repository. However, implementing a custom repository is straightforward.
 
 To implement a custom repository, follow these steps:
 
@@ -127,8 +127,8 @@ app.MapPost("/send/{id}", async (int id, Stream data, IMailService mailService, 
 
 ## Contributing
 
-Contributions are welcome! If you encounter any issues or have suggestions for improvements, please open an issue or submit a pull request on the [TempMaiSe GitHub repository](https://github.com/hangy/solid-train).
+Contributions are welcome! If you encounter any issues or have suggestions for improvements, please open an issue or submit a pull request on the [TempMaiSe GitHub repository](https://github.com/TempMaiSe/TempMaiSe).
 
 ## License
 
-Solid-Train is released under the [MIT License](https://opensource.org/licenses/MIT).
+TempMaiSe is released under the [MIT License](https://opensource.org/licenses/MIT).
