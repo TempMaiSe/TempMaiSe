@@ -38,7 +38,8 @@
 				"stylelint.vscode-stylelint",
 				"esbenp.prettier-vscode",
 				"ms-dotnettools.csdevkit",
-				"github.vscode-github-actions"
+				"github.vscode-github-actions",
+				"fnando.linter"
 			]
 		}
 	},
