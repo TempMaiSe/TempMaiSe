@@ -18,7 +18,7 @@ namespace TempMaiSe.Mailer;
 /// </summary>
 public class MailService : IMailService
 {
-    private readonly IFluentEmail _mailer;
+    private readonly IFluentEmailFactory _mailFactory;
 
     private readonly ITemplateRepository _templateRepository;
 
@@ -31,14 +31,14 @@ public class MailService : IMailService
     private readonly IMailInformationToMailHeadersMapper _mailInfoMapper;
 
     public MailService(
-        IFluentEmail mailer,
+        IFluentEmailFactory mailFactory,
         ITemplateRepository templateRepository,
         IDataParser dataParser,
         FluidParser fluidParser,
         ITemplateToMailHeadersMapper mailHeaderMapper,
         IMailInformationToMailHeadersMapper mailInfoMapper)
     {
-        _mailer = mailer ?? throw new ArgumentNullException(nameof(mailer));
+        _mailFactory = mailFactory ?? throw new ArgumentNullException(nameof(mailFactory));
         _templateRepository = templateRepository ?? throw new ArgumentNullException(nameof(templateRepository));
         _dataParser = dataParser ?? throw new ArgumentNullException(nameof(dataParser));
         _fluidParser = fluidParser ?? throw new ArgumentNullException(nameof(fluidParser));
@@ -70,7 +70,7 @@ public class MailService : IMailService
         TemplateContext templateContext = new(mailInformation.Data);
         string subject = await fluidSubjectTemplate.RenderAsync(templateContext).ConfigureAwait(false);
 
-        IFluentEmail mail = _mailer.Subject(subject);
+        IFluentEmail mail = _mailFactory.Create().Subject(subject);
         mail = _mailHeaderMapper.Map(templateData, mail);
         mail = _mailInfoMapper.Map(mailInformation, mail);
 

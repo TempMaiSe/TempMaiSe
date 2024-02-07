@@ -18,7 +18,7 @@ public class MailServiceTests
     public async Task SendMailAsync_TemplateNotFound_ReturnsNotFound()
     {
         // Arrange
-        Mock<IFluentEmail> mailer = new();
+        Mock<IFluentEmailFactory> mailFactory = new();
         Mock<ITemplateRepository> templateRepository = new();
         Mock<DataParser> dataParser = new();
         Mock<FluidParser> fluidParser = new();
@@ -31,7 +31,7 @@ public class MailServiceTests
         Stream data = new MemoryStream();
 
         MailService mailService = new(
-            mailer.Object,
+            mailFactory.Object,
             templateRepository.Object,
             dataParser.Object,
             fluidParser.Object,
