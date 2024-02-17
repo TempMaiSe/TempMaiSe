@@ -5,9 +5,9 @@ using TempMaiSe.Models;
 namespace TempMaiSe.Tests;
 
 [Trait("Category", "Unit")]
-public class MailInformationToMailHeadersMapperTests
+public class MailInformationToMailMapperTests
 {
-    private readonly MailInformationToMailHeadersMapper _mapper = new();
+    private readonly MailInformationToMailMapper _mapper = new();
 
     [Fact]
     public void Map_Returns_Original_Email_Instance()
@@ -233,6 +233,24 @@ public class MailInformationToMailHeadersMapperTests
 
         // Act
         _ = _mapper.Map(info, emailMock.Object);
+
+        // Assert
+        emailMock.VerifyAll();
+        emailMock.VerifyNoOtherCalls();
+    }
+
+    [Fact]
+    public void Map_Adds_Attachment_From_Template()
+    {
+        // Arrange
+        byte[] data = [0x00, 0x01, 0x02, 0x03];
+        Attachment attachment = new() { FileName = "dummy.txt", MediaType = "text/plain", Data = data };
+        MailInformation template = new() { Attachments = { attachment } };
+        Mock<IFluentEmail> emailMock = new();
+        emailMock.Setup(it => it.Attach(It.Is<FluentEmail.Core.Models.Attachment>(a => a.Filename == attachment.FileName && !a.IsInline && a.ContentType == attachment.MediaType && a.Data.EqualsBuffer(attachment.Data)))).Returns(emailMock.Object).Verifiable();
+
+        // Act
+        _ = _mapper.Map(template, emailMock.Object);
 
         // Assert
         emailMock.VerifyAll();

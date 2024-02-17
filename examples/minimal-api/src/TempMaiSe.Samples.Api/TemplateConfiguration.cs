@@ -23,6 +23,7 @@ public class TemplateConfiguration : IEntityTypeConfiguration<Template>
                 ownedNavigationBuilder.OwnsMany(data => data.ReplyTo);
                 ownedNavigationBuilder.OwnsMany(data => data.Tags);
                 ownedNavigationBuilder.OwnsMany(data => data.Headers);
+                ownedNavigationBuilder.OwnsMany(data => data.Attachments);
             });
     }
 }

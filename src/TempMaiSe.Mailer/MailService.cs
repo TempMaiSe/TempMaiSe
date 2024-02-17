@@ -26,17 +26,17 @@ public class MailService : IMailService
 
     private readonly FluidParser _fluidParser;
 
-    private readonly ITemplateToMailHeadersMapper _mailHeaderMapper;
+    private readonly ITemplateToMailMapper _mailHeaderMapper;
 
-    private readonly IMailInformationToMailHeadersMapper _mailInfoMapper;
+    private readonly IMailInformationToMailMapper _mailInfoMapper;
 
     public MailService(
         IFluentEmailFactory mailFactory,
         ITemplateRepository templateRepository,
         IDataParser dataParser,
         FluidParser fluidParser,
-        ITemplateToMailHeadersMapper mailHeaderMapper,
-        IMailInformationToMailHeadersMapper mailInfoMapper)
+        ITemplateToMailMapper mailHeaderMapper,
+        IMailInformationToMailMapper mailInfoMapper)
     {
         _mailFactory = mailFactory ?? throw new ArgumentNullException(nameof(mailFactory));
         _templateRepository = templateRepository ?? throw new ArgumentNullException(nameof(templateRepository));

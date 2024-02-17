@@ -3,7 +3,7 @@ using TempMaiSe.Models;
 
 namespace TempMaiSe.Mailer;
 
-public class TemplateToMailHeadersMapper : ITemplateToMailHeadersMapper
+public class TemplateToMailMapper : ITemplateToMailMapper
 {
     public IFluentEmail Map(TemplateData configuredTemplate, IFluentEmail email)
     {
@@ -53,6 +53,12 @@ public class TemplateToMailHeadersMapper : ITemplateToMailHeadersMapper
             case Priority.Low:
                 email = email.LowPriority();
                 break;
+        }
+
+        foreach (Attachment attachment in configuredTemplate.Attachments)
+        {
+            FluentEmail.Core.Models.Attachment fluentAttachment = new() { Filename = attachment.FileName, ContentType = attachment.MediaType, Data = new MemoryStream(attachment.Data), IsInline = false };
+            email = email.Attach(fluentAttachment);
         }
 
         return email;

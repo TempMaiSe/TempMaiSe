@@ -19,8 +19,8 @@ public static class MailServiceExtensions
 
         services.TryAddSingleton<FluidParser>();
 
-        services.TryAddSingleton<ITemplateToMailHeadersMapper, TemplateToMailHeadersMapper>();
-        services.TryAddSingleton<IMailInformationToMailHeadersMapper, MailInformationToMailHeadersMapper>();
+        services.TryAddSingleton<ITemplateToMailMapper, TemplateToMailMapper>();
+        services.TryAddSingleton<IMailInformationToMailMapper, MailInformationToMailMapper>();
 
         services.TryAddSingleton<IDataParser, DataParser>();
 

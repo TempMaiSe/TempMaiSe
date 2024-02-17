@@ -20,5 +20,7 @@ public class MailInformation
 
     public Priority? Priority { get; init; }
 
+    public ICollection<Attachment> Attachments { get; init; } = [];
+
     public dynamic? Data { get; init; }
 }

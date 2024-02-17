@@ -5,9 +5,9 @@ using TempMaiSe.Models;
 namespace TempMaiSe.Tests;
 
 [Trait("Category", "Unit")]
-public class TemplateToMailHeadersMapperTests
+public class TemplateToMailMapperTests
 {
-    private readonly TemplateToMailHeadersMapper _mapper = new();
+    private readonly TemplateToMailMapper _mapper = new();
 
     [Fact]
     public void Map_Returns_Original_Email_Instance()
@@ -230,6 +230,24 @@ public class TemplateToMailHeadersMapperTests
         TemplateData template = new() { Priority = Priority.High, SubjectTemplate = "Dummy", HtmlBodyTemplate = "Dummy", JsonSchema = "{}" };
         Mock<IFluentEmail> emailMock = new();
         emailMock.Setup(it => it.HighPriority()).Returns(emailMock.Object).Verifiable();
+
+        // Act
+        _ = _mapper.Map(template, emailMock.Object);
+
+        // Assert
+        emailMock.VerifyAll();
+        emailMock.VerifyNoOtherCalls();
+    }
+
+    [Fact]
+    public void Map_Adds_Attachment_From_Template()
+    {
+        // Arrange
+        byte[] data = [0x00, 0x01, 0x02, 0x03];
+        Attachment attachment = new() { FileName = "dummy.txt", MediaType = "text/plain", Data = data };
+        TemplateData template = new() { Attachments = { attachment }, SubjectTemplate = "Dummy", HtmlBodyTemplate = "Dummy", JsonSchema = "{}" };
+        Mock<IFluentEmail> emailMock = new();
+        emailMock.Setup(it => it.Attach(It.Is<FluentEmail.Core.Models.Attachment>(a => a.Filename == attachment.FileName && !a.IsInline && a.ContentType == attachment.MediaType && a.Data.EqualsBuffer(attachment.Data)))).Returns(emailMock.Object).Verifiable();
 
         // Act
         _ = _mapper.Map(template, emailMock.Object);

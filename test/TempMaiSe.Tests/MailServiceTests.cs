@@ -22,8 +22,8 @@ public class MailServiceTests
         Mock<ITemplateRepository> templateRepository = new();
         Mock<DataParser> dataParser = new();
         Mock<FluidParser> fluidParser = new();
-        Mock<ITemplateToMailHeadersMapper> mailHeaderMapper = new();
-        Mock<IMailInformationToMailHeadersMapper> mailInfoMapper = new();
+        Mock<ITemplateToMailMapper> mailHeaderMapper = new();
+        Mock<IMailInformationToMailMapper> mailInfoMapper = new();
 
         int templateId = 1;
         templateRepository.Setup(c => c.GetTemplateAsync(templateId, It.IsAny<CancellationToken>())).Returns(Task.FromResult<Template?>(null));
