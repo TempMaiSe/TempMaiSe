@@ -149,7 +149,7 @@ public class DataParserTests
         Assert.Equal("dummy", mailInformation.Tags.Single());
         Assert.Equal(Priority.Low, mailInformation.Priority);
         Assert.Equal("foo@example.org", (string)mailInformation.Data!.email);
-        Assert.Contains(mailInformation.Attachments, a => a.FileName == "file.txt" && a.MediaType == "text/plain" && a.Data.Length == 8);
+        Assert.Contains(mailInformation.Attachments, a => a.FileName == "file.txt" && a.MediaType == "text/plain" && a.Data.Length == 11);
         Assert.Contains(mailInformation.Headers, h => h.Name == "traceparent" && h.Value == "00-0af7651916cd43dd8448eb211c80319c-b7ad6b7169203331-01");
     }
 }
