@@ -66,6 +66,10 @@ public class MailService : IMailService
             return errors;
         }
 
+        InlineAttachmentCollection inlineAttachments = new(templateData!.InlineAttachments?.Count ?? 0 + mailInformation!.InlineAttachments?.Count ?? 0);
+        templateData.InlineAttachments?.CopyTo(inlineAttachments);
+        mailInformation.InlineAttachments?.CopyTo(inlineAttachments);
+
         IFluentEmail mail = _mailFactory.Create();
         mail = _mailHeaderMapper.Map(templateData, mail);
         mail = _mailInfoMapper.Map(mailInformation, mail);
@@ -75,7 +79,7 @@ public class MailService : IMailService
         {
             AmbientValues =
             {
-                { "InlineAttachments", mail.Data.Attachments.Where(a => a.IsInline).ToDictionary(a => a.Filename) }
+                { nameof(InlineAttachmentCollection), inlineAttachments }
             }
         };
         string subject = await fluidSubjectTemplate.RenderAsync(templateContext).ConfigureAwait(false);
@@ -107,6 +111,13 @@ public class MailService : IMailService
         else if (!string.IsNullOrWhiteSpace(plainTextBody))
         {
             mail = mail.Body(plainTextBody);
+        }
+
+        foreach (InlineAttachmentWithId attachmentWithId in inlineAttachments)
+        {
+            Models.Attachment attachment = attachmentWithId.Attachment;
+            FluentEmail.Core.Models.Attachment fluentAttachment = new() { ContentId = attachmentWithId.Id, Filename = attachment.FileName, ContentType = attachment.MediaType, Data = new MemoryStream(attachment.Data), IsInline = true };
+            mail = mail.Attach(fluentAttachment);
         }
 
         SendResponse resp = await mail.SendAsync(cancellationToken).ConfigureAwait(false);

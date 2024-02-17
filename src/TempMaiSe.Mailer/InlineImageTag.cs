@@ -13,19 +13,19 @@ internal static class InlineImageTag
         ArgumentNullException.ThrowIfNull(encoder);
         ArgumentNullException.ThrowIfNull(context);
 
-        if (context.AmbientValues.TryGetValue("InlineAttachments", out object? inlineAttachmentsRaw) is not true
-            || inlineAttachmentsRaw is not Dictionary<string, FluentEmail.Core.Models.Attachment> inlineAttachments)
+        if (context.AmbientValues.TryGetValue(nameof(InlineAttachmentCollection), out object? inlineAttachmentsRaw) is not true
+            || inlineAttachmentsRaw is not InlineAttachmentCollection inlineAttachments)
         {
             return Completion.Normal;
         }
 
         FluidValue fluidValue = await value.EvaluateAsync(context).ConfigureAwait(false);
-        if (inlineAttachments.TryGetValue(fluidValue.ToStringValue(), out FluentEmail.Core.Models.Attachment? attachment) is false)
+        if (inlineAttachments.TryGetAttachmentByFileName(fluidValue.ToStringValue(), out InlineAttachmentWithId? attachment) is false)
         {
             return Completion.Normal;
         }
 
-        await writer.WriteAsync($"cid:{attachment.ContentId}").ConfigureAwait(false);
+        await writer.WriteAsync($"cid:{attachment.Id}").ConfigureAwait(false);
         return Completion.Normal;
     }
 }

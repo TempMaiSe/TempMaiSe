@@ -607,9 +607,11 @@ you received a coupon for a free gift. Please use it within the next 24 hours.</
 Neo</p>
 
 <p><img src=\"cid:8e782df90bdb749881b592be981befc7ba1320536621e540b836a29d35d5a4d9\"></p>
+<p><img src=\"cid:8e782df90bdb749881b592be981befc7ba1320536621e540b836a29d35d5a4d9\"></p>
 <p><img src=\"cid:a101746ce2666bca288096e79b43e2b8099ded9947ecb30f1623e3009644ee31\"></p>
 
 <p><img src=\"cid:ffd7bca49b22eb931895418b84d0408853b3ff2e4d0704738dd8e5f56e16f252\"></p>
+
 
 """, message.HtmlBody);
         Assert.Equal("Use a HTML mailer, Erika Mustermann!", message.TextBody);
@@ -620,8 +622,9 @@ Neo</p>
         Assert.NotNull(message.To);
         Assert.Contains(message.To, address => address.Address == "couponer@example.com");
 
-        Assert.Contains(message.Sections, section => section.MediaType == "application/pdf" && section.FileName == "coupon.pdf");
-        Assert.Contains(message.Sections, section => section.MediaType == "image/png" && section.FileName == "logo.png");
+        Assert.Contains(message.Sections, section => section.MediaType == "image/svg+xml" && section.FileName == "blue.svg" && section.Id == "8e782df90bdb749881b592be981befc7ba1320536621e540b836a29d35d5a4d9");
+        Assert.Contains(message.Sections, section => section.MediaType == "image/svg+xml" && section.FileName == "red.svg" && section.Id == "a101746ce2666bca288096e79b43e2b8099ded9947ecb30f1623e3009644ee31");
+        Assert.Contains(message.Sections, section => section.MediaType == "image/svg+xml" && section.FileName == "yellow.svg" && section.Id == "ffd7bca49b22eb931895418b84d0408853b3ff2e4d0704738dd8e5f56e16f252");
     }
 
     private record CouponItem(string Name);

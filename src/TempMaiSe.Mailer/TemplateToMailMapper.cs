@@ -61,8 +61,6 @@ public class TemplateToMailMapper : ITemplateToMailMapper
             email = email.Attach(fluentAttachment);
         }
 
-        email = email.AttachInline(configuredTemplate);
-
         return email;
     }
 }

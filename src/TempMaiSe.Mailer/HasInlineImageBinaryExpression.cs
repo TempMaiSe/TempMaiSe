@@ -9,8 +9,8 @@ internal sealed class HasInlineImageBinaryExpression(Expression left, Expression
     {
         ArgumentNullException.ThrowIfNull(context);
 
-        if (context.AmbientValues.TryGetValue("InlineAttachments", out object? inlineAttachmentsRaw) is not true
-            || inlineAttachmentsRaw is not Dictionary<string, FluentEmail.Core.Models.Attachment> inlineAttachments)
+        if (context.AmbientValues.TryGetValue(nameof(InlineAttachmentCollection), out object? inlineAttachmentsRaw) is not true
+            || inlineAttachmentsRaw is not InlineAttachmentCollection inlineAttachments)
         {
             return BooleanValue.False;
         }
@@ -21,7 +21,7 @@ internal sealed class HasInlineImageBinaryExpression(Expression left, Expression
             return BooleanValue.False;
         }
 
-        if (inlineAttachments.TryGetValue(imageFileName.ToStringValue(), out FluentEmail.Core.Models.Attachment? attachment) is false)
+        if (inlineAttachments.TryGetAttachmentByFileName(imageFileName.ToStringValue(), out InlineAttachmentWithId? _) is false)
         {
             return BooleanValue.False;
         }
