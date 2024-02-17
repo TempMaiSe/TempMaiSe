@@ -17,7 +17,13 @@ public static class MailServiceExtensions
     {
         ArgumentNullException.ThrowIfNull(services);
 
-        services.TryAddSingleton<FluidParser>();
+        services.TryAddSingleton(_ =>
+        {
+            FluidParser parser = new();
+            parser.RegisteredOperators["has_inline_image"] = (a, b) => new HasInlineImageBinaryExpression(a, b);
+            parser.RegisterExpressionTag("inline_image", InlineImageTag.WriteToAsync);
+            return parser;
+        });
 
         services.TryAddSingleton<ITemplateToMailMapper, TemplateToMailMapper>();
         services.TryAddSingleton<IMailInformationToMailMapper, MailInformationToMailMapper>();

@@ -2,7 +2,6 @@ using System.Globalization;
 using System.Net;
 using System.Text;
 using System.Text.Json;
-
 using Microsoft.AspNetCore.TestHost;
 
 using TempMaiSe.Mailer;
@@ -451,6 +450,167 @@ you received a coupon for a free gift. Please use it within the next 24 hours.</
 
 <p>Best,<br>
 Neo</p>
+""", message.HtmlBody);
+        Assert.Equal("Use a HTML mailer, Erika Mustermann!", message.TextBody);
+
+        Assert.NotNull(message.From);
+        Assert.Contains(message.From, address => address.Address == "couponmanager@example.org");
+
+        Assert.NotNull(message.To);
+        Assert.Contains(message.To, address => address.Address == "couponer@example.com");
+
+        Assert.Contains(message.Sections, section => section.MediaType == "application/pdf" && section.FileName == "coupon.pdf");
+        Assert.Contains(message.Sections, section => section.MediaType == "image/png" && section.FileName == "logo.png");
+    }
+
+        [Fact]
+    public async Task Post_Send_Returns_Success_For_Good_Template_Id_Complex_Object_With_Inline_Attachment()
+    {
+        // Arrange
+        PapercutContainer container = new PapercutBuilder()
+            .Build();
+        await container.StartAsync().ConfigureAwait(true);
+
+        HttpClient client = _factory
+            .WithWebHostBuilder(configuration =>
+            {
+                configuration.UseSetting("FluentEmail:Sender", "Smtp");
+                configuration.UseSetting("FluentEmail:Smtp:Server", container.Hostname);
+                configuration.UseSetting("FluentEmail:Smtp:Port", container.SmtpPort.ToString(CultureInfo.InvariantCulture));
+
+                configuration.ConfigureTestServices(services =>
+                {
+                    using TemplateContext context = services.BuildServiceProvider().GetRequiredService<TemplateContext>();
+                    context.Templates.Add(new Template
+                    {
+                        Id = 31337,
+                        Data = new TemplateData
+                        {
+                            InlineAttachments =
+                            {
+                                new() { FileName = "blue.svg", MediaType = "image/svg+xml", Data = Encoding.UTF8.GetBytes("<svg style=\"background-color: blue;\"></svg>") },
+                                new() { FileName = "red.svg", MediaType = "image/svg+xml", Data = Encoding.UTF8.GetBytes("<svg style=\"background-color: red;\"></svg>") }
+                            },
+                            SubjectTemplate = "{{ Head.Name }} — Claim your free gift now",
+                            PlainTextBodyTemplate = "Use a HTML mailer, {{ Head.Name }}!",
+                            HtmlBodyTemplate =
+"""
+<p>Hi {{Head.Name}},<br><br>
+you received a coupon for a free gift. Please use it within the next 24 hours.</p>
+
+<ul>
+    {% for item in CouponData.Items %}
+    <li>{{ item.Name }}</li>
+    {% endfor %}
+</ul>
+
+<p>Best,<br>
+{{ Head.SupportAgent }}</p>
+
+<p><img src=\"{% inline_image "blue.svg" %}\"></p>
+<p><img src=\"{% inline_image "blue2.svg" %}\"></p>
+<p><img src=\"{% inline_image "red.svg" %}\"></p>
+{% if mail has_inline_image "yellow.svg" %}
+<p><img src=\"{% inline_image "yellow.svg" %}\"></p>
+{% endif %}
+{% if mail has_inline_image "magenta.svg" %}
+<p><img src=\"{% inline_image "magenta.svg" %}\"></p>
+{% endif %}
+""",
+                            JsonSchema =
+"""
+{
+    "$schema": "https://json-schema.org/draft/2020-12/schema",
+    "type": "object",
+    "properties": {
+        "Head": {
+            "type": "object",
+            "properties": {
+                "Name": { "type": "string" },
+                "SupportAgent": { "type": "string" }
+            },
+            "required": ["Name", "SupportAgent"]
+        },
+        "CouponData": {
+            "type": "object",
+            "Items": {
+                "type": "array",
+                "items": {
+                    "type": "object",
+                    "properties": {
+                        "Name": { "type": "string" }
+                    },
+                    "required": ["Name"]
+                }
+            },
+            "required": ["Items"]
+        }
+    },
+    "required": ["Head", "CouponData"]
+}
+"""
+                        }
+                    });
+                    context.SaveChanges();
+                });
+            }).CreateClient();
+
+        List<CouponItem> couponItems =
+        [
+            new("AK <script>47"),
+            new("M4A1-S")
+        ];
+        MailInformation mail = new()
+        {
+            From = "couponmanager@example.org",
+            To = ["couponer@example.com"],
+            Priority = Priority.Normal,
+            Data = new Dictionary<string, object>
+            {
+                { "Head", new Dictionary<string, object>{ { "Name", "Erika Mustermann" }, { "SupportAgent", "Neo" } } },
+                { "CouponData", new Dictionary<string, object>{ { "Items", couponItems } } },
+            },
+            InlineAttachments =
+            {
+                new() { FileName = "blue2.svg", MediaType = "image/svg+xml", Data = Encoding.UTF8.GetBytes("<svg style=\"background-color: blue;\"></svg>") },
+                new() { FileName = "yellow.svg", MediaType = "image/svg+xml", Data = Encoding.UTF8.GetBytes("<svg style=\"background-color: yellow;\"></svg>") }
+            }
+        };
+
+        // Act
+        using HttpContent content = new StringContent(JsonSerializer.Serialize(mail), Encoding.UTF8, "application/json");
+        HttpResponseMessage response = await client.PostAsync(new Uri("/send/31337", UriKind.Relative), content).ConfigureAwait(true);
+
+        // Assert
+        Assert.Equal(HttpStatusCode.OK, response.StatusCode);
+        using HttpClient httpClient = new();
+        httpClient.BaseAddress = new Uri(container.GetBaseAddress());
+        PapercutMessageList? messages = await httpClient.GetFromJsonAsync<PapercutMessageList>(new Uri("/api/messages", UriKind.Relative)).ConfigureAwait(true);
+        Assert.Equal(1, messages!.TotalMessageCount);
+        PapercutMessage? message = await httpClient.GetFromJsonAsync<PapercutMessage>(new Uri($"/api/messages/{messages.Messages.Single().Id}", UriKind.Relative)).ConfigureAwait(true);
+        Assert.NotNull(message);
+        Assert.Equal("Erika Mustermann — Claim your free gift now", message.Subject);
+        Assert.Equal(
+"""
+<p>Hi Erika Mustermann,<br><br>
+you received a coupon for a free gift. Please use it within the next 24 hours.</p>
+
+<ul>
+    
+    <li>AK &lt;script&gt;47</li>
+    
+    <li>M4A1-S</li>
+    
+</ul>
+
+<p>Best,<br>
+Neo</p>
+
+<p><img src=\"cid:8e782df90bdb749881b592be981befc7ba1320536621e540b836a29d35d5a4d9\"></p>
+<p><img src=\"cid:a101746ce2666bca288096e79b43e2b8099ded9947ecb30f1623e3009644ee31\"></p>
+
+<p><img src=\"cid:ffd7bca49b22eb931895418b84d0408853b3ff2e4d0704738dd8e5f56e16f252\"></p>
+
 """, message.HtmlBody);
         Assert.Equal("Use a HTML mailer, Erika Mustermann!", message.TextBody);
 

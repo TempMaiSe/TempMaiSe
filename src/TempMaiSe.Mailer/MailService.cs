@@ -66,13 +66,20 @@ public class MailService : IMailService
             return errors;
         }
 
-        IFluidTemplate fluidSubjectTemplate = _fluidParser.Parse(templateData.SubjectTemplate);
-        TemplateContext templateContext = new(mailInformation.Data);
-        string subject = await fluidSubjectTemplate.RenderAsync(templateContext).ConfigureAwait(false);
-
-        IFluentEmail mail = _mailFactory.Create().Subject(subject);
+        IFluentEmail mail = _mailFactory.Create();
         mail = _mailHeaderMapper.Map(templateData, mail);
         mail = _mailInfoMapper.Map(mailInformation, mail);
+
+        IFluidTemplate fluidSubjectTemplate = _fluidParser.Parse(templateData.SubjectTemplate);
+        TemplateContext templateContext = new(mailInformation.Data)
+        {
+            AmbientValues =
+            {
+                { "InlineAttachments", mail.Data.Attachments.Where(a => a.IsInline).ToDictionary(a => a.Filename) }
+            }
+        };
+        string subject = await fluidSubjectTemplate.RenderAsync(templateContext).ConfigureAwait(false);
+        mail = mail.Subject(subject);
 
         string? plainTextBody = null;
         if (!string.IsNullOrWhiteSpace(templateData.PlainTextBodyTemplate))
