@@ -22,5 +22,7 @@ public class MailInformation
 
     public ICollection<Attachment> Attachments { get; init; } = [];
 
+    public ICollection<Attachment> InlineAttachments { get; init; } = [];
+
     public dynamic? Data { get; init; }
 }

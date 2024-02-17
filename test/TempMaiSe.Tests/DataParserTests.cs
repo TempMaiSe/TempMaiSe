@@ -68,6 +68,7 @@ public class DataParserTests
             "Tags": ["dummy"],
             "Headers": [],
             "Attachments": [],
+            "InlineAttachments": [],
             "Priority": 1,
             "Data": {
                 "email": "foo"
@@ -118,6 +119,7 @@ public class DataParserTests
                     "Data": "SGVsbG8gV29ybGQ="
                 }
             ],
+            "InlineAttachments": [],
             "Headers": [
                 {
                     "Name": "traceparent",

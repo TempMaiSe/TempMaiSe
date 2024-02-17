@@ -1,3 +1,4 @@
+using System.Text;
 using FluentEmail.Core;
 using TempMaiSe.Mailer;
 using TempMaiSe.Models;
@@ -248,6 +249,37 @@ public class MailInformationToMailMapperTests
         MailInformation template = new() { Attachments = { attachment } };
         Mock<IFluentEmail> emailMock = new();
         emailMock.Setup(it => it.Attach(It.Is<FluentEmail.Core.Models.Attachment>(a => a.Filename == attachment.FileName && !a.IsInline && a.ContentType == attachment.MediaType && a.Data.EqualsBuffer(attachment.Data)))).Returns(emailMock.Object).Verifiable();
+
+        // Act
+        _ = _mapper.Map(template, emailMock.Object);
+
+        // Assert
+        emailMock.VerifyAll();
+        emailMock.VerifyNoOtherCalls();
+    }
+
+    [Fact]
+    public void Map_Adds_InlineAttachment_From_Template()
+    {
+        // Arrange
+        byte[] data = Encoding.UTF8.GetBytes("<svg style=\"background-color: blue;\"></svg>");
+        Attachment attachment = new() { FileName = "blue.svg", MediaType = "image/svg+xml", Data = data };
+        MailInformation template = new() { InlineAttachments = { attachment } };
+        Mock<IFluentEmail> emailMock = new();
+        emailMock.Setup(it => it.Attach(It.Is<FluentEmail.Core.Models.Attachment>(a => a.ContentId == "8e782df90bdb749881b592be981befc7ba1320536621e540b836a29d35d5a4d9" && a.Filename == attachment.FileName && a.IsInline && a.ContentType == attachment.MediaType && a.Data.EqualsBuffer(attachment.Data)))).Returns(emailMock.Object).Verifiable();
+
+        FluentEmail.Core.Models.EmailData mockData = new() { Attachments = [new() { ContentId = "8e782df90bdb749881b592be981befc7ba1320536621e540b836a29d35d5a4d9", ContentType = "image/svg+xml", IsInline = true }] }; // Pretend the Attach method worked
+        int getDataCalls = 0;
+        emailMock.SetupGet(it => it.Data).Returns(() => 
+        {
+            // Hack: Only return the mock data after the first call.
+            if (getDataCalls++ == 0)
+            {
+                return new();
+            }
+
+            return mockData;
+        }).Verifiable();
 
         // Act
         _ = _mapper.Map(template, emailMock.Object);

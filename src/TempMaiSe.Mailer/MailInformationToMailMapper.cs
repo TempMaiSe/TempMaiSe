@@ -64,6 +64,8 @@ public class MailInformationToMailMapper : IMailInformationToMailMapper
             }
         }
 
+        email = email.AttachInline(mailInformation);
+
         return email;
     }
 }
