@@ -66,13 +66,24 @@ public class MailService : IMailService
             return errors;
         }
 
-        IFluidTemplate fluidSubjectTemplate = _fluidParser.Parse(templateData.SubjectTemplate);
-        TemplateContext templateContext = new(mailInformation.Data);
-        string subject = await fluidSubjectTemplate.RenderAsync(templateContext).ConfigureAwait(false);
+        InlineAttachmentCollection inlineAttachments = new(templateData!.InlineAttachments?.Count ?? 0 + mailInformation!.InlineAttachments?.Count ?? 0);
+        templateData.InlineAttachments?.CopyTo(inlineAttachments);
+        mailInformation.InlineAttachments?.CopyTo(inlineAttachments);
 
-        IFluentEmail mail = _mailFactory.Create().Subject(subject);
+        IFluentEmail mail = _mailFactory.Create();
         mail = _mailHeaderMapper.Map(templateData, mail);
         mail = _mailInfoMapper.Map(mailInformation, mail);
+
+        IFluidTemplate fluidSubjectTemplate = _fluidParser.Parse(templateData.SubjectTemplate);
+        TemplateContext templateContext = new(mailInformation.Data)
+        {
+            AmbientValues =
+            {
+                { nameof(InlineAttachmentCollection), inlineAttachments }
+            }
+        };
+        string subject = await fluidSubjectTemplate.RenderAsync(templateContext).ConfigureAwait(false);
+        mail = mail.Subject(subject);
 
         string? plainTextBody = null;
         if (!string.IsNullOrWhiteSpace(templateData.PlainTextBodyTemplate))
@@ -100,6 +111,13 @@ public class MailService : IMailService
         else if (!string.IsNullOrWhiteSpace(plainTextBody))
         {
             mail = mail.Body(plainTextBody);
+        }
+
+        foreach (InlineAttachmentWithId attachmentWithId in inlineAttachments)
+        {
+            Models.Attachment attachment = attachmentWithId.Attachment;
+            FluentEmail.Core.Models.Attachment fluentAttachment = new() { ContentId = attachmentWithId.Id, Filename = attachment.FileName, ContentType = attachment.MediaType, Data = new MemoryStream(attachment.Data), IsInline = true };
+            mail = mail.Attach(fluentAttachment);
         }
 
         SendResponse resp = await mail.SendAsync(cancellationToken).ConfigureAwait(false);

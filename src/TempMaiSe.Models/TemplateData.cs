@@ -28,5 +28,7 @@ public class TemplateData
 
     public Collection<Attachment> Attachments { get; } = [];
 
+    public Collection<Attachment> InlineAttachments { get; } = [];
+
     public required string JsonSchema { get; set; }
 }
