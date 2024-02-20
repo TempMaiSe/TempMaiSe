@@ -6,17 +6,17 @@ public class TemplateData
 {
     public MailAddress? From { get; set; }
 
-    public Collection<MailAddress> To { get; } = new();
+    public Collection<MailAddress> To { get; } = [];
 
-    public Collection<MailAddress> Cc { get; } = new();
+    public Collection<MailAddress> Cc { get; } = [];
 
-    public Collection<MailAddress> Bcc { get; } = new();
+    public Collection<MailAddress> Bcc { get; } = [];
 
-    public Collection<MailAddress> ReplyTo { get; } = new();
+    public Collection<MailAddress> ReplyTo { get; } = [];
 
-    public Collection<Tag> Tags { get; } = new();
+    public Collection<Tag> Tags { get; } = [];
 
-    public Collection<Header> Headers { get; } = new();
+    public Collection<Header> Headers { get; } = [];
 
     public required string SubjectTemplate { get; set; }
 
@@ -25,6 +25,10 @@ public class TemplateData
     public string? PlainTextBodyTemplate { get; set; }
 
     public Priority Priority { get; set; } = Priority.None;
+
+    public Collection<Attachment> Attachments { get; } = [];
+
+    public Collection<Attachment> InlineAttachments { get; } = [];
 
     public required string JsonSchema { get; set; }
 }

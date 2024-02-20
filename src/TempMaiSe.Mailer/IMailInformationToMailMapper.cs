@@ -2,7 +2,7 @@ using FluentEmail.Core;
 
 namespace TempMaiSe.Mailer;
 
-public interface IMailInformationToMailHeadersMapper
+public interface IMailInformationToMailMapper
 {
     IFluentEmail Map(MailInformation mailInformation, IFluentEmail email);
 }

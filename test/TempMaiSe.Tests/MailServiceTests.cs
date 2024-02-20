@@ -3,10 +3,8 @@ using Newtonsoft.Json.Schema;
 using FluentEmail.Core;
 using FluentEmail.Core.Models;
 
-using System.Diagnostics;
 using TempMaiSe.Mailer;
 using TempMaiSe.Models;
-using TempMaiSe.OpenTelemetry;
 
 using OneOf;
 using OneOf.Types;
@@ -20,13 +18,12 @@ public class MailServiceTests
     public async Task SendMailAsync_TemplateNotFound_ReturnsNotFound()
     {
         // Arrange
-        Mock<IFluentEmail> mailer = new();
-        Mock<IMailingInstrumentation> instrumentation = GetInstrumentationMock();
+        Mock<IFluentEmailFactory> mailFactory = new();
         Mock<ITemplateRepository> templateRepository = new();
         Mock<DataParser> dataParser = new();
         Mock<FluidParser> fluidParser = new();
-        Mock<ITemplateToMailHeadersMapper> mailHeaderMapper = new();
-        Mock<IMailInformationToMailHeadersMapper> mailInfoMapper = new();
+        Mock<ITemplateToMailMapper> mailHeaderMapper = new();
+        Mock<IMailInformationToMailMapper> mailInfoMapper = new();
 
         int templateId = 1;
         templateRepository.Setup(c => c.GetTemplateAsync(templateId, It.IsAny<CancellationToken>())).Returns(Task.FromResult<Template?>(null));
@@ -34,8 +31,7 @@ public class MailServiceTests
         Stream data = new MemoryStream();
 
         MailService mailService = new(
-            mailer.Object,
-            instrumentation.Object,
+            mailFactory.Object,
             templateRepository.Object,
             dataParser.Object,
             fluidParser.Object,
@@ -51,15 +47,5 @@ public class MailServiceTests
 
         // Verify
         templateRepository.Verify();
-    }
-
-    private static Mock<IMailingInstrumentation> GetInstrumentationMock()
-    {
-#pragma warning disable CA2000 // Dispose objects before losing scope
-        ActivitySource activitySource = new("Test");
-#pragma warning restore CA2000 // Dispose objects before losing scope
-        Mock<IMailingInstrumentation> instrumentation = new();
-        instrumentation.SetupGet(c => c.ActivitySource).Returns(activitySource);
-        return instrumentation;
     }
 }

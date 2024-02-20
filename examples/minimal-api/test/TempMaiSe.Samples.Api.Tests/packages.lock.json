@@ -30,12 +30,12 @@
       },
       "Microsoft.NET.Test.Sdk": {
         "type": "Direct",
-        "requested": "[17.9.0-release-23619-01, )",
-        "resolved": "17.9.0-release-23619-01",
-        "contentHash": "UkDbH06Xsenuu7wYZrg9RDUWDC5Iei/pqcYkL+W/5/EKf9rIkliQgFxwVWQxwbcgjjwxO6dI0RHcS57k174u+g==",
+        "requested": "[17.9.0, )",
+        "resolved": "17.9.0",
+        "contentHash": "7GUNAUbJYn644jzwLm5BD3a2p9C1dmP8Hr6fDPDxgItQk9hBs1Svdxzz07KQ/UphMSmgza9AbijBJGmw5D658A==",
         "dependencies": {
-          "Microsoft.CodeCoverage": "17.9.0-release-23619-01",
-          "Microsoft.TestPlatform.TestHost": "17.9.0-release-23619-01"
+          "Microsoft.CodeCoverage": "17.9.0",
+          "Microsoft.TestPlatform.TestHost": "17.9.0"
         }
       },
       "Moq": {
@@ -102,36 +102,6 @@
         "contentHash": "ONQN7ImrL3tHStUUCCPHwrFFQVpIpE+7L6jaDAMwSF+yTEmeWBmRARQZDRuvfj/+WtB8RR0oTW0tT3qQMSyHOw==",
         "dependencies": {
           "Docker.DotNet": "3.125.15"
-        }
-      },
-      "Google.Protobuf": {
-        "type": "Transitive",
-        "resolved": "3.22.5",
-        "contentHash": "tTMtDZPbLxJew8pk7NBdqhLqC4OipfkZdwPuCEUNr2AoDo1siUGcxFqJK0wDewTL8ge5Cjrb16CToMPxBUHMGA=="
-      },
-      "Grpc.Core.Api": {
-        "type": "Transitive",
-        "resolved": "2.52.0",
-        "contentHash": "SQiPyBczG4vKPmI6Fd+O58GcxxDSFr6nfRAJuBDUNj+PgdokhjWJvZE/La1c09AkL2FVm/jrDloG89nkzmVF7A==",
-        "dependencies": {
-          "System.Memory": "4.5.3"
-        }
-      },
-      "Grpc.Net.Client": {
-        "type": "Transitive",
-        "resolved": "2.52.0",
-        "contentHash": "hWVH9g/Nnjz40ni//2S8UIOyEmhueQREoZIkD0zKHEPqLxXcNlbp4eebXIOicZtkwDSx0TFz9NpkbecEDn6rBw==",
-        "dependencies": {
-          "Grpc.Net.Common": "2.52.0",
-          "Microsoft.Extensions.Logging.Abstractions": "3.0.3"
-        }
-      },
-      "Grpc.Net.Common": {
-        "type": "Transitive",
-        "resolved": "2.52.0",
-        "contentHash": "di9qzpdx525IxumZdYmu6sG2y/gXJyYeZ1ruFUzB9BJ1nj4kU1/dTAioNCMt1VLRvNVDqh8S8B1oBdKhHJ4xRg==",
-        "dependencies": {
-          "Grpc.Core.Api": "2.52.0"
         }
       },
       "Humanizer": {
@@ -750,8 +720,8 @@
       },
       "Microsoft.CodeCoverage": {
         "type": "Transitive",
-        "resolved": "17.9.0-release-23619-01",
-        "contentHash": "qemNsrycXC2yqxtsUFcL0nCMZl970XA+HacDda6CHsW4oFauV2ikG8yv5dy1mlo6C7XqBYhV8lNFWNqVXDgiRQ=="
+        "resolved": "17.9.0",
+        "contentHash": "RGD37ZSrratfScYXm7M0HjvxMxZyWZL4jm+XgMZbkIY1UPgjUpbNA/t+WTGj/rC/0Hm9A3IrH3ywbKZkOCnoZA=="
       },
       "Microsoft.DiaSymReader": {
         "type": "Transitive",
@@ -1135,18 +1105,18 @@
       },
       "Microsoft.TestPlatform.ObjectModel": {
         "type": "Transitive",
-        "resolved": "17.9.0-release-23619-01",
-        "contentHash": "vRExhpkSvle+NKL4KUaZgYD6lKOf1LtSed2dOOZ9tkhujYTWJfK/fqW9r2ruNcD8U1WsutoAHUzTswZ5vde3bw==",
+        "resolved": "17.9.0",
+        "contentHash": "1ilw/8vgmjLyKU+2SKXKXaOqpYFJCQfGqGz+x0cosl981VzjrY74Sv6qAJv+neZMZ9ZMxF3ArN6kotaQ4uvEBw==",
         "dependencies": {
           "System.Reflection.Metadata": "1.6.0"
         }
       },
       "Microsoft.TestPlatform.TestHost": {
         "type": "Transitive",
-        "resolved": "17.9.0-release-23619-01",
-        "contentHash": "1X9phC/fCdd+SrdhLUZWXK8vJMdJTl8pgFEuxHYmjM8yl59rsrKAsCOMgrvj7NlD9V51SM3ZBWlyHe/rBQQ8AA==",
+        "resolved": "17.9.0",
+        "contentHash": "Spmg7Wx49Ya3SxBjyeAR+nQpjMTKZwTwpZ7KyeOTIqI/WHNPnBU4HUvl5kuHPQAwGWqMy4FGZja1HvEwvoaDiA==",
         "dependencies": {
-          "Microsoft.TestPlatform.ObjectModel": "17.9.0-release-23619-01",
+          "Microsoft.TestPlatform.ObjectModel": "17.9.0",
           "Newtonsoft.Json": "13.0.1"
         }
       },
@@ -1463,11 +1433,6 @@
         "resolved": "8.0.0",
         "contentHash": "FHNOatmUq0sqJOkTx+UF/9YK1f180cnW5FVqnQMvYUN0elp6wFzbtPSiqbo1/ru8ICp43JM1i7kKkk6GsNGHlA=="
       },
-      "System.Memory": {
-        "type": "Transitive",
-        "resolved": "4.5.3",
-        "contentHash": "3oDzvc/zzetpTKWMShs1AADwZjQ/36HnsufHRPcOjyRAAMLDlu2iD33MBI2opxnezcVUtXyqDXXjoFMOU9c7SA=="
-      },
       "System.Reflection.Metadata": {
         "type": "Transitive",
         "resolved": "7.0.0",
@@ -1627,25 +1592,12 @@
           "Newtonsoft.Json": "[13.0.3, )",
           "Newtonsoft.Json.Schema": "[3.0.15, )",
           "OneOf": "[3.0.263, )",
-          "TempMaiSe.Models": "[1.0.0, )",
-          "TempMaiSe.OpenTelemetry": "[1.0.0, )",
+          "TempMaiSe.Models": "[0.0.1, )",
           "jcamp.FluentEmail.Core": "[3.7.0, )"
         }
       },
       "tempmaise.models": {
         "type": "Project"
-      },
-      "tempmaise.opentelemetry": {
-        "type": "Project",
-        "dependencies": {
-          "OpenTelemetry.Exporter.Console": "[1.7.0, )",
-          "OpenTelemetry.Exporter.OpenTelemetryProtocol": "[1.7.0, )",
-          "OpenTelemetry.Exporter.Prometheus.AspNetCore": "[1.6.0-rc.1, )",
-          "OpenTelemetry.Exporter.Zipkin": "[1.7.0, )",
-          "OpenTelemetry.Extensions.Hosting": "[1.7.0, )",
-          "OpenTelemetry.Instrumentation.AspNetCore": "[1.7.0, )",
-          "OpenTelemetry.Instrumentation.Http": "[1.7.0, )"
-        }
       },
       "tempmaise.samples.api": {
         "type": "Project",
@@ -1661,7 +1613,11 @@
           "Microsoft.VisualStudio.Web.CodeGeneration.Design": "[8.0.0, )",
           "Newtonsoft.Json": "[13.0.3, )",
           "Newtonsoft.Json.Schema": "[3.0.15, )",
-          "TempMaiSe.Mailer": "[1.0.0, )",
+          "OpenTelemetry.Exporter.Console": "[1.7.0, )",
+          "OpenTelemetry.Extensions.Hosting": "[1.7.0, )",
+          "OpenTelemetry.Instrumentation.AspNetCore": "[1.7.0, )",
+          "OpenTelemetry.Instrumentation.Http": "[1.7.0, )",
+          "TempMaiSe.Mailer": "[0.0.1, )",
           "jcamp.FluentEmail.Core": "[3.7.0, )",
           "jcamp.FluentEmail.MailKit": "[3.7.0, )",
           "jcamp.FluentEmail.Smtp": "[3.7.0, )"
@@ -1818,37 +1774,6 @@
         "requested": "[1.7.0, )",
         "resolved": "1.7.0",
         "contentHash": "9mcwpArzG7+5cLnG6marWdVD1TyoVR03WAjShvxADqgsEeuzLMClTlgXi41bTCAgxjYyiHV5l60fJwXTekiJdQ==",
-        "dependencies": {
-          "OpenTelemetry": "1.7.0",
-          "System.Text.Encodings.Web": "4.7.2",
-          "System.Text.Json": "4.7.2"
-        }
-      },
-      "OpenTelemetry.Exporter.OpenTelemetryProtocol": {
-        "type": "CentralTransitive",
-        "requested": "[1.7.0, )",
-        "resolved": "1.7.0",
-        "contentHash": "ULGTxg4HdnJD+CIuiD15Uov4xVVqwpbNGFd075J3MT3lLM9XcwU4YRz7CCNmqIlehYaiZrGhUurXrI2LgZZL1Q==",
-        "dependencies": {
-          "Google.Protobuf": "[3.22.5, 4.0.0)",
-          "Grpc.Net.Client": "[2.52.0, 3.0.0)",
-          "OpenTelemetry": "1.7.0"
-        }
-      },
-      "OpenTelemetry.Exporter.Prometheus.AspNetCore": {
-        "type": "CentralTransitive",
-        "requested": "[1.6.0-rc.1, )",
-        "resolved": "1.6.0-rc.1",
-        "contentHash": "jLZ6wgR5l3XyYXgAO9vyssFG9zmywzRMLpqj2ibk4HtCqIM+aErL2Y89EcBFivcROLCMF+h19+DRFEX77LyjOA==",
-        "dependencies": {
-          "OpenTelemetry": "1.6.0-rc.1"
-        }
-      },
-      "OpenTelemetry.Exporter.Zipkin": {
-        "type": "CentralTransitive",
-        "requested": "[1.7.0, )",
-        "resolved": "1.7.0",
-        "contentHash": "DSgBwae8wCabKUnm1vpdXV8zWOcdAyzoGTEnTb2RmWls/cVPJMaq6KvRIM6MCJrv0bn4yKimJ9jWGXPbjnohHw==",
         "dependencies": {
           "OpenTelemetry": "1.7.0",
           "System.Text.Encodings.Web": "4.7.2",

@@ -20,7 +20,14 @@
 
   <ItemGroup>
     <ProjectReference Include="..\TempMaiSe.Models\TempMaiSe.Models.csproj" />
-    <ProjectReference Include="..\TempMaiSe.OpenTelemetry\TempMaiSe.OpenTelemetry.csproj" />
   </ItemGroup>
+
+  <ItemGroup>
+    <None Include="..\..\README.md" Pack="true" PackagePath="" Visible="False" />
+  </ItemGroup>
+
+  <PropertyGroup>
+    <PackageReadmeFile>README.md</PackageReadmeFile>
+  </PropertyGroup>
 
 </Project>

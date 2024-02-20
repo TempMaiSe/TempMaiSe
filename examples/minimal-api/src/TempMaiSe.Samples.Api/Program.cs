@@ -5,7 +5,6 @@ using System.Diagnostics;
 
 using TempMaiSe.Mailer;
 using TempMaiSe.Models;
-using TempMaiSe.OpenTelemetry;
 using TempMaiSe.Samples.Api;
 
 using OneOf;
@@ -20,20 +19,15 @@ builder.AddOpenTelemetry<Program>();
 
 // Add services to the container.
 builder.Services.AddProblemDetails();
-builder.Services.AddSingleton<FluidParser>();
 
 builder.Services.AddFluentEmail(config);
 
-builder.Services.AddSingleton<ITemplateToMailHeadersMapper, TemplateToMailHeadersMapper>();
-builder.Services.AddSingleton<IMailInformationToMailHeadersMapper, MailInformationToMailHeadersMapper>();
-
-builder.Services.AddSingleton<IDataParser, DataParser>();
+builder.Services.AddMailService();
 
 builder.Services.AddTemplateContext(config);
 builder.Services.AddDatabaseDeveloperPageExceptionFilter();
 
 builder.Services.AddScoped<ITemplateRepository, TemplateRepository>();
-builder.Services.AddScoped<IMailService, MailService>();
 
 builder.Services.AddHealthChecks()
     .AddDbContextCheck<TempMaiSe.Samples.Api.TemplateContext>();

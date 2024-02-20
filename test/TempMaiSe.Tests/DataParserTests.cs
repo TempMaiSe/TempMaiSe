@@ -67,6 +67,8 @@ public class DataParserTests
             "ReplyTo": ["test@example.org"],
             "Tags": ["dummy"],
             "Headers": [],
+            "Attachments": [],
+            "InlineAttachments": [],
             "Priority": 1,
             "Data": {
                 "email": "foo"
@@ -86,7 +88,7 @@ public class DataParserTests
     }
 
     [Fact]
-    public async Task ParseAsync_Returns_Tempalte_If_Data_Does_Match_Schema()
+    public async Task ParseAsync_Returns_Template_If_Data_Does_Match_Schema()
     {
         // Arrange
         const string jsonSchema = """
@@ -110,10 +112,18 @@ public class DataParserTests
             "Bcc": ["bcc@example.org"],
             "ReplyTo": ["replyTo@example.org"],
             "Tags": ["dummy"],
+            "Attachments": [
+                {
+                    "FileName": "file.txt",
+                    "MediaType": "text/plain",
+                    "Data": "SGVsbG8gV29ybGQ="
+                }
+            ],
+            "InlineAttachments": [],
             "Headers": [
                 {
-                "Name": "traceparent",
-                "Value": "00-0af7651916cd43dd8448eb211c80319c-b7ad6b7169203331-01"
+                    "Name": "traceparent",
+                    "Value": "00-0af7651916cd43dd8448eb211c80319c-b7ad6b7169203331-01"
                 }
             ],
             "Priority": 3,
@@ -141,5 +151,7 @@ public class DataParserTests
         Assert.Equal("dummy", mailInformation.Tags.Single());
         Assert.Equal(Priority.Low, mailInformation.Priority);
         Assert.Equal("foo@example.org", (string)mailInformation.Data!.email);
+        Assert.Contains(mailInformation.Attachments, a => a.FileName == "file.txt" && a.MediaType == "text/plain" && a.Data.Length == 11);
+        Assert.Contains(mailInformation.Headers, h => h.Name == "traceparent" && h.Value == "00-0af7651916cd43dd8448eb211c80319c-b7ad6b7169203331-01");
     }
 }

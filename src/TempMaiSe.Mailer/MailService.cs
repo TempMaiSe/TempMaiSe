@@ -7,7 +7,6 @@ using System.Diagnostics;
 using System.Text.Encodings.Web;
 
 using TempMaiSe.Models;
-using TempMaiSe.OpenTelemetry;
 
 using OneOf;
 using OneOf.Types;
@@ -19,9 +18,7 @@ namespace TempMaiSe.Mailer;
 /// </summary>
 public class MailService : IMailService
 {
-    private readonly IFluentEmail _mailer;
-
-    private readonly IMailingInstrumentation _instrumentation;
+    private readonly IFluentEmailFactory _mailFactory;
 
     private readonly ITemplateRepository _templateRepository;
 
@@ -29,21 +26,19 @@ public class MailService : IMailService
 
     private readonly FluidParser _fluidParser;
 
-    private readonly ITemplateToMailHeadersMapper _mailHeaderMapper;
+    private readonly ITemplateToMailMapper _mailHeaderMapper;
 
-    private readonly IMailInformationToMailHeadersMapper _mailInfoMapper;
+    private readonly IMailInformationToMailMapper _mailInfoMapper;
 
     public MailService(
-        IFluentEmail mailer,
-        IMailingInstrumentation instrumentation,
+        IFluentEmailFactory mailFactory,
         ITemplateRepository templateRepository,
         IDataParser dataParser,
         FluidParser fluidParser,
-        ITemplateToMailHeadersMapper mailHeaderMapper,
-        IMailInformationToMailHeadersMapper mailInfoMapper)
+        ITemplateToMailMapper mailHeaderMapper,
+        IMailInformationToMailMapper mailInfoMapper)
     {
-        _mailer = mailer ?? throw new ArgumentNullException(nameof(mailer));
-        _instrumentation = instrumentation ?? throw new ArgumentNullException(nameof(instrumentation));
+        _mailFactory = mailFactory ?? throw new ArgumentNullException(nameof(mailFactory));
         _templateRepository = templateRepository ?? throw new ArgumentNullException(nameof(templateRepository));
         _dataParser = dataParser ?? throw new ArgumentNullException(nameof(dataParser));
         _fluidParser = fluidParser ?? throw new ArgumentNullException(nameof(fluidParser));
@@ -54,7 +49,7 @@ public class MailService : IMailService
     /// <inheritdoc/>
     public async Task<OneOf<SendResponse, NotFound, List<ValidationError>>> SendMailAsync(int id, Stream data, CancellationToken cancellationToken = default)
     {
-        using Activity? activity = _instrumentation.ActivitySource.StartActivity("SendMail")!;
+        using Activity? activity = MailingInstrumentation.Instance?.ActivitySource.StartActivity("SendMail")!;
         activity?.AddTag("TemplateId", id);
 
         Template? template = await _templateRepository.GetTemplateAsync(id, cancellationToken).ConfigureAwait(false);
@@ -71,13 +66,24 @@ public class MailService : IMailService
             return errors;
         }
 
-        IFluidTemplate fluidSubjectTemplate = _fluidParser.Parse(templateData.SubjectTemplate);
-        TemplateContext templateContext = new(mailInformation.Data);
-        string subject = await fluidSubjectTemplate.RenderAsync(templateContext).ConfigureAwait(false);
+        InlineAttachmentCollection inlineAttachments = new(templateData!.InlineAttachments?.Count ?? 0 + mailInformation!.InlineAttachments?.Count ?? 0);
+        templateData.InlineAttachments?.CopyTo(inlineAttachments);
+        mailInformation.InlineAttachments?.CopyTo(inlineAttachments);
 
-        IFluentEmail mail = _mailer.Subject(subject);
+        IFluentEmail mail = _mailFactory.Create();
         mail = _mailHeaderMapper.Map(templateData, mail);
         mail = _mailInfoMapper.Map(mailInformation, mail);
+
+        IFluidTemplate fluidSubjectTemplate = _fluidParser.Parse(templateData.SubjectTemplate);
+        TemplateContext templateContext = new(mailInformation.Data)
+        {
+            AmbientValues =
+            {
+                { nameof(InlineAttachmentCollection), inlineAttachments }
+            }
+        };
+        string subject = await fluidSubjectTemplate.RenderAsync(templateContext).ConfigureAwait(false);
+        mail = mail.Subject(subject);
 
         string? plainTextBody = null;
         if (!string.IsNullOrWhiteSpace(templateData.PlainTextBodyTemplate))
@@ -107,7 +113,15 @@ public class MailService : IMailService
             mail = mail.Body(plainTextBody);
         }
 
+        foreach (InlineAttachmentWithId attachmentWithId in inlineAttachments)
+        {
+            Models.Attachment attachment = attachmentWithId.Attachment;
+            FluentEmail.Core.Models.Attachment fluentAttachment = new() { ContentId = attachmentWithId.Id, Filename = attachment.FileName, ContentType = attachment.MediaType, Data = new MemoryStream(attachment.Data), IsInline = true };
+            mail = mail.Attach(fluentAttachment);
+        }
+
         SendResponse resp = await mail.SendAsync(cancellationToken).ConfigureAwait(false);
+        MailingInstrumentation.Instance?.MailsSent.Add(1);
         return resp;
     }
 }
