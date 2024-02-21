@@ -4,38 +4,32 @@
     <CentralPackageTransitivePinningEnabled>true</CentralPackageTransitivePinningEnabled>
     <RestorePackagesWithLockFile>true</RestorePackagesWithLockFile>
   </PropertyGroup>
-  <PropertyGroup>
-    <FluentEmailVersion>3.7.0</FluentEmailVersion>
-    <EntityFrameworkCoreVersion>8.0.1</EntityFrameworkCoreVersion>
-    <AspNetCoreEntityFrameworkCoreVersion>8.0.2</AspNetCoreEntityFrameworkCoreVersion>
-    <OpenTelemetryVersion>1.7.0</OpenTelemetryVersion>
-  </PropertyGroup>
   <ItemGroup>
-    <PackageVersion Include="jcamp.FluentEmail.Core" Version="$(FluentEmailVersion)" />
-    <PackageVersion Include="jcamp.FluentEmail.MailKit" Version="$(FluentEmailVersion)" />
-    <PackageVersion Include="jcamp.FluentEmail.Smtp" Version="$(FluentEmailVersion)" />
+    <PackageVersion Include="jcamp.FluentEmail.Core" Version="3.7.0" />
+    <PackageVersion Include="jcamp.FluentEmail.MailKit" Version="3.7.0" />
+    <PackageVersion Include="jcamp.FluentEmail.Smtp" Version="3.7.0" />
   </ItemGroup>
   <ItemGroup>
     <PackageVersion Include="Newtonsoft.Json" Version="13.0.3" />
     <PackageVersion Include="Newtonsoft.Json.Schema" Version="3.0.15" />
   </ItemGroup>
   <ItemGroup>
-    <PackageVersion Include="OpenTelemetry.Extensions.Hosting" Version="$(OpenTelemetryVersion)" />
-    <PackageVersion Include="OpenTelemetry.Exporter.Console" Version="$(OpenTelemetryVersion)" />
-    <PackageVersion Include="OpenTelemetry.Instrumentation.AspNetCore" Version="$(OpenTelemetryVersion)" />
-    <PackageVersion Include="OpenTelemetry.Instrumentation.Http" Version="$(OpenTelemetryVersion)" />
+    <PackageVersion Include="OpenTelemetry.Extensions.Hosting" Version="1.7.0" />
+    <PackageVersion Include="OpenTelemetry.Exporter.Console" Version="1.7.0" />
+    <PackageVersion Include="OpenTelemetry.Instrumentation.AspNetCore" Version="1.7.1" />
+    <PackageVersion Include="OpenTelemetry.Instrumentation.Http" Version="1.7.1" />
   </ItemGroup>
   <ItemGroup>
-    <PackageVersion Include="Microsoft.EntityFrameworkCore" Version="$(EntityFrameworkCoreVersion)" />
-    <PackageVersion Include="Microsoft.EntityFrameworkCore.Design" Version="$(EntityFrameworkCoreVersion)" />
-    <PackageVersion Include="Microsoft.EntityFrameworkCore.Relational" Version="$(EntityFrameworkCoreVersion)" />
-    <PackageVersion Include="Microsoft.EntityFrameworkCore.Tools" Version="$(EntityFrameworkCoreVersion)" />
-    <PackageVersion Include="Microsoft.EntityFrameworkCore.InMemory" Version="$(EntityFrameworkCoreVersion)" />
-    <PackageVersion Include="Microsoft.AspNetCore.Diagnostics.EntityFrameworkCore" Version="$(AspNetCoreEntityFrameworkCoreVersion)" />
-    <PackageVersion Include="Microsoft.Extensions.Diagnostics.HealthChecks.EntityFrameworkCore" Version="$(AspNetCoreEntityFrameworkCoreVersion)" />
-    <PackageVersion Include="Microsoft.AspNetCore.Identity.EntityFrameworkCore" Version="$(AspNetCoreEntityFrameworkCoreVersion)" />
-    <PackageVersion Include="Microsoft.AspNetCore.Identity.UI" Version="$(AspNetCoreEntityFrameworkCoreVersion)" />
-    <PackageVersion Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="8.0.0" />
+    <PackageVersion Include="Microsoft.EntityFrameworkCore" Version="8.0.2" />
+    <PackageVersion Include="Microsoft.EntityFrameworkCore.Design" Version="8.0.2" />
+    <PackageVersion Include="Microsoft.EntityFrameworkCore.Relational" Version="8.0.2" />
+    <PackageVersion Include="Microsoft.EntityFrameworkCore.Tools" Version="8.0.2" />
+    <PackageVersion Include="Microsoft.EntityFrameworkCore.InMemory" Version="8.0.2" />
+    <PackageVersion Include="Microsoft.AspNetCore.Diagnostics.EntityFrameworkCore" Version="8.0.2" />
+    <PackageVersion Include="Microsoft.Extensions.Diagnostics.HealthChecks.EntityFrameworkCore" Version="8.0.2" />
+    <PackageVersion Include="Microsoft.AspNetCore.Identity.EntityFrameworkCore" Version="8.0.2" />
+    <PackageVersion Include="Microsoft.AspNetCore.Identity.UI" Version="8.0.2" />
+    <PackageVersion Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="8.0.1" />
   </ItemGroup>
   <ItemGroup>
     <PackageVersion Include="Fluid.Core" Version="2.5.0" />
@@ -46,7 +40,7 @@
     <PackageVersion Include="xunit.runner.visualstudio" Version="2.5.7" />
     <PackageVersion Include="coverlet.collector" Version="6.0.1" />
     <PackageVersion Include="Moq" Version="4.20.70" />
-    <PackageVersion Include="Microsoft.AspNetCore.Mvc.Testing" Version="$(AspNetCoreEntityFrameworkCoreVersion)" />
+    <PackageVersion Include="Microsoft.AspNetCore.Mvc.Testing" Version="8.0.2" />
     <PackageVersion Include="Testcontainers.Papercut" Version="3.7.0" />
   </ItemGroup>
   <ItemGroup>
