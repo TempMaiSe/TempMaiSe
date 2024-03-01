@@ -6,7 +6,7 @@
   </PropertyGroup>
   <PropertyGroup>
     <FluentEmailVersion>3.7.0</FluentEmailVersion>
-    <EntityFrameworkCoreVersion>8.0.1</EntityFrameworkCoreVersion>
+    <EntityFrameworkCoreVersion>8.0.2</EntityFrameworkCoreVersion>
     <AspNetCoreEntityFrameworkCoreVersion>8.0.2</AspNetCoreEntityFrameworkCoreVersion>
     <OpenTelemetryVersion>1.7.0</OpenTelemetryVersion>
   </PropertyGroup>
