@@ -463,7 +463,7 @@ Neo</p>
         Assert.Contains(message.Sections, section => section.MediaType == "image/png" && section.FileName == "logo.png");
     }
 
-        [Fact]
+    [Fact]
     public async Task Post_Send_Returns_Success_For_Good_Template_Id_Complex_Object_With_Inline_Attachment()
     {
         // Arrange
@@ -625,6 +625,93 @@ Neo</p>
         Assert.Contains(message.Sections, section => section.MediaType == "image/svg+xml" && section.FileName == "blue.svg" && section.Id == "8e782df90bdb749881b592be981befc7ba1320536621e540b836a29d35d5a4d9");
         Assert.Contains(message.Sections, section => section.MediaType == "image/svg+xml" && section.FileName == "red.svg" && section.Id == "a101746ce2666bca288096e79b43e2b8099ded9947ecb30f1623e3009644ee31");
         Assert.Contains(message.Sections, section => section.MediaType == "image/svg+xml" && section.FileName == "yellow.svg" && section.Id == "ffd7bca49b22eb931895418b84d0408853b3ff2e4d0704738dd8e5f56e16f252");
+    }
+
+    [Fact]
+    public async Task Post_Send_Returns_Success_For_Good_Template_With_Custom_Fluid_Tag()
+    {
+        // Arrange
+        PapercutContainer container = new PapercutBuilder()
+            .Build();
+        await container.StartAsync().ConfigureAwait(true);
+
+        HttpClient client = _factory
+            .WithWebHostBuilder(configuration =>
+            {
+                configuration.UseSetting("FluentEmail:Sender", "Smtp");
+                configuration.UseSetting("FluentEmail:Smtp:Server", container.Hostname);
+                configuration.UseSetting("FluentEmail:Smtp:Port", container.SmtpPort.ToString(CultureInfo.InvariantCulture));
+
+                configuration.ConfigureTestServices(services =>
+                {
+                    using TemplateContext context = services.BuildServiceProvider().GetRequiredService<TemplateContext>();
+                    context.Templates.Add(new Template
+                    {
+                        Id = 31338,
+                        Data = new TemplateData
+                        {
+                            SubjectTemplate = "{{ Head.Name }} — Claim your free gift now",
+                            PlainTextBodyTemplate = "Use a HTML mailer, {{ Head.Name }}!",
+                            HtmlBodyTemplate =
+"""
+<p>{% logo %}</p>
+""",
+                            JsonSchema =
+"""
+{
+    "$schema": "https://json-schema.org/draft/2020-12/schema",
+    "type": "object",
+    "properties": {
+        "Head": {
+            "type": "object",
+            "properties": {
+                "Name": { "type": "string" },
+                "SupportAgent": { "type": "string" }
+            },
+            "required": ["Name", "SupportAgent"]
+        }
+    },
+    "required": ["Head"]
+}
+"""
+                        }
+                    });
+                    context.SaveChanges();
+                });
+            }).CreateClient();
+
+        MailInformation mail = new()
+        {
+            From = "couponmanager@example.org",
+            To = ["couponer@example.com"],
+            Priority = Priority.Normal,
+            Data = new Dictionary<string, object>
+            {
+                { "Head", new Dictionary<string, object>{ { "Name", "Erika Mustermann" }, { "SupportAgent", "Neo" } } }
+            }
+        };
+
+        // Act
+        using HttpContent content = new StringContent(JsonSerializer.Serialize(mail), Encoding.UTF8, "application/json");
+        HttpResponseMessage response = await client.PostAsync(new Uri("/send/31338", UriKind.Relative), content).ConfigureAwait(true);
+
+        // Assert
+        Assert.Equal(HttpStatusCode.OK, response.StatusCode);
+        using HttpClient httpClient = new();
+        httpClient.BaseAddress = new Uri(container.GetBaseAddress());
+        PapercutMessageList? messages = await httpClient.GetFromJsonAsync<PapercutMessageList>(new Uri("/api/messages", UriKind.Relative)).ConfigureAwait(true);
+        Assert.Equal(1, messages!.TotalMessageCount);
+        PapercutMessage? message = await httpClient.GetFromJsonAsync<PapercutMessage>(new Uri($"/api/messages/{messages.Messages.Single().Id}", UriKind.Relative)).ConfigureAwait(true);
+        Assert.NotNull(message);
+        Assert.Equal("Erika Mustermann — Claim your free gift now", message.Subject);
+        Assert.Equal("""<p><img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAQAAAAECAIAAAAmkwkpAAAAQ0lEQVR4nGKanbxR0iCpx+Lsq7MfGBKt0pls/206J81Y9Yrx7rta3mMP0lrvGci3MjNw/wj989bz5ksPzqOAAAAA//94+BjST+Y61wAAAABJRU5ErkJggg==" alt="Logo"></p>""", message.HtmlBody);
+        Assert.Equal("Use a HTML mailer, Erika Mustermann!", message.TextBody);
+
+        Assert.NotNull(message.From);
+        Assert.Contains(message.From, address => address.Address == "couponmanager@example.org");
+
+        Assert.NotNull(message.To);
+        Assert.Contains(message.To, address => address.Address == "couponer@example.com");
     }
 
     private record CouponItem(string Name);

@@ -125,6 +125,25 @@ app.MapPost("/send/{id}", async (int id, Stream data, IMailService mailService, 
 });
 ```
 
+### Advanced Features
+
+You may want to create custom [Fluid](https://github.com/sebastienros/fluid/) tags for use with your implementation. This can easily be done by customizing how the `FluidParser` is registered:
+
+```csharp
+builder.Services.AddMailService(fluidParser =>
+{
+    fluidParser.RegisterEmptyTag("logo", async (System.IO.TextWriter writer, System.Text.Encodings.Web.TextEncoder encoder, Fluid.TemplateContext context) =>
+    {
+        ArgumentNullException.ThrowIfNull(writer);
+        ArgumentNullException.ThrowIfNull(encoder);
+        ArgumentNullException.ThrowIfNull(context);
+
+        await writer.WriteAsync("""<img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAQAAAAECAIAAAAmkwkpAAAAQ0lEQVR4nGKanbxR0iCpx+Lsq7MfGBKt0pls/206J81Y9Yrx7rta3mMP0lrvGci3MjNw/wj989bz5ksPzqOAAAAA//94+BjST+Y61wAAAABJRU5ErkJggg==" alt="Logo">""").ConfigureAwait(false);
+        return Fluid.Ast.Completion.Normal;
+    });
+});
+```
+
 ## Contributing
 
 Contributions are welcome! If you encounter any issues or have suggestions for improvements, please open an issue or submit a pull request on the [TempMaiSe GitHub repository](https://github.com/TempMaiSe/TempMaiSe).

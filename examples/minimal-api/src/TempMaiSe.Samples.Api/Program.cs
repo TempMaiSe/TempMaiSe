@@ -22,7 +22,18 @@ builder.Services.AddProblemDetails();
 
 builder.Services.AddFluentEmail(config);
 
-builder.Services.AddMailService();
+builder.Services.AddMailService(fluidParser =>
+{
+    fluidParser.RegisterEmptyTag("logo", async (System.IO.TextWriter writer, System.Text.Encodings.Web.TextEncoder encoder, Fluid.TemplateContext context) =>
+    {
+        ArgumentNullException.ThrowIfNull(writer);
+        ArgumentNullException.ThrowIfNull(encoder);
+        ArgumentNullException.ThrowIfNull(context);
+
+        await writer.WriteAsync("""<img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAQAAAAECAIAAAAmkwkpAAAAQ0lEQVR4nGKanbxR0iCpx+Lsq7MfGBKt0pls/206J81Y9Yrx7rta3mMP0lrvGci3MjNw/wj989bz5ksPzqOAAAAA//94+BjST+Y61wAAAABJRU5ErkJggg==" alt="Logo">""").ConfigureAwait(false);
+        return Fluid.Ast.Completion.Normal;
+    });
+});
 
 builder.Services.AddTemplateContext(config);
 builder.Services.AddDatabaseDeveloperPageExceptionFilter();
