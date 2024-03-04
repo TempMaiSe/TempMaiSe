@@ -66,9 +66,7 @@ public class MailService : IMailService
             return errors;
         }
 
-        InlineAttachmentCollection inlineAttachments = new(templateData!.InlineAttachments?.Count ?? 0 + mailInformation!.InlineAttachments?.Count ?? 0);
-        templateData.InlineAttachments?.CopyTo(inlineAttachments);
-        mailInformation.InlineAttachments?.CopyTo(inlineAttachments);
+        InlineAttachmentCollection inlineAttachments = MergeInlineAttachments(templateData, mailInformation);
 
         IFluentEmail mail = _mailFactory.Create();
         mail = _mailHeaderMapper.Map(templateData, mail);
@@ -85,6 +83,37 @@ public class MailService : IMailService
         string subject = await fluidSubjectTemplate.RenderAsync(templateContext).ConfigureAwait(false);
         mail = mail.Subject(subject);
 
+        mail = AttachInlineAttachments(mail, inlineAttachments);
+
+        mail = await RenderBodiesAsync(mail, templateData, templateContext).ConfigureAwait(false);
+
+        SendResponse resp = await mail.SendAsync(cancellationToken).ConfigureAwait(false);
+        MailingInstrumentation.Instance?.MailsSent.Add(1);
+        return resp;
+    }
+
+    private static InlineAttachmentCollection MergeInlineAttachments(TemplateData templateData, MailInformation mailInformation)
+    {
+        InlineAttachmentCollection inlineAttachments = new(templateData.InlineAttachments?.Count ?? 0 + mailInformation.InlineAttachments?.Count ?? 0);
+        templateData.InlineAttachments?.CopyTo(inlineAttachments);
+        mailInformation.InlineAttachments?.CopyTo(inlineAttachments);
+        return inlineAttachments;
+    }
+
+    private static IFluentEmail AttachInlineAttachments(IFluentEmail mail, InlineAttachmentCollection inlineAttachments)
+    {
+        foreach (InlineAttachmentWithId attachmentWithId in inlineAttachments)
+        {
+            Models.Attachment attachment = attachmentWithId.Attachment;
+            FluentEmail.Core.Models.Attachment fluentAttachment = new() { ContentId = attachmentWithId.Id, Filename = attachment.FileName, ContentType = attachment.MediaType, Data = new MemoryStream(attachment.Data), IsInline = true };
+            mail = mail.Attach(fluentAttachment);
+        }
+
+        return mail;
+    }
+
+    private async Task<IFluentEmail> RenderBodiesAsync(IFluentEmail mail, TemplateData templateData, TemplateContext templateContext)
+    {
         string? plainTextBody = null;
         if (!string.IsNullOrWhiteSpace(templateData.PlainTextBodyTemplate))
         {
@@ -113,15 +142,6 @@ public class MailService : IMailService
             mail = mail.Body(plainTextBody);
         }
 
-        foreach (InlineAttachmentWithId attachmentWithId in inlineAttachments)
-        {
-            Models.Attachment attachment = attachmentWithId.Attachment;
-            FluentEmail.Core.Models.Attachment fluentAttachment = new() { ContentId = attachmentWithId.Id, Filename = attachment.FileName, ContentType = attachment.MediaType, Data = new MemoryStream(attachment.Data), IsInline = true };
-            mail = mail.Attach(fluentAttachment);
-        }
-
-        SendResponse resp = await mail.SendAsync(cancellationToken).ConfigureAwait(false);
-        MailingInstrumentation.Instance?.MailsSent.Add(1);
-        return resp;
+        return mail;
     }
 }
