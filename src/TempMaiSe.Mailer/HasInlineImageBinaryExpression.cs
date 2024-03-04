@@ -9,8 +9,7 @@ internal sealed class HasInlineImageBinaryExpression(Expression left, Expression
     {
         ArgumentNullException.ThrowIfNull(context);
 
-        if (context.AmbientValues.TryGetValue(nameof(InlineAttachmentCollection), out object? inlineAttachmentsRaw) is not true
-            || inlineAttachmentsRaw is not InlineAttachmentCollection inlineAttachments)
+        if (context.AmbientValues.TryGetValue(nameof(InlineAttachmentCollection), out InlineAttachmentCollection? inlineAttachments) is not true)
         {
             return BooleanValue.False;
         }
@@ -21,7 +20,7 @@ internal sealed class HasInlineImageBinaryExpression(Expression left, Expression
             return BooleanValue.False;
         }
 
-        if (inlineAttachments.TryGetAttachmentByFileName(imageFileName.ToStringValue(), out InlineAttachmentWithId? _) is false)
+        if (inlineAttachments!.TryGetAttachmentByFileName(imageFileName.ToStringValue(), out InlineAttachmentWithId? _) is false)
         {
             return BooleanValue.False;
         }

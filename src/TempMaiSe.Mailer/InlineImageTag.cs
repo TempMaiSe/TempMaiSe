@@ -13,14 +13,13 @@ internal static class InlineImageTag
         ArgumentNullException.ThrowIfNull(encoder);
         ArgumentNullException.ThrowIfNull(context);
 
-        if (context.AmbientValues.TryGetValue(nameof(InlineAttachmentCollection), out object? inlineAttachmentsRaw) is not true
-            || inlineAttachmentsRaw is not InlineAttachmentCollection inlineAttachments)
+        if (context.AmbientValues.TryGetValue(nameof(InlineAttachmentCollection), out InlineAttachmentCollection? inlineAttachments) is not true)
         {
             return Completion.Normal;
         }
 
         FluidValue fluidValue = await value.EvaluateAsync(context).ConfigureAwait(false);
-        if (inlineAttachments.TryGetAttachmentByFileName(fluidValue.ToStringValue(), out InlineAttachmentWithId? attachment) is false)
+        if (inlineAttachments!.TryGetAttachmentByFileName(fluidValue.ToStringValue(), out InlineAttachmentWithId? attachment) is false)
         {
             return Completion.Normal;
         }
