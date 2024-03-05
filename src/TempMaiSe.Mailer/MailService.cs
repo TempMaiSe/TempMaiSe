@@ -77,15 +77,14 @@ public class MailService : IMailService
         {
             AmbientValues =
             {
-                { nameof(InlineAttachmentCollection), inlineAttachments }
+                { nameof(InlineAttachmentCollection), inlineAttachments },
+                { Constants.Extensibility, new FluidExtensibility(inlineAttachments) }
             }
         };
         string subject = await fluidSubjectTemplate.RenderAsync(templateContext).ConfigureAwait(false);
         mail = mail.Subject(subject);
-
-        mail = AttachInlineAttachments(mail, inlineAttachments);
-
         mail = await RenderBodiesAsync(mail, templateData, templateContext).ConfigureAwait(false);
+        mail = AttachInlineAttachments(mail, inlineAttachments);
 
         SendResponse resp = await mail.SendAsync(cancellationToken).ConfigureAwait(false);
         MailingInstrumentation.Instance?.MailsSent.Add(1);

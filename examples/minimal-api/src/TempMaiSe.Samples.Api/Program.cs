@@ -9,6 +9,7 @@ using TempMaiSe.Samples.Api;
 
 using OneOf;
 using OneOf.Types;
+using System.Text;
 
 Activity.DefaultIdFormat = ActivityIdFormat.W3C;
 
@@ -24,13 +25,36 @@ builder.Services.AddFluentEmail(config);
 
 builder.Services.AddMailService(fluidParser =>
 {
-    fluidParser.RegisterEmptyTag("logo", async (System.IO.TextWriter writer, System.Text.Encodings.Web.TextEncoder encoder, Fluid.TemplateContext context) =>
+    fluidParser.RegisterEmptyTag("dummy", async (System.IO.TextWriter writer, System.Text.Encodings.Web.TextEncoder encoder, Fluid.TemplateContext context) =>
     {
         ArgumentNullException.ThrowIfNull(writer);
         ArgumentNullException.ThrowIfNull(encoder);
         ArgumentNullException.ThrowIfNull(context);
 
-        await writer.WriteAsync("""<img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAQAAAAECAIAAAAmkwkpAAAAQ0lEQVR4nGKanbxR0iCpx+Lsq7MfGBKt0pls/206J81Y9Yrx7rta3mMP0lrvGci3MjNw/wj989bz5ksPzqOAAAAA//94+BjST+Y61wAAAABJRU5ErkJggg==" alt="Logo">""").ConfigureAwait(false);
+        await writer.WriteAsync("""<img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAQAAAAECAIAAAAmkwkpAAAAQ0lEQVR4nGKanbxR0iCpx+Lsq7MfGBKt0pls/206J81Y9Yrx7rta3mMP0lrvGci3MjNw/wj989bz5ksPzqOAAAAA//94+BjST+Y61wAAAABJRU5ErkJggg==" alt="Dummy">""").ConfigureAwait(false);
+        return Fluid.Ast.Completion.Normal;
+    });
+
+    fluidParser.RegisterExpressionTag("logo", async (Fluid.Ast.Expression value, TextWriter writer, System.Text.Encodings.Web.TextEncoder encoder, Fluid.TemplateContext context) =>
+    {
+        ArgumentNullException.ThrowIfNull(value);
+        ArgumentNullException.ThrowIfNull(writer);
+        ArgumentNullException.ThrowIfNull(encoder);
+        ArgumentNullException.ThrowIfNull(context);
+
+        if (!context.AmbientValues.TryGetValue(Constants.Extensibility, out IFluidExtensibility? extensibility))
+        {
+            return Fluid.Ast.Completion.Normal;
+        }
+
+        Fluid.Values.FluidValue fluidValue = await value.EvaluateAsync(context).ConfigureAwait(false);
+        if (fluidValue.ToStringValue() is not string colour)
+        {
+            return Fluid.Ast.Completion.Normal;
+        }
+
+        string cid = extensibility!.AddInlineAttachment("logo.svg", Encoding.UTF8.GetBytes($"""<svg style="background-color: {colour};"></svg>"""), "image/svg+xml");
+        await writer.WriteAsync($"""<img src="cid:{cid}" alt="Logo">""").ConfigureAwait(false);
         return Fluid.Ast.Completion.Normal;
     });
 });

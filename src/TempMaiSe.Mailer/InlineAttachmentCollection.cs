@@ -38,7 +38,8 @@ internal sealed class InlineAttachmentCollection : IEnumerable<InlineAttachmentW
     /// Adds an attachment to the collection.
     /// </summary>
     /// <param name="attachment">The attachment to add.</param>
-    public void Add(Attachment attachment)
+    /// <returns>The ID of the added attachment.</returns>
+    public InlineAttachmentWithId Add(Attachment attachment)
     {
         ArgumentNullException.ThrowIfNull(attachment);
 
@@ -46,6 +47,7 @@ internal sealed class InlineAttachmentCollection : IEnumerable<InlineAttachmentW
         InlineAttachmentWithId attachmentWithId = new(attachmentId, attachment);
 
         _attachmentByFileName[attachment.FileName] = attachmentWithId;
+        return attachmentWithId;
     }
 
     /// <summary>

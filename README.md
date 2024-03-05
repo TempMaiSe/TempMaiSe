@@ -132,7 +132,7 @@ You may want to create custom [Fluid](https://github.com/sebastienros/fluid/) ta
 ```csharp
 builder.Services.AddMailService(fluidParser =>
 {
-    fluidParser.RegisterEmptyTag("logo", async (System.IO.TextWriter writer, System.Text.Encodings.Web.TextEncoder encoder, Fluid.TemplateContext context) =>
+    fluidParser.RegisterEmptyTag("dummy", async (System.IO.TextWriter writer, System.Text.Encodings.Web.TextEncoder encoder, Fluid.TemplateContext context) =>
     {
         ArgumentNullException.ThrowIfNull(writer);
         ArgumentNullException.ThrowIfNull(encoder);
@@ -143,6 +143,38 @@ builder.Services.AddMailService(fluidParser =>
     });
 });
 ```
+
+One common scenario of a tag could be dynamic generation of inline images:
+
+```csharp
+builder.Services.AddMailService(fluidParser =>
+{
+    fluidParser.RegisterExpressionTag("logo", async (Fluid.Ast.Expression value, System.IO.TextWriter writer, System.Text.Encodings.Web.TextEncoder encoder, Fluid.TemplateContext context) =>
+    {
+        ArgumentNullException.ThrowIfNull(value);
+        ArgumentNullException.ThrowIfNull(writer);
+        ArgumentNullException.ThrowIfNull(encoder);
+        ArgumentNullException.ThrowIfNull(context);
+
+        if (!context.AmbientValues.TryGetValue(Constants.Extensibility, out IFluidExtensibility? extensibility))
+        {
+            return Fluid.Ast.Completion.Normal;
+        }
+
+        Fluid.Values.FluidValue fluidValue = await value.EvaluateAsync(context).ConfigureAwait(false);
+        if (fluidValue.ToStringValue() is not string colour)
+        {
+            return Fluid.Ast.Completion.Normal;
+        }
+
+        string cid = extensibility!.AddInlineAttachment("logo.svg", Encoding.UTF8.GetBytes($"""<svg style="background-color: {colour};"></svg>"""), "image/svg+xml");
+        await writer.WriteAsync($"""<img src="cid:{cid}" alt="Logo">""").ConfigureAwait(false);
+        return Fluid.Ast.Completion.Normal;
+    });
+}
+```
+
+The `IFluidExtensibility` implementation currently only enables you to add new inline attachments, but could be extended further.
 
 ## Contributing
 
