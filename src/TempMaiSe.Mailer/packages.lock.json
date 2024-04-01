@@ -4,13 +4,13 @@
     "net8.0": {
       "Fluid.Core": {
         "type": "Direct",
-        "requested": "[2.5.0, )",
-        "resolved": "2.5.0",
-        "contentHash": "XrCupimfbdYIWpW64j3irIPRpV0UOBgUOiZTXAq00YhSzq/LAMG2fzVIXbUo6Xxfl3ywTY48yF4A9Lj2jABj5w==",
+        "requested": "[2.7.0, )",
+        "resolved": "2.7.0",
+        "contentHash": "O18vhUy5HrWI0fiV6gf6slV8Ffbb91+2sLRqEg6lrpEWLD3xqb1loxfI9OQJGUPoPfSVnWZJgda116HADIsZ4g==",
         "dependencies": {
           "Microsoft.Extensions.FileProviders.Abstractions": "1.1.1",
           "Parlot": "0.0.24",
-          "TimeZoneConverter": "6.0.1"
+          "TimeZoneConverter": "6.1.0"
         }
       },
       "jcamp.FluentEmail.Core": {
@@ -979,8 +979,8 @@
       },
       "TimeZoneConverter": {
         "type": "Transitive",
-        "resolved": "6.0.1",
-        "contentHash": "vvhLOgRSOvfq5fBv0/Dd1S3N7K2ibO5wp06B5AkuxUpXkgv2aDHw9jB5ZvPg83y9sy+jF9qE7qWybMK46BXBuw=="
+        "resolved": "6.1.0",
+        "contentHash": "UGdtyKWJqXXinyvGB9X6NVoIYbTAidoZYmn3aXzxeEYC9+OL8vF36eDt1qjb6RqBkWDl4v7iE84ecI+dFhA80A=="
       },
       "tempmaise.models": {
         "type": "Project"
