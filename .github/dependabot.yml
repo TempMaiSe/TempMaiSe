@@ -34,3 +34,7 @@ updates:
       OpenTelemetry:
         patterns:
           - "OpenTelemetry.*"
+    commit-message:
+      prefix: fix
+      prefix-development: chore
+      include: scope
