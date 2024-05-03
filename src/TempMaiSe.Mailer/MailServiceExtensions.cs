@@ -18,16 +18,16 @@ public static class MailServiceExtensions
     /// </summary>
     /// <param name="services">The <see cref="IServiceCollection"/> to add the mail service to.</param>
     /// <param name="configureParser">An optional action to configure the <see cref="FluidParser"/>.</param>
-    public static void AddMailService(this IServiceCollection services, Action<FluidParser>? configureParser = null)
+    public static void AddMailService(this IServiceCollection services, Action<IServiceProvider, FluidParser>? configureParser = null)
     {
         ArgumentNullException.ThrowIfNull(services);
 
-        services.TryAddSingleton(_ =>
+        services.TryAddSingleton(serviceProvider =>
         {
             FluidParser parser = new();
             parser.RegisteredOperators["has_inline_image"] = (a, b) => new HasInlineImageBinaryExpression(a, b);
             parser.RegisterExpressionTag("inline_image", InlineImageTag.WriteToAsync);
-            configureParser?.Invoke(parser);
+            configureParser?.Invoke(serviceProvider, parser);
             return parser;
         });
 

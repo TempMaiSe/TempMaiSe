@@ -23,7 +23,7 @@ builder.Services.AddProblemDetails();
 
 builder.Services.AddFluentEmail(config);
 
-builder.Services.AddMailService(fluidParser =>
+builder.Services.AddMailService((_, fluidParser) =>
 {
     fluidParser.RegisterEmptyTag("dummy", async (System.IO.TextWriter writer, System.Text.Encodings.Web.TextEncoder encoder, Fluid.TemplateContext context) =>
     {

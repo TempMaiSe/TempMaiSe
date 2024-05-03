@@ -33,7 +33,7 @@ public class MailServiceExtensionsTests
         // Arrange
         IServiceCollection services = new ServiceCollection();
         bool called = false;
-        void configureParser(FluidParser _) => called = true;
+        void configureParser(IServiceProvider _, FluidParser __) => called = true;
 
         // Act
         MailServiceExtensions.AddMailService(services, configureParser);
