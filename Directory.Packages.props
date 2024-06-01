@@ -44,6 +44,6 @@
     <PackageVersion Include="Testcontainers.Papercut" Version="3.8.0" />
   </ItemGroup>
   <ItemGroup>
-    <PackageVersion Include="OneOf" Version="3.0.263" />
+    <PackageVersion Include="OneOf" Version="3.0.271" />
   </ItemGroup>
 </Project>
