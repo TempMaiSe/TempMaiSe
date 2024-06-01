@@ -20,14 +20,14 @@
     <PackageVersion Include="OpenTelemetry.Instrumentation.Http" Version="1.8.1" />
   </ItemGroup>
   <ItemGroup>
-    <PackageVersion Include="Microsoft.EntityFrameworkCore" Version="8.0.4" />
-    <PackageVersion Include="Microsoft.EntityFrameworkCore.Design" Version="8.0.4" />
-    <PackageVersion Include="Microsoft.EntityFrameworkCore.Relational" Version="8.0.4" />
-    <PackageVersion Include="Microsoft.EntityFrameworkCore.Tools" Version="8.0.4" />
-    <PackageVersion Include="Microsoft.EntityFrameworkCore.InMemory" Version="8.0.4" />
-    <PackageVersion Include="Microsoft.AspNetCore.Diagnostics.EntityFrameworkCore" Version="8.0.4" />
-    <PackageVersion Include="Microsoft.Extensions.Diagnostics.HealthChecks.EntityFrameworkCore" Version="8.0.4" />
-    <PackageVersion Include="Microsoft.AspNetCore.Identity.EntityFrameworkCore" Version="8.0.4" />
+    <PackageVersion Include="Microsoft.EntityFrameworkCore" Version="8.0.6" />
+    <PackageVersion Include="Microsoft.EntityFrameworkCore.Design" Version="8.0.6" />
+    <PackageVersion Include="Microsoft.EntityFrameworkCore.Relational" Version="8.0.6" />
+    <PackageVersion Include="Microsoft.EntityFrameworkCore.Tools" Version="8.0.6" />
+    <PackageVersion Include="Microsoft.EntityFrameworkCore.InMemory" Version="8.0.6" />
+    <PackageVersion Include="Microsoft.AspNetCore.Diagnostics.EntityFrameworkCore" Version="8.0.6" />
+    <PackageVersion Include="Microsoft.Extensions.Diagnostics.HealthChecks.EntityFrameworkCore" Version="8.0.6" />
+    <PackageVersion Include="Microsoft.AspNetCore.Identity.EntityFrameworkCore" Version="8.0.6" />
     <PackageVersion Include="Microsoft.AspNetCore.Identity.UI" Version="8.0.2" />
     <PackageVersion Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="8.0.2" />
   </ItemGroup>
@@ -35,12 +35,12 @@
     <PackageVersion Include="Fluid.Core" Version="2.9.0" />
   </ItemGroup>
   <ItemGroup>
-    <PackageVersion Include="Microsoft.NET.Test.Sdk" Version="17.9.0" />
+    <PackageVersion Include="Microsoft.NET.Test.Sdk" Version="17.10.0" />
     <PackageVersion Include="xunit" Version="2.8.0" />
     <PackageVersion Include="xunit.runner.visualstudio" Version="2.8.0" />
     <PackageVersion Include="coverlet.collector" Version="6.0.2" />
     <PackageVersion Include="Moq" Version="4.20.70" />
-    <PackageVersion Include="Microsoft.AspNetCore.Mvc.Testing" Version="8.0.4" />
+    <PackageVersion Include="Microsoft.AspNetCore.Mvc.Testing" Version="8.0.6" />
     <PackageVersion Include="Testcontainers.Papercut" Version="3.8.0" />
   </ItemGroup>
   <ItemGroup>
