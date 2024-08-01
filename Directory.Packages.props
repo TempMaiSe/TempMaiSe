@@ -32,7 +32,7 @@
     <PackageVersion Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="8.0.3" />
   </ItemGroup>
   <ItemGroup>
-    <PackageVersion Include="Fluid.Core" Version="2.10.0" />
+    <PackageVersion Include="Fluid.Core" Version="2.11.1" />
   </ItemGroup>
   <ItemGroup>
     <PackageVersion Include="Microsoft.NET.Test.Sdk" Version="17.10.0" />
