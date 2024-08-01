@@ -19,7 +19,7 @@
     <RepositoryType>git</RepositoryType>
     <RepositoryBranch>main</RepositoryBranch>
     <RepositoryCommit>f5dcce7bc5a01c3cbc7ffcecc189912e44794e67</RepositoryCommit>
-    <Version>2.0.2</Version>
+    <Version>2.0.2-beta.1</Version>
   </PropertyGroup>
 
 </Project>
