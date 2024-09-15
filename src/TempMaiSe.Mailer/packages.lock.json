@@ -15,9 +15,9 @@
       },
       "jcamp.FluentEmail.Core": {
         "type": "Direct",
-        "requested": "[3.7.0, )",
-        "resolved": "3.7.0",
-        "contentHash": "L8mjNfog5VSNx6Xb+syej+T4jLH1roMstSgv6bG72/bgcGVhJ3LlWPp8veNYVAxlaoJFxkgewHShSv06RgR1KA==",
+        "requested": "[3.8.0, )",
+        "resolved": "3.8.0",
+        "contentHash": "/GZxzUTNIA1B9bSOvcphA1vwor1DXWoO4G1FvFycoAlH2ZCXz02vF3C0iyubU76rzwuTXLDDJ2pz5NKCq7RrTg==",
         "dependencies": {
           "Microsoft.Extensions.DependencyInjection.Abstractions": "6.0.0"
         }
