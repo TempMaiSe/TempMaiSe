@@ -49,11 +49,11 @@
       },
       "Testcontainers.Papercut": {
         "type": "Direct",
-        "requested": "[3.10.0, )",
-        "resolved": "3.10.0",
-        "contentHash": "1PsA5IiT0pZ9xtxXi0c1oELjRWlVhvObvkqGLUWu4UzX5ae3Cs7ElDiG7N6Gfz1hS5P5i1fsSBdKRcjrVgBzyg==",
+        "requested": "[4.0.0, )",
+        "resolved": "4.0.0",
+        "contentHash": "LOGiZimAwGjlOie0B5iP91kd6eIZr6633ms6cWMxPtj52X69MNGjJBx5u3JEEmVkMueZIILsBhqO+PvC8ejLyQ==",
         "dependencies": {
-          "Testcontainers": "3.10.0"
+          "Testcontainers": "4.0.0"
         }
       },
       "xunit": {
@@ -1507,8 +1507,8 @@
       },
       "Testcontainers": {
         "type": "Transitive",
-        "resolved": "3.10.0",
-        "contentHash": "4oFyiUPCOM3s/sKDnIcOJZIn664d/8+fPvODDlfbb0QAfQqHlqjc2kIoFOLAt3oJRZP9/FJtTvcNvp9j7h4UBA==",
+        "resolved": "4.0.0",
+        "contentHash": "wLG4Ls/A4jNB7b2ZrhtCUCHFBinDXohgvZ54fJB+kLVkxrqSuyQHdKwlIwPLgLSVGfPaMIAkZOEFVDSoEa1VxA==",
         "dependencies": {
           "Docker.DotNet": "3.125.15",
           "Docker.DotNet.X509": "3.125.15",
