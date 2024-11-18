@@ -1,7 +1,7 @@
 <Project>
   <PropertyGroup>
     <LangVersion>preview</LangVersion>
-    <TargetFramework>net8.0</TargetFramework>
+    <TargetFrameworks>net8.0;net9.0</TargetFrameworks>
     <ImplicitUsings>enable</ImplicitUsings>
     <Nullable>enable</Nullable>
     <EnableNETAnalyzers>true</EnableNETAnalyzers>
@@ -18,8 +18,8 @@
     <PublishRepositoryUrl>true</PublishRepositoryUrl>
     <RepositoryType>git</RepositoryType>
     <RepositoryBranch>main</RepositoryBranch>
-    <RepositoryCommit>daa6aafa50fb47c5d2fbffab2aed80cc88e8de22</RepositoryCommit>
-    <Version>2.0.5</Version>
+    <RepositoryCommit>91ed0775a588a0445172ce8188746cb6f263844e</RepositoryCommit>
+    <Version>2.1.0-beta.1</Version>
   </PropertyGroup>
 
 </Project>
