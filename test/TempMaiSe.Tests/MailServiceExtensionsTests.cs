@@ -25,7 +25,7 @@ public class MailServiceExtensionsTests
         MailServiceExtensions.AddMailService(services);
 
         // Assert
-        Assert.Single(services.Where(sr => sr.ServiceType.IsAssignableFrom(typeof(FluidParser))));
+        Assert.Single(services, sr => sr.ServiceType.IsAssignableFrom(typeof(FluidParser)));
     }
 
     [Fact]
@@ -41,7 +41,7 @@ public class MailServiceExtensionsTests
 
         // Assert
         _ = services.BuildServiceProvider().GetService<FluidParser>(); // Ensure parser is created
-        Assert.Single(services.Where(sr => sr.ServiceType.IsAssignableFrom(typeof(FluidParser))));
+        Assert.Single(services, sr => sr.ServiceType.IsAssignableFrom(typeof(FluidParser)));
         Assert.True(called);
     }
 
@@ -55,6 +55,6 @@ public class MailServiceExtensionsTests
         MailServiceExtensions.AddMailService(services, options: new FluidParserOptions { AllowFunctions = true, AllowParentheses = true });
 
         // Assert
-        Assert.Single(services.Where(sr => sr.ServiceType.IsAssignableFrom(typeof(FluidParser))));
+        Assert.Single(services, sr => sr.ServiceType.IsAssignableFrom(typeof(FluidParser)));
     }
 }

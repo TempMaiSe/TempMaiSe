@@ -7,7 +7,7 @@ public static class FluentEmailBuilderExtensions
     private const string Smtp = nameof(Smtp);
     private const string MailKit = nameof(MailKit);
 
-    private static readonly HashSet<string> s_supportedSenders = [ Smtp, MailKit ];
+    private static readonly HashSet<string> s_supportedSenders = [Smtp, MailKit];
 
     public static FluentEmailServicesBuilder AddFluentEmail(this IServiceCollection services, ConfigurationManager config)
     {

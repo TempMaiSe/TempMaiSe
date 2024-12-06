@@ -33,7 +33,7 @@ public class CustomWebApplicationFactory<TProgram>
 
             services.AddDbContext<TemplateContext>((container, options) =>
             {
-               options.UseInMemoryDatabase(nameof(TempMaiSe));
+                options.UseInMemoryDatabase(nameof(TempMaiSe));
             });
         });
 

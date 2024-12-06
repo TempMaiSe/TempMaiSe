@@ -29,7 +29,7 @@ public static class OpenTelemetryExtensions
         ArgumentNullException.ThrowIfNull(appBuilder);
 
         // Build a resource configuration action to set service information.
-        Action<ResourceBuilder> configureResource = r => r.AddService(
+        void configureResource(ResourceBuilder r) => r.AddService(
             serviceName: appBuilder.Configuration?.GetValue<string>("ServiceName") ?? "unknown",
             serviceVersion: typeof(TService).Assembly.GetName().Version?.ToString() ?? "unknown",
             serviceInstanceId: Environment.MachineName);

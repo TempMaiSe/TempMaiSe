@@ -19,7 +19,7 @@ internal static class InlineImageTag
         }
 
         FluidValue fluidValue = await value.EvaluateAsync(context).ConfigureAwait(false);
-        if (inlineAttachments!.TryGetAttachmentByFileName(fluidValue.ToStringValue(), out InlineAttachmentWithId? attachment) is false)
+        if (!inlineAttachments!.TryGetAttachmentByFileName(fluidValue.ToStringValue(), out InlineAttachmentWithId? attachment))
         {
             return Completion.Normal;
         }
