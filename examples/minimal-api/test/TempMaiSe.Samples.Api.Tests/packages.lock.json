@@ -30,12 +30,12 @@
       },
       "Microsoft.NET.Test.Sdk": {
         "type": "Direct",
-        "requested": "[17.11.1, )",
-        "resolved": "17.11.1",
-        "contentHash": "U3Ty4BaGoEu+T2bwSko9tWqWUOU16WzSFkq6U8zve75oRBMSLTBdMAZrVNNz1Tq12aCdDom9fcOcM9QZaFHqFg==",
+        "requested": "[17.12.0, )",
+        "resolved": "17.12.0",
+        "contentHash": "kt/PKBZ91rFCWxVIJZSgVLk+YR+4KxTuHf799ho8WNiK5ZQpJNAEZCAWX86vcKrs+DiYjiibpYKdGZP6+/N17w==",
         "dependencies": {
-          "Microsoft.CodeCoverage": "17.11.1",
-          "Microsoft.TestPlatform.TestHost": "17.11.1"
+          "Microsoft.CodeCoverage": "17.12.0",
+          "Microsoft.TestPlatform.TestHost": "17.12.0"
         }
       },
       "Moq": {
@@ -733,8 +733,8 @@
       },
       "Microsoft.CodeCoverage": {
         "type": "Transitive",
-        "resolved": "17.11.1",
-        "contentHash": "nPJqrcA5iX+Y0kqoT3a+pD/8lrW/V7ayqnEJQsTonSoPz59J8bmoQhcSN4G8+UJ64Hkuf0zuxnfuj2lkHOq4cA=="
+        "resolved": "17.12.0",
+        "contentHash": "4svMznBd5JM21JIG2xZKGNanAHNXplxf/kQDFfLHXQ3OnpJkayRK/TjacFjA+EYmoyuNXHo/sOETEfcYtAzIrA=="
       },
       "Microsoft.DiaSymReader": {
         "type": "Transitive",
@@ -1124,18 +1124,18 @@
       },
       "Microsoft.TestPlatform.ObjectModel": {
         "type": "Transitive",
-        "resolved": "17.11.1",
-        "contentHash": "E2jZqAU6JeWEVsyOEOrSW1o1bpHLgb25ypvKNB/moBXPVsFYBPd/Jwi7OrYahG50J83LfHzezYI+GaEkpAotiA==",
+        "resolved": "17.12.0",
+        "contentHash": "TDqkTKLfQuAaPcEb3pDDWnh7b3SyZF+/W9OZvWFp6eJCIiiYFdSB6taE2I6tWrFw5ywhzOb6sreoGJTI6m3rSQ==",
         "dependencies": {
           "System.Reflection.Metadata": "1.6.0"
         }
       },
       "Microsoft.TestPlatform.TestHost": {
         "type": "Transitive",
-        "resolved": "17.11.1",
-        "contentHash": "DnG+GOqJXO/CkoqlJWeDFTgPhqD/V6VqUIL3vINizCWZ3X+HshCtbbyDdSHQQEjrc2Sl/K3yaxX6s+5LFEdYuw==",
+        "resolved": "17.12.0",
+        "contentHash": "MiPEJQNyADfwZ4pJNpQex+t9/jOClBGMiCiVVFuELCMSX2nmNfvUor3uFVxNNCg30uxDP8JDYfPnMXQzsfzYyg==",
         "dependencies": {
-          "Microsoft.TestPlatform.ObjectModel": "17.11.1",
+          "Microsoft.TestPlatform.ObjectModel": "17.12.0",
           "Newtonsoft.Json": "13.0.1"
         }
       },
@@ -1413,8 +1413,8 @@
       },
       "Parlot": {
         "type": "Transitive",
-        "resolved": "1.0.2",
-        "contentHash": "MVF15eZfdTxA0yH43E4xDgByRPlyrLkXKq5/0FtQQvNwOJIljz2p4/phEdLnjWhhftu9isae1EGVydnY333AFw=="
+        "resolved": "1.2.2",
+        "contentHash": "Vz4SFXeF5BKiQ8jjnkYxw3B8ZVXrl/TcT6RM9hH8+HGLeSqpnWmYi1BidUlchwVFlliW6lorv4TAcGPFvhPj0Q=="
       },
       "SharpZipLib": {
         "type": "Transitive",
@@ -1660,7 +1660,7 @@
       "tempmaise.mailer": {
         "type": "Project",
         "dependencies": {
-          "Fluid.Core": "[2.12.0, )",
+          "Fluid.Core": "[2.15.0, )",
           "Newtonsoft.Json": "[13.0.3, )",
           "Newtonsoft.Json.Schema": "[4.0.1, )",
           "OneOf": "[3.0.271, )",
@@ -1674,7 +1674,7 @@
       "tempmaise.samples.api": {
         "type": "Project",
         "dependencies": {
-          "Fluid.Core": "[2.12.0, )",
+          "Fluid.Core": "[2.15.0, )",
           "Microsoft.AspNetCore.Diagnostics.EntityFrameworkCore": "[8.0.11, )",
           "Microsoft.AspNetCore.Identity.EntityFrameworkCore": "[8.0.11, )",
           "Microsoft.EntityFrameworkCore": "[9.0.0, )",
@@ -1697,12 +1697,12 @@
       },
       "Fluid.Core": {
         "type": "CentralTransitive",
-        "requested": "[2.12.0, )",
-        "resolved": "2.12.0",
-        "contentHash": "cOXkUnng3sclpWhUmL5Eg1tV8ieseeycge2K9NgCAJzW8oqZJz699xnVA3y5Bw+/zIDFGjkyldZ5rT14e2PDCA==",
+        "requested": "[2.15.0, )",
+        "resolved": "2.15.0",
+        "contentHash": "J0x83Z99D2WwtUuMuD21w5b31T1P960IkK3MYvlwDiPUEWtqD5tndHguthI+JCkzlMgnfR4R9d3CQUmEwCNTAg==",
         "dependencies": {
           "Microsoft.Extensions.FileProviders.Abstractions": "8.0.0",
-          "Parlot": "1.0.2",
+          "Parlot": "1.2.2",
           "TimeZoneConverter": "6.1.0"
         }
       },
@@ -1941,12 +1941,12 @@
       },
       "Microsoft.NET.Test.Sdk": {
         "type": "Direct",
-        "requested": "[17.11.1, )",
-        "resolved": "17.11.1",
-        "contentHash": "U3Ty4BaGoEu+T2bwSko9tWqWUOU16WzSFkq6U8zve75oRBMSLTBdMAZrVNNz1Tq12aCdDom9fcOcM9QZaFHqFg==",
+        "requested": "[17.12.0, )",
+        "resolved": "17.12.0",
+        "contentHash": "kt/PKBZ91rFCWxVIJZSgVLk+YR+4KxTuHf799ho8WNiK5ZQpJNAEZCAWX86vcKrs+DiYjiibpYKdGZP6+/N17w==",
         "dependencies": {
-          "Microsoft.CodeCoverage": "17.11.1",
-          "Microsoft.TestPlatform.TestHost": "17.11.1"
+          "Microsoft.CodeCoverage": "17.12.0",
+          "Microsoft.TestPlatform.TestHost": "17.12.0"
         }
       },
       "Moq": {
@@ -2641,8 +2641,8 @@
       },
       "Microsoft.CodeCoverage": {
         "type": "Transitive",
-        "resolved": "17.11.1",
-        "contentHash": "nPJqrcA5iX+Y0kqoT3a+pD/8lrW/V7ayqnEJQsTonSoPz59J8bmoQhcSN4G8+UJ64Hkuf0zuxnfuj2lkHOq4cA=="
+        "resolved": "17.12.0",
+        "contentHash": "4svMznBd5JM21JIG2xZKGNanAHNXplxf/kQDFfLHXQ3OnpJkayRK/TjacFjA+EYmoyuNXHo/sOETEfcYtAzIrA=="
       },
       "Microsoft.DiaSymReader": {
         "type": "Transitive",
@@ -3026,18 +3026,18 @@
       },
       "Microsoft.TestPlatform.ObjectModel": {
         "type": "Transitive",
-        "resolved": "17.11.1",
-        "contentHash": "E2jZqAU6JeWEVsyOEOrSW1o1bpHLgb25ypvKNB/moBXPVsFYBPd/Jwi7OrYahG50J83LfHzezYI+GaEkpAotiA==",
+        "resolved": "17.12.0",
+        "contentHash": "TDqkTKLfQuAaPcEb3pDDWnh7b3SyZF+/W9OZvWFp6eJCIiiYFdSB6taE2I6tWrFw5ywhzOb6sreoGJTI6m3rSQ==",
         "dependencies": {
           "System.Reflection.Metadata": "1.6.0"
         }
       },
       "Microsoft.TestPlatform.TestHost": {
         "type": "Transitive",
-        "resolved": "17.11.1",
-        "contentHash": "DnG+GOqJXO/CkoqlJWeDFTgPhqD/V6VqUIL3vINizCWZ3X+HshCtbbyDdSHQQEjrc2Sl/K3yaxX6s+5LFEdYuw==",
+        "resolved": "17.12.0",
+        "contentHash": "MiPEJQNyADfwZ4pJNpQex+t9/jOClBGMiCiVVFuELCMSX2nmNfvUor3uFVxNNCg30uxDP8JDYfPnMXQzsfzYyg==",
         "dependencies": {
-          "Microsoft.TestPlatform.ObjectModel": "17.11.1",
+          "Microsoft.TestPlatform.ObjectModel": "17.12.0",
           "Newtonsoft.Json": "13.0.1"
         }
       },
@@ -3315,8 +3315,8 @@
       },
       "Parlot": {
         "type": "Transitive",
-        "resolved": "1.0.2",
-        "contentHash": "MVF15eZfdTxA0yH43E4xDgByRPlyrLkXKq5/0FtQQvNwOJIljz2p4/phEdLnjWhhftu9isae1EGVydnY333AFw=="
+        "resolved": "1.2.2",
+        "contentHash": "Vz4SFXeF5BKiQ8jjnkYxw3B8ZVXrl/TcT6RM9hH8+HGLeSqpnWmYi1BidUlchwVFlliW6lorv4TAcGPFvhPj0Q=="
       },
       "SharpZipLib": {
         "type": "Transitive",
@@ -3553,7 +3553,7 @@
       "tempmaise.mailer": {
         "type": "Project",
         "dependencies": {
-          "Fluid.Core": "[2.12.0, )",
+          "Fluid.Core": "[2.15.0, )",
           "Newtonsoft.Json": "[13.0.3, )",
           "Newtonsoft.Json.Schema": "[4.0.1, )",
           "OneOf": "[3.0.271, )",
@@ -3567,7 +3567,7 @@
       "tempmaise.samples.api": {
         "type": "Project",
         "dependencies": {
-          "Fluid.Core": "[2.12.0, )",
+          "Fluid.Core": "[2.15.0, )",
           "Microsoft.AspNetCore.Diagnostics.EntityFrameworkCore": "[9.0.0, )",
           "Microsoft.AspNetCore.Identity.EntityFrameworkCore": "[9.0.0, )",
           "Microsoft.EntityFrameworkCore": "[9.0.0, )",
@@ -3590,12 +3590,12 @@
       },
       "Fluid.Core": {
         "type": "CentralTransitive",
-        "requested": "[2.12.0, )",
-        "resolved": "2.12.0",
-        "contentHash": "cOXkUnng3sclpWhUmL5Eg1tV8ieseeycge2K9NgCAJzW8oqZJz699xnVA3y5Bw+/zIDFGjkyldZ5rT14e2PDCA==",
+        "requested": "[2.15.0, )",
+        "resolved": "2.15.0",
+        "contentHash": "J0x83Z99D2WwtUuMuD21w5b31T1P960IkK3MYvlwDiPUEWtqD5tndHguthI+JCkzlMgnfR4R9d3CQUmEwCNTAg==",
         "dependencies": {
-          "Microsoft.Extensions.FileProviders.Abstractions": "8.0.0",
-          "Parlot": "1.0.2",
+          "Microsoft.Extensions.FileProviders.Abstractions": "9.0.0",
+          "Parlot": "1.2.2",
           "TimeZoneConverter": "6.1.0"
         }
       },

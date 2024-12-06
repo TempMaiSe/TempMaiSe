@@ -4,12 +4,12 @@
     "net8.0": {
       "Fluid.Core": {
         "type": "Direct",
-        "requested": "[2.12.0, )",
-        "resolved": "2.12.0",
-        "contentHash": "cOXkUnng3sclpWhUmL5Eg1tV8ieseeycge2K9NgCAJzW8oqZJz699xnVA3y5Bw+/zIDFGjkyldZ5rT14e2PDCA==",
+        "requested": "[2.15.0, )",
+        "resolved": "2.15.0",
+        "contentHash": "J0x83Z99D2WwtUuMuD21w5b31T1P960IkK3MYvlwDiPUEWtqD5tndHguthI+JCkzlMgnfR4R9d3CQUmEwCNTAg==",
         "dependencies": {
           "Microsoft.Extensions.FileProviders.Abstractions": "8.0.0",
-          "Parlot": "1.0.2",
+          "Parlot": "1.2.2",
           "TimeZoneConverter": "6.1.0"
         }
       },
@@ -63,8 +63,8 @@
       },
       "Parlot": {
         "type": "Transitive",
-        "resolved": "1.0.2",
-        "contentHash": "MVF15eZfdTxA0yH43E4xDgByRPlyrLkXKq5/0FtQQvNwOJIljz2p4/phEdLnjWhhftu9isae1EGVydnY333AFw=="
+        "resolved": "1.2.2",
+        "contentHash": "Vz4SFXeF5BKiQ8jjnkYxw3B8ZVXrl/TcT6RM9hH8+HGLeSqpnWmYi1BidUlchwVFlliW6lorv4TAcGPFvhPj0Q=="
       },
       "TimeZoneConverter": {
         "type": "Transitive",
@@ -78,12 +78,12 @@
     "net9.0": {
       "Fluid.Core": {
         "type": "Direct",
-        "requested": "[2.12.0, )",
-        "resolved": "2.12.0",
-        "contentHash": "cOXkUnng3sclpWhUmL5Eg1tV8ieseeycge2K9NgCAJzW8oqZJz699xnVA3y5Bw+/zIDFGjkyldZ5rT14e2PDCA==",
+        "requested": "[2.15.0, )",
+        "resolved": "2.15.0",
+        "contentHash": "J0x83Z99D2WwtUuMuD21w5b31T1P960IkK3MYvlwDiPUEWtqD5tndHguthI+JCkzlMgnfR4R9d3CQUmEwCNTAg==",
         "dependencies": {
-          "Microsoft.Extensions.FileProviders.Abstractions": "8.0.0",
-          "Parlot": "1.0.2",
+          "Microsoft.Extensions.FileProviders.Abstractions": "9.0.0",
+          "Parlot": "1.2.2",
           "TimeZoneConverter": "6.1.0"
         }
       },
@@ -124,21 +124,21 @@
       },
       "Microsoft.Extensions.FileProviders.Abstractions": {
         "type": "Transitive",
-        "resolved": "8.0.0",
-        "contentHash": "ZbaMlhJlpisjuWbvXr4LdAst/1XxH3vZ6A0BsgTphZ2L4PGuxRLz7Jr/S7mkAAnOn78Vu0fKhEgNF5JO3zfjqQ==",
+        "resolved": "9.0.0",
+        "contentHash": "uK439QzYR0q2emLVtYzwyK3x+T5bTY4yWsd/k/ZUS9LR6Sflp8MIdhGXW8kQCd86dQD4tLqvcbLkku8qHY263Q==",
         "dependencies": {
-          "Microsoft.Extensions.Primitives": "8.0.0"
+          "Microsoft.Extensions.Primitives": "9.0.0"
         }
       },
       "Microsoft.Extensions.Primitives": {
         "type": "Transitive",
-        "resolved": "8.0.0",
-        "contentHash": "bXJEZrW9ny8vjMF1JV253WeLhpEVzFo1lyaZu1vQ4ZxWUlVvknZ/+ftFgVheLubb4eZPSwwxBeqS1JkCOjxd8g=="
+        "resolved": "9.0.0",
+        "contentHash": "N3qEBzmLMYiASUlKxxFIISP4AiwuPTHF5uCh+2CWSwwzAJiIYx0kBJsS30cp1nvhSySFAVi30jecD307jV+8Kg=="
       },
       "Parlot": {
         "type": "Transitive",
-        "resolved": "1.0.2",
-        "contentHash": "MVF15eZfdTxA0yH43E4xDgByRPlyrLkXKq5/0FtQQvNwOJIljz2p4/phEdLnjWhhftu9isae1EGVydnY333AFw=="
+        "resolved": "1.2.2",
+        "contentHash": "Vz4SFXeF5BKiQ8jjnkYxw3B8ZVXrl/TcT6RM9hH8+HGLeSqpnWmYi1BidUlchwVFlliW6lorv4TAcGPFvhPj0Q=="
       },
       "TimeZoneConverter": {
         "type": "Transitive",

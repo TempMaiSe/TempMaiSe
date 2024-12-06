@@ -4,12 +4,12 @@
     "net8.0": {
       "Fluid.Core": {
         "type": "Direct",
-        "requested": "[2.12.0, )",
-        "resolved": "2.12.0",
-        "contentHash": "cOXkUnng3sclpWhUmL5Eg1tV8ieseeycge2K9NgCAJzW8oqZJz699xnVA3y5Bw+/zIDFGjkyldZ5rT14e2PDCA==",
+        "requested": "[2.15.0, )",
+        "resolved": "2.15.0",
+        "contentHash": "J0x83Z99D2WwtUuMuD21w5b31T1P960IkK3MYvlwDiPUEWtqD5tndHguthI+JCkzlMgnfR4R9d3CQUmEwCNTAg==",
         "dependencies": {
           "Microsoft.Extensions.FileProviders.Abstractions": "8.0.0",
-          "Parlot": "1.0.2",
+          "Parlot": "1.2.2",
           "TimeZoneConverter": "6.1.0"
         }
       },
@@ -1339,8 +1339,8 @@
       },
       "Parlot": {
         "type": "Transitive",
-        "resolved": "1.0.2",
-        "contentHash": "MVF15eZfdTxA0yH43E4xDgByRPlyrLkXKq5/0FtQQvNwOJIljz2p4/phEdLnjWhhftu9isae1EGVydnY333AFw=="
+        "resolved": "1.2.2",
+        "contentHash": "Vz4SFXeF5BKiQ8jjnkYxw3B8ZVXrl/TcT6RM9hH8+HGLeSqpnWmYi1BidUlchwVFlliW6lorv4TAcGPFvhPj0Q=="
       },
       "System.CodeDom": {
         "type": "Transitive",
@@ -1506,7 +1506,7 @@
       "tempmaise.mailer": {
         "type": "Project",
         "dependencies": {
-          "Fluid.Core": "[2.12.0, )",
+          "Fluid.Core": "[2.15.0, )",
           "Newtonsoft.Json": "[13.0.3, )",
           "Newtonsoft.Json.Schema": "[4.0.1, )",
           "OneOf": "[3.0.271, )",
@@ -1539,12 +1539,12 @@
     "net9.0": {
       "Fluid.Core": {
         "type": "Direct",
-        "requested": "[2.12.0, )",
-        "resolved": "2.12.0",
-        "contentHash": "cOXkUnng3sclpWhUmL5Eg1tV8ieseeycge2K9NgCAJzW8oqZJz699xnVA3y5Bw+/zIDFGjkyldZ5rT14e2PDCA==",
+        "requested": "[2.15.0, )",
+        "resolved": "2.15.0",
+        "contentHash": "J0x83Z99D2WwtUuMuD21w5b31T1P960IkK3MYvlwDiPUEWtqD5tndHguthI+JCkzlMgnfR4R9d3CQUmEwCNTAg==",
         "dependencies": {
-          "Microsoft.Extensions.FileProviders.Abstractions": "8.0.0",
-          "Parlot": "1.0.2",
+          "Microsoft.Extensions.FileProviders.Abstractions": "9.0.0",
+          "Parlot": "1.2.2",
           "TimeZoneConverter": "6.1.0"
         }
       },
@@ -2869,8 +2869,8 @@
       },
       "Parlot": {
         "type": "Transitive",
-        "resolved": "1.0.2",
-        "contentHash": "MVF15eZfdTxA0yH43E4xDgByRPlyrLkXKq5/0FtQQvNwOJIljz2p4/phEdLnjWhhftu9isae1EGVydnY333AFw=="
+        "resolved": "1.2.2",
+        "contentHash": "Vz4SFXeF5BKiQ8jjnkYxw3B8ZVXrl/TcT6RM9hH8+HGLeSqpnWmYi1BidUlchwVFlliW6lorv4TAcGPFvhPj0Q=="
       },
       "System.CodeDom": {
         "type": "Transitive",
@@ -3027,7 +3027,7 @@
       "tempmaise.mailer": {
         "type": "Project",
         "dependencies": {
-          "Fluid.Core": "[2.12.0, )",
+          "Fluid.Core": "[2.15.0, )",
           "Newtonsoft.Json": "[13.0.3, )",
           "Newtonsoft.Json.Schema": "[4.0.1, )",
           "OneOf": "[3.0.271, )",
