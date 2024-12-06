@@ -41,3 +41,12 @@ updates:
       prefix: fix
       prefix-development: chore
       include: scope
+
+  - package-ecosystem: "dotnet-sdk"
+    directory: "/"
+    schedule:
+      interval: "monthly"
+    commit-message:
+      prefix: fix
+      prefix-development: chore
+      include: scope
