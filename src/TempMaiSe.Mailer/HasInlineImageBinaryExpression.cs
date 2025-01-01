@@ -20,11 +20,8 @@ internal sealed class HasInlineImageBinaryExpression(Expression left, Expression
             return BooleanValue.False;
         }
 
-        if (inlineAttachments!.TryGetAttachmentByFileName(imageFileName.ToStringValue(), out InlineAttachmentWithId? _) is false)
-        {
-            return BooleanValue.False;
-        }
-
-        return BooleanValue.True;
+        return !inlineAttachments!.TryGetAttachmentByFileName(imageFileName.ToStringValue(), out InlineAttachmentWithId? _)
+            ? BooleanValue.False
+            : (FluidValue)BooleanValue.True;
     }
 }

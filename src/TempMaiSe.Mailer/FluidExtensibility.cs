@@ -2,7 +2,7 @@ using TempMaiSe.Models;
 
 namespace TempMaiSe.Mailer;
 
-internal class FluidExtensibility(InlineAttachmentCollection inlineAttachments) : IFluidExtensibility
+internal sealed class FluidExtensibility(InlineAttachmentCollection inlineAttachments) : IFluidExtensibility
 {
     /// <inheritdoc />
     public string AddInlineAttachment(string fileName, byte[] data, string mediaType)

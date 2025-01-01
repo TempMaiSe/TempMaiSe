@@ -34,12 +34,7 @@ public class DataParser : IDataParser
 
         JsonSerializer serializer = new();
         MailInformation mailInformation = serializer.Deserialize<MailInformation>(validatingReader)!;
-        if (errors.Count > 0)
-        {
-            return errors;
-        }
-
-        return mailInformation;
+        return errors.Count > 0 ? (OneOf<MailInformation, List<ValidationError>>)errors : (OneOf<MailInformation, List<ValidationError>>)mailInformation;
     }
 
     private static JSchema CloneTemplateSchema() => JSchema.Parse(s_templateSchema.ToString());

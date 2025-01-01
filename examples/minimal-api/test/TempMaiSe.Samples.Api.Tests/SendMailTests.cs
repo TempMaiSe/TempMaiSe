@@ -803,5 +803,5 @@ Neo</p>
         Assert.Contains(message.Sections, section => section.MediaType == "image/svg+xml" && section.FileName == "logo.svg" && !string.IsNullOrWhiteSpace(section.Id));
     }
 
-    private record CouponItem(string Name);
+    private sealed record CouponItem(string Name);
 }

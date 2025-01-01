@@ -1,4 +1,5 @@
 using Fluid;
+using Microsoft.AspNetCore.Razor.TagHelpers;
 
 namespace TempMaiSe.Tests;
 
@@ -24,7 +25,7 @@ public class MailServiceExtensionsTests
         MailServiceExtensions.AddMailService(services);
 
         // Assert
-        Assert.Single(services.Where(sr => sr.ServiceType.IsAssignableFrom(typeof(FluidParser))));
+        Assert.Single(services, sr => sr.ServiceType.IsAssignableFrom(typeof(FluidParser)));
     }
 
     [Fact]
@@ -40,7 +41,20 @@ public class MailServiceExtensionsTests
 
         // Assert
         _ = services.BuildServiceProvider().GetService<FluidParser>(); // Ensure parser is created
-        Assert.Single(services.Where(sr => sr.ServiceType.IsAssignableFrom(typeof(FluidParser))));
+        Assert.Single(services, sr => sr.ServiceType.IsAssignableFrom(typeof(FluidParser)));
         Assert.True(called);
+    }
+
+    [Fact]
+    public void AddMailService_Can_Be_Called_Without_Parser_Configuration_With_FluidParserOptions()
+    {
+        // Arrange
+        IServiceCollection services = new ServiceCollection();
+
+        // Act
+        MailServiceExtensions.AddMailService(services, options: new FluidParserOptions { AllowFunctions = true, AllowParentheses = true });
+
+        // Assert
+        Assert.Single(services, sr => sr.ServiceType.IsAssignableFrom(typeof(FluidParser)));
     }
 }
