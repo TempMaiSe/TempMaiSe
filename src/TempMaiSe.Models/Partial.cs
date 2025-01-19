@@ -13,5 +13,4 @@ public class Partial
     public string? PlainTextTemplate { get; set; }
 
     public Collection<Attachment> InlineAttachments { get; } = [];
-
 }

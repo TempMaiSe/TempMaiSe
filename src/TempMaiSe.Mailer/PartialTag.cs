@@ -37,6 +37,9 @@ public static class PartialTag
             throw new ArgumentException($"Partial '{value}' not found.");
         }
 
+        // Add partials inline attachments to the context
+        MapInlineAttachments(context, partial.InlineAttachments);
+
         FluidParser fluidParser = serviceProvider.GetRequiredService<FluidParser>();
         string partialTemplateString = context.GetValue(Constants.IsHtml) is BooleanValue isHtml && isHtml.ToBooleanValue()
             ? partial.HtmlTemplate
@@ -45,5 +48,21 @@ public static class PartialTag
         await partialTemplate.RenderAsync(writer, encoder, context).ConfigureAwait(false);
 
         return Completion.Normal;
+    }
+
+    private static void MapInlineAttachments(TemplateContext context, IEnumerable<Attachment> attachments)
+    {
+        ArgumentNullException.ThrowIfNull(context);
+        ArgumentNullException.ThrowIfNull(attachments);
+
+        if (!context.AmbientValues.TryGetValue(Constants.Extensibility, out IFluidExtensibility? extensibility))
+        {
+            return;
+        }
+
+        foreach (Attachment attachment in attachments)
+        {
+            _ = extensibility!.AddInlineAttachment(attachment.FileName, attachment.Data, attachment.MediaType);
+        }
     }
 }

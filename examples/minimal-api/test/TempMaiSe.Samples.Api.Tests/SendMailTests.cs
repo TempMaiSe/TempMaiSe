@@ -507,14 +507,14 @@ you received a coupon for a free gift. Please use it within the next 24 hours.</
 <p>Best,<br>
 {{ Head.SupportAgent }}</p>
 
-<p><img src=\"{% inline_image "blue.svg" %}\"></p>
-<p><img src=\"{% inline_image "blue2.svg" %}\"></p>
-<p><img src=\"{% inline_image "red.svg" %}\"></p>
+<p><img src="{% inline_image "blue.svg" %}"></p>
+<p><img src="{% inline_image "blue2.svg" %}"></p>
+<p><img src="{% inline_image "red.svg" %}"></p>
 {% if mail has_inline_image "yellow.svg" %}
-<p><img src=\"{% inline_image "yellow.svg" %}\"></p>
+<p><img src="{% inline_image "yellow.svg" %}"></p>
 {% endif %}
 {% if mail has_inline_image "magenta.svg" %}
-<p><img src=\"{% inline_image "magenta.svg" %}\"></p>
+<p><img src="{% inline_image "magenta.svg" %}"></p>
 {% endif %}
 """,
                             JsonSchema =
@@ -606,11 +606,11 @@ you received a coupon for a free gift. Please use it within the next 24 hours.</
 <p>Best,<br>
 Neo</p>
 
-<p><img src=\"cid:8e782df90bdb749881b592be981befc7ba1320536621e540b836a29d35d5a4d9\"></p>
-<p><img src=\"cid:8e782df90bdb749881b592be981befc7ba1320536621e540b836a29d35d5a4d9\"></p>
-<p><img src=\"cid:a101746ce2666bca288096e79b43e2b8099ded9947ecb30f1623e3009644ee31\"></p>
+<p><img src="cid:8e782df90bdb749881b592be981befc7ba1320536621e540b836a29d35d5a4d9"></p>
+<p><img src="cid:8e782df90bdb749881b592be981befc7ba1320536621e540b836a29d35d5a4d9"></p>
+<p><img src="cid:a101746ce2666bca288096e79b43e2b8099ded9947ecb30f1623e3009644ee31"></p>
 
-<p><img src=\"cid:ffd7bca49b22eb931895418b84d0408853b3ff2e4d0704738dd8e5f56e16f252\"></p>
+<p><img src="cid:ffd7bca49b22eb931895418b84d0408853b3ff2e4d0704738dd8e5f56e16f252"></p>
 
 
 """, message.HtmlBody);
@@ -872,7 +872,7 @@ Phone +493023125{{ extension }}
                         HtmlTemplate =
 """
 <p>Best regards,<br>Dummy.</p>
-<p>Tel: <a href=\"tel:+493023125{{ extension }}\">+49 30 23125 {{ extension }}</a></p>
+<p>Tel: <a href="tel:+493023125{{ extension }}">+49 30 23125 {{ extension }}</a></p>
 """
                     });
 
@@ -921,7 +921,7 @@ Phone +493023125666
 <p>Please send me 1.000 $. My paypal is paypal@example.net</p>
 
 <p>Best regards,<br>Dummy.</p>
-<p>Tel: <a href=\"tel:+493023125666\">+49 30 23125 666</a></p>
+<p>Tel: <a href="tel:+493023125666">+49 30 23125 666</a></p>
 """, message.HtmlBody);
 
         Assert.NotNull(message.From);
@@ -1046,6 +1046,136 @@ Dummy.
 <p>Please send me 1.000 $. My paypal is paypal@example.net</p>
 
 <p>Best regards,<br>Dummy.</p>
+""", message.HtmlBody);
+
+        Assert.NotNull(message.From);
+        Assert.Contains(message.From, address => address.Address == "government@example.org");
+
+        Assert.NotNull(message.To);
+        Assert.Contains(message.To, address => address.Address == "please-scam-me@example.com");
+
+        Assert.NotNull(message.Bcc);
+        Assert.Contains(message.Bcc, address => address.Address == "prince@example.org");
+    }
+
+    [Fact]
+    public async Task Post_Send_Returns_Success_For_Good_Template_Id_Simple_Object_Signature_With_Inline_Image()
+    {
+        // Arrange
+        PapercutContainer container = new PapercutBuilder()
+            .Build();
+        await container.StartAsync().ConfigureAwait(true);
+
+        HttpClient client = _factory
+            .WithWebHostBuilder(configuration =>
+            {
+                configuration.UseSetting("FluentEmail:Sender", "Smtp");
+                configuration.UseSetting("FluentEmail:Smtp:Server", container.Hostname);
+                configuration.UseSetting("FluentEmail:Smtp:Port", container.SmtpPort.ToString(CultureInfo.InvariantCulture));
+
+                configuration.ConfigureTestServices(services =>
+                {
+                    using TemplateContext context = services.BuildServiceProvider().GetRequiredService<TemplateContext>();
+                    context.Templates.Add(new Template
+                    {
+                        Id = 0_1_0,
+                        Data = new TemplateData
+                        {
+                            SubjectTemplate = "Inheritance from Uncle {{ uncle }}",
+                            Priority = Priority.High,
+                            Bcc = {
+                                new() { Address= "prince@example.org" }
+                            },
+                            PlainTextBodyTemplate = """
+Please send me 1.000 $. My paypal is {{ email }}
+
+{% partial 'signature_with_company' %}
+""",
+                            HtmlBodyTemplate =
+"""
+<p>Please send me 1.000 $. My paypal is {{ email }}</p>
+
+{% partial 'signature_with_company' %}
+""",
+                            JsonSchema =
+"""
+{
+    "$schema": "https://json-schema.org/draft/2020-12/schema",
+    "type": "object",
+    "properties": {
+        "email": { "type": "string", "format": "email" },
+        "uncle": { "type": "string" },
+        "extension": { "type": "string" }
+    },
+    "required": ["email"]
+}
+""",
+                        }
+                    });
+
+                    context.Partials.Add(new Partial
+                    {
+                        Id = 65535,
+                        Key = "signature_with_company",
+                        PlainTextTemplate =
+"""
+Best regards,
+Dummy.
+""",
+                        HtmlTemplate =
+"""
+<p>Best regards,<br>Dummy.</p>
+<p><img src="{% inline_image "company.svg" %}" alt="Company"></p>
+""",
+                        InlineAttachments =
+                        {
+                            new() { FileName = "company.svg", MediaType = "image/svg+xml", Data = Encoding.UTF8.GetBytes("<svg style=\"background-color: blue;\"></svg>") }
+                        }
+                    });
+
+                    context.SaveChanges();
+                });
+            }).CreateClient();
+
+        MailInformation mail = new()
+        {
+            From = "government@example.org",
+            ReplyTo = ["lawyer@example.com"],
+            To = ["please-scam-me@example.com"],
+            Priority = Priority.Normal,
+            Data = new Dictionary<string, object>()
+            {
+                { "email", "paypal@example.net" },
+                { "uncle", "Bob" }
+            }
+        };
+
+        // Act
+        using HttpContent content = new StringContent(JsonSerializer.Serialize(mail), Encoding.UTF8, "application/json");
+        HttpResponseMessage response = await client.PostAsync(new Uri("/send/10", UriKind.Relative), content).ConfigureAwait(true);
+
+        // Assert
+        Assert.Equal(HttpStatusCode.OK, response.StatusCode);
+        using HttpClient httpClient = new();
+        httpClient.BaseAddress = new Uri(container.GetBaseAddress());
+        PapercutMessageList? messages = await httpClient.GetFromJsonAsync<PapercutMessageList>(new Uri("/api/messages", UriKind.Relative)).ConfigureAwait(true);
+        Assert.Equal(1, messages!.TotalMessageCount);
+        PapercutMessage? message = await httpClient.GetFromJsonAsync<PapercutMessage>(new Uri($"/api/messages/{messages.Messages.Single().Id}", UriKind.Relative)).ConfigureAwait(true);
+        Assert.NotNull(message);
+        Assert.Equal("Inheritance from Uncle Bob", message.Subject);
+        Assert.Equal(
+"""
+Please send me 1.000 $. My paypal is paypal@example.net
+
+Best regards,
+Dummy.
+""", message.TextBody);
+        Assert.Equal(
+"""
+<p>Please send me 1.000 $. My paypal is paypal@example.net</p>
+
+<p>Best regards,<br>Dummy.</p>
+<p><img src="cid:8e782df90bdb749881b592be981befc7ba1320536621e540b836a29d35d5a4d9" alt="Company"></p>
 """, message.HtmlBody);
 
         Assert.NotNull(message.From);
