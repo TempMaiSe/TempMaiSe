@@ -1401,8 +1401,8 @@
       },
       "Parlot": {
         "type": "Transitive",
-        "resolved": "1.3.0",
-        "contentHash": "GA9k1VkhfA7Ra4lupUMFFyLp3/h+6xI1NpoieEiSbILmeGICnMkYsoE6RkxNufvappvlvwXstDezGwq6BiyGjA=="
+        "resolved": "1.3.2",
+        "contentHash": "UcUHG0i+62SU+Y/axFHDErdo/x+ofyQjMF7sEUanIViUb58vVc32FsTHqg+UNRheGppIzXB51Mpwbz73TAvzvg=="
       },
       "SharpZipLib": {
         "type": "Transitive",
@@ -1621,7 +1621,7 @@
       "tempmaise.mailer": {
         "type": "Project",
         "dependencies": {
-          "Fluid.Core": "[2.17.0, )",
+          "Fluid.Core": "[2.19.0, )",
           "Newtonsoft.Json": "[13.0.3, )",
           "Newtonsoft.Json.Schema": "[4.0.1, )",
           "OneOf": "[3.0.271, )",
@@ -1635,7 +1635,7 @@
       "tempmaise.samples.api": {
         "type": "Project",
         "dependencies": {
-          "Fluid.Core": "[2.17.0, )",
+          "Fluid.Core": "[2.19.0, )",
           "Microsoft.AspNetCore.Diagnostics.EntityFrameworkCore": "[9.0.1, )",
           "Microsoft.AspNetCore.Identity.EntityFrameworkCore": "[9.0.1, )",
           "Microsoft.EntityFrameworkCore": "[9.0.1, )",
@@ -1658,12 +1658,12 @@
       },
       "Fluid.Core": {
         "type": "CentralTransitive",
-        "requested": "[2.17.0, )",
-        "resolved": "2.17.0",
-        "contentHash": "AgStkdjOQ1cQlCrhP0bUHETeBDfbbqUfexShk+bgNJ0Kl4k/GYMv/dCHFlb+bJQ7778PCSkOg6AbcrMq1DGW5A==",
+        "requested": "[2.19.0, )",
+        "resolved": "2.19.0",
+        "contentHash": "NcJzwEePZjJRrLFRglFvdl84NGJtvqoEt/FK+gLnYkKwr6YKEN29XHEQYEh5murUzqN0xcnAseNspxU+uI2WTQ==",
         "dependencies": {
           "Microsoft.Extensions.FileProviders.Abstractions": "9.0.0",
-          "Parlot": "1.3.0",
+          "Parlot": "1.3.2",
           "TimeZoneConverter": "6.1.0"
         }
       },
