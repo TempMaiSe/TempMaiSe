@@ -9,10 +9,13 @@ public class TemplateContext(DbContextOptions<TemplateContext> options) : Identi
 {
     public virtual DbSet<Template> Templates { get; set; }
 
+    public virtual DbSet<Partial> Partials { get; set; }
+
     protected override void OnModelCreating(ModelBuilder builder)
     {
         ArgumentNullException.ThrowIfNull(builder);
         builder.ApplyConfiguration(new TemplateConfiguration());
+        builder.ApplyConfiguration(new PartialConfiguration());
         base.OnModelCreating(builder);
     }
 }

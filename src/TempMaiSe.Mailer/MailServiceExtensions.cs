@@ -17,20 +17,21 @@ public static class MailServiceExtensions
     /// Adds the mail service to the specified <see cref="IServiceCollection"/>.
     /// </summary>
     /// <param name="services">The <see cref="IServiceCollection"/> to add the mail service to.</param>
-    /// <param name="configureParser">An optional action to configure the <see cref="FluidParser"/>.</param>
+    /// <param name="configureParser">An optional action to configure the <see cref="FluFluidMailParseridParser"/>.</param>
     /// <param name="options">The <see cref="FluidParserOptions"/> to use.</param>
-    public static void AddMailService(this IServiceCollection services, Action<IServiceProvider, FluidParser>? configureParser = null, FluidParserOptions? options = null)
+    public static void AddMailService(this IServiceCollection services, Action<IServiceProvider, FluidMailParser>? configureParser = null, FluidParserOptions? options = null)
     {
         ArgumentNullException.ThrowIfNull(services);
 
         services.TryAddSingleton(serviceProvider =>
         {
-            FluidParser parser = options is not null ? new(options) : new();
-            parser.RegisteredOperators["has_inline_image"] = (a, b) => new HasInlineImageBinaryExpression(a, b);
-            parser.RegisterExpressionTag("inline_image", InlineImageTag.WriteToAsync);
+            options ??= new();
+            FluidMailParser parser = new(options);
             configureParser?.Invoke(serviceProvider, parser);
             return parser;
         });
+
+        services.TryAddSingleton<FluidParser>(serviceProvider => serviceProvider.GetRequiredService<FluidMailParser>());
 
         services.TryAddSingleton<ITemplateToMailMapper, TemplateToMailMapper>();
         services.TryAddSingleton<IMailInformationToMailMapper, MailInformationToMailMapper>();
