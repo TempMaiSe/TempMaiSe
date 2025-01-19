@@ -60,4 +60,19 @@ public class MailServiceExtensionsTests
         Assert.Single(services, sr => sr.ServiceType.Equals(typeof(FluidMailParser)));
         Assert.Single(services, sr => sr.ServiceType.Equals(typeof(FluidParser)));
     }
+
+    [Fact]
+    public void AddMailService_Calls_Action_To_Configure_Parser()
+    {
+        // Arrange
+        IServiceCollection services = new ServiceCollection();
+        bool called = false;
+
+        // Act
+        MailServiceExtensions.AddMailService(services, (sp, parser) => called = true);
+        _ = services.BuildServiceProvider().GetRequiredService<FluidParser>();
+
+        // Assert
+        Assert.True(called);
+    }
 }
