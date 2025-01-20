@@ -24,6 +24,7 @@ public class MailServiceTests
         Mock<FluidParser> fluidParser = new();
         Mock<ITemplateToMailMapper> mailHeaderMapper = new();
         Mock<IMailInformationToMailMapper> mailInfoMapper = new();
+        Mock<IServiceProvider> serviceProvider = new();
 
         int templateId = 1;
         templateRepository.Setup(c => c.GetTemplateAsync(templateId, It.IsAny<CancellationToken>())).Returns(Task.FromResult<Template?>(null));
@@ -36,7 +37,8 @@ public class MailServiceTests
             dataParser.Object,
             fluidParser.Object,
             mailHeaderMapper.Object,
-            mailInfoMapper.Object
+            mailInfoMapper.Object,
+            serviceProvider.Object
         );
 
         // Act

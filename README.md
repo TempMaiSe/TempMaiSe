@@ -19,10 +19,12 @@ To use the TempMaiSe library in your project, follow these steps:
 To implement a custom repository and use the TempMaiSe library, follow these steps:
 
 1. Create a class that implements the `ITemplateRepository` interface.
-2. Override the `GetTemplateAsync` method to retrieve the template based on the provided ID.
-3. Register the custom repository in your project's `Startup.cs` file.
-4. Register the necessary components in your `Startup.cs` file, including the custom repository, FluentEmail setup, and the default IMailService implementation.
-5. Utilize the provided API sample to send an email using the configured mail service.
+2. Implement the `GetTemplateAsync` method to retrieve the template based on the provided ID.
+3. If you want to use Partials, also implement the `IPartialRepository` interface, and
+4. Implement the `GetPartialAsync` method to retrieve the partial based on the provided key.
+5. Register the custom repositories in your project's `Startup.cs` file.
+6. Register the necessary components in your `Startup.cs` file, including the custom repository, FluentEmail setup, and the default IMailService implementation.
+7. Utilize the provided API sample to send an email using the configured mail service.
 
 Please note that additional authentication and authorization features may need to be implemented according to your specific requirements.
 
@@ -35,8 +37,10 @@ The TempMaiSe distribution does not come with a default repository. However, imp
 To implement a custom repository, follow these steps:
 
 1. Create a class that implements the `ITemplateRepository` interface.
-2. Override the `GetTemplateAsync` method to retrieve the template based on the provided ID.
-3. Register the custom repository in your project's `Startup.cs` file.
+2. Implement the `GetTemplateAsync` method to retrieve the template based on the provided ID.
+3. Create a class that implements the `IPartialRepository` interface.
+4. Implement the `GetPartialAsync` method to retrieve the template based on the provided key.
+5. Register the custom repositories in your project's `Startup.cs` file.
 
 Here's an example of a custom repository that only returns one `Template`.
 
@@ -90,6 +94,7 @@ To use the TempMaiSe library in your project, you need to register the necessary
 ```csharp
 // Your custom repository
 builder.Services.AddScoped<ITemplateRepository, TemplateRepository>();
+builder.Services.AddScoped<IPartialRepository, PartialRepository>();
 
 // Use the usual FluentEmail setup to register IFluentEmail
 builder.Services.AddFluentEmail(config);

@@ -1,4 +1,3 @@
-using Fluid;
 using Newtonsoft.Json.Schema;
 
 using System.Diagnostics;
@@ -63,6 +62,7 @@ builder.Services.AddTemplateContext(config);
 builder.Services.AddDatabaseDeveloperPageExceptionFilter();
 
 builder.Services.AddScoped<ITemplateRepository, TemplateRepository>();
+builder.Services.AddScoped<IPartialRepository, PartialRepository>();
 
 builder.Services.AddHealthChecks()
     .AddDbContextCheck<TempMaiSe.Samples.Api.TemplateContext>();

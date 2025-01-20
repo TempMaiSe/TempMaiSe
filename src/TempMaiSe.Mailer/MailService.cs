@@ -30,13 +30,16 @@ public class MailService : IMailService
 
     private readonly IMailInformationToMailMapper _mailInfoMapper;
 
+    private readonly IServiceProvider _serviceProvider;
+
     public MailService(
         IFluentEmailFactory mailFactory,
         ITemplateRepository templateRepository,
         IDataParser dataParser,
         FluidParser fluidParser,
         ITemplateToMailMapper mailHeaderMapper,
-        IMailInformationToMailMapper mailInfoMapper)
+        IMailInformationToMailMapper mailInfoMapper,
+        IServiceProvider serviceProvider)
     {
         _mailFactory = mailFactory ?? throw new ArgumentNullException(nameof(mailFactory));
         _templateRepository = templateRepository ?? throw new ArgumentNullException(nameof(templateRepository));
@@ -44,6 +47,7 @@ public class MailService : IMailService
         _fluidParser = fluidParser ?? throw new ArgumentNullException(nameof(fluidParser));
         _mailHeaderMapper = mailHeaderMapper ?? throw new ArgumentNullException(nameof(mailHeaderMapper));
         _mailInfoMapper = mailInfoMapper ?? throw new ArgumentNullException(nameof(mailInfoMapper));
+        _serviceProvider = serviceProvider ?? throw new ArgumentNullException(nameof(serviceProvider));
     }
 
     /// <inheritdoc/>
@@ -78,7 +82,8 @@ public class MailService : IMailService
             AmbientValues =
             {
                 { nameof(InlineAttachmentCollection), inlineAttachments },
-                { Constants.Extensibility, new FluidExtensibility(inlineAttachments) }
+                { Constants.Extensibility, new FluidExtensibility(inlineAttachments) },
+                { Constants.ServiceProvider, _serviceProvider }
             }
         };
         string subject = await fluidSubjectTemplate.RenderAsync(templateContext).ConfigureAwait(false);
@@ -117,14 +122,32 @@ public class MailService : IMailService
         if (!string.IsNullOrWhiteSpace(templateData.PlainTextBodyTemplate))
         {
             IFluidTemplate plainTextFluidTemplate = _fluidParser.Parse(templateData.PlainTextBodyTemplate);
-            plainTextBody = await plainTextFluidTemplate.RenderAsync(templateContext).ConfigureAwait(false);
+            templateContext.EnterChildScope();
+            try
+            {
+                _ = templateContext.SetValue(Constants.IsHtml, false);
+                plainTextBody = await plainTextFluidTemplate.RenderAsync(templateContext).ConfigureAwait(false);
+            }
+            finally
+            {
+                templateContext.ReleaseScope();
+            }
         }
 
         string? htmlBody = null;
         if (!string.IsNullOrWhiteSpace(templateData.HtmlBodyTemplate))
         {
             IFluidTemplate htmlFluidTemplate = _fluidParser.Parse(templateData.HtmlBodyTemplate);
-            htmlBody = await htmlFluidTemplate.RenderAsync(templateContext, HtmlEncoder.Default).ConfigureAwait(false);
+            templateContext.EnterChildScope();
+            try
+            {
+                _ = templateContext.SetValue(Constants.IsHtml, true);
+                htmlBody = await htmlFluidTemplate.RenderAsync(templateContext, HtmlEncoder.Default).ConfigureAwait(false);
+            }
+            finally
+            {
+                templateContext.ReleaseScope();
+            }
         }
 
         if (!string.IsNullOrWhiteSpace(htmlBody) && !string.IsNullOrWhiteSpace(plainTextBody))

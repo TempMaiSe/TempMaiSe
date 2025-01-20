@@ -1,5 +1,5 @@
 using Fluid;
-using Microsoft.AspNetCore.Razor.TagHelpers;
+using TempMaiSe.Mailer;
 
 namespace TempMaiSe.Tests;
 
@@ -25,7 +25,8 @@ public class MailServiceExtensionsTests
         MailServiceExtensions.AddMailService(services);
 
         // Assert
-        Assert.Single(services, sr => sr.ServiceType.IsAssignableFrom(typeof(FluidParser)));
+        Assert.Single(services, sr => sr.ServiceType.Equals(typeof(FluidMailParser)));
+        Assert.Single(services, sr => sr.ServiceType.Equals(typeof(FluidParser)));
     }
 
     [Fact]
@@ -41,7 +42,8 @@ public class MailServiceExtensionsTests
 
         // Assert
         _ = services.BuildServiceProvider().GetService<FluidParser>(); // Ensure parser is created
-        Assert.Single(services, sr => sr.ServiceType.IsAssignableFrom(typeof(FluidParser)));
+        Assert.Single(services, sr => sr.ServiceType.Equals(typeof(FluidMailParser)));
+        Assert.Single(services, sr => sr.ServiceType.Equals(typeof(FluidParser)));
         Assert.True(called);
     }
 
@@ -55,6 +57,22 @@ public class MailServiceExtensionsTests
         MailServiceExtensions.AddMailService(services, options: new FluidParserOptions { AllowFunctions = true, AllowParentheses = true });
 
         // Assert
-        Assert.Single(services, sr => sr.ServiceType.IsAssignableFrom(typeof(FluidParser)));
+        Assert.Single(services, sr => sr.ServiceType.Equals(typeof(FluidMailParser)));
+        Assert.Single(services, sr => sr.ServiceType.Equals(typeof(FluidParser)));
+    }
+
+    [Fact]
+    public void AddMailService_Calls_Action_To_Configure_Parser()
+    {
+        // Arrange
+        IServiceCollection services = new ServiceCollection();
+        bool called = false;
+
+        // Act
+        MailServiceExtensions.AddMailService(services, (sp, parser) => called = true);
+        _ = services.BuildServiceProvider().GetRequiredService<FluidParser>();
+
+        // Assert
+        Assert.True(called);
     }
 }
