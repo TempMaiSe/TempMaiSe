@@ -1496,7 +1496,7 @@
           "Newtonsoft.Json": "[13.0.3, )",
           "Newtonsoft.Json.Schema": "[4.0.1, )",
           "OneOf": "[3.0.271, )",
-          "TempMaiSe.Models": "[2.2.0, )",
+          "TempMaiSe.Models": "[2.3.0, )",
           "jcamp.FluentEmail.Core": "[3.8.0, )"
         }
       },
