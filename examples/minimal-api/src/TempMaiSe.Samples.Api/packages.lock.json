@@ -4,13 +4,13 @@
     "net9.0": {
       "Fluid.Core": {
         "type": "Direct",
-        "requested": "[2.19.0, )",
-        "resolved": "2.19.0",
-        "contentHash": "NcJzwEePZjJRrLFRglFvdl84NGJtvqoEt/FK+gLnYkKwr6YKEN29XHEQYEh5murUzqN0xcnAseNspxU+uI2WTQ==",
+        "requested": "[2.21.0, )",
+        "resolved": "2.21.0",
+        "contentHash": "VpXoM6bG5UfHlhXyYVxL5NDC+Zus87yAMIKI2UFF9BoJDyGvqwSiodDwhL8Gqp+qnnBZespSd3F0noMNOEYMWQ==",
         "dependencies": {
           "Microsoft.Extensions.FileProviders.Abstractions": "9.0.0",
-          "Parlot": "1.3.2",
-          "TimeZoneConverter": "6.1.0"
+          "Parlot": "1.3.5",
+          "TimeZoneConverter": "7.0.0"
         }
       },
       "jcamp.FluentEmail.Core": {
@@ -1334,8 +1334,8 @@
       },
       "Parlot": {
         "type": "Transitive",
-        "resolved": "1.3.2",
-        "contentHash": "UcUHG0i+62SU+Y/axFHDErdo/x+ofyQjMF7sEUanIViUb58vVc32FsTHqg+UNRheGppIzXB51Mpwbz73TAvzvg=="
+        "resolved": "1.3.5",
+        "contentHash": "F22bBSTGJgzJBBngX7SmgPzbCjrzwt4sPIOUlQ/K9p3mvau+o0mGnDxYTTik7ODOjXBDalpsZacaa8eSnPoEFw=="
       },
       "System.CodeDom": {
         "type": "Transitive",
@@ -1486,13 +1486,13 @@
       },
       "TimeZoneConverter": {
         "type": "Transitive",
-        "resolved": "6.1.0",
-        "contentHash": "UGdtyKWJqXXinyvGB9X6NVoIYbTAidoZYmn3aXzxeEYC9+OL8vF36eDt1qjb6RqBkWDl4v7iE84ecI+dFhA80A=="
+        "resolved": "7.0.0",
+        "contentHash": "sFbY65N/5GdsHx7nkdHFHUG+5Ar4W0w6Aks7Y2X+Q4NOTw6XyX2Il7jm+4tPkc//4mA3nG0RdxI8gKgoJitdLw=="
       },
       "tempmaise.mailer": {
         "type": "Project",
         "dependencies": {
-          "Fluid.Core": "[2.19.0, )",
+          "Fluid.Core": "[2.21.0, )",
           "Newtonsoft.Json": "[13.0.3, )",
           "Newtonsoft.Json.Schema": "[4.0.1, )",
           "OneOf": "[3.0.271, )",
