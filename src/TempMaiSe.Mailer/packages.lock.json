@@ -4,9 +4,9 @@
     "net9.0": {
       "Fluid.Core": {
         "type": "Direct",
-        "requested": "[2.21.0, )",
-        "resolved": "2.21.0",
-        "contentHash": "VpXoM6bG5UfHlhXyYVxL5NDC+Zus87yAMIKI2UFF9BoJDyGvqwSiodDwhL8Gqp+qnnBZespSd3F0noMNOEYMWQ==",
+        "requested": "[2.24.0, )",
+        "resolved": "2.24.0",
+        "contentHash": "R6O35JPDkqpj3rA7DBoGIzj03xxW5cORRX0kscoA1DnA3F8UnLNbuSVvrPa2CVblh28xMQlgqd0K0aFmwu5TAQ==",
         "dependencies": {
           "Microsoft.Extensions.FileProviders.Abstractions": "9.0.0",
           "Parlot": "1.3.5",
