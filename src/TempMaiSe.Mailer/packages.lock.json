@@ -4,12 +4,12 @@
     "net9.0": {
       "Fluid.Core": {
         "type": "Direct",
-        "requested": "[2.24.0, )",
-        "resolved": "2.24.0",
-        "contentHash": "R6O35JPDkqpj3rA7DBoGIzj03xxW5cORRX0kscoA1DnA3F8UnLNbuSVvrPa2CVblh28xMQlgqd0K0aFmwu5TAQ==",
+        "requested": "[2.25.0, )",
+        "resolved": "2.25.0",
+        "contentHash": "6fTSIHXgC+7fxFE4b3YADi0M4DmuWGDD8GUtZTqIXCcdqazbI1ve68EnpVQkgW6LbLkXL2Wo3s1aGT6vbmRsiA==",
         "dependencies": {
           "Microsoft.Extensions.FileProviders.Abstractions": "9.0.0",
-          "Parlot": "1.3.5",
+          "Parlot": "1.4.0",
           "TimeZoneConverter": "7.0.0"
         }
       },
@@ -63,8 +63,8 @@
       },
       "Parlot": {
         "type": "Transitive",
-        "resolved": "1.3.5",
-        "contentHash": "F22bBSTGJgzJBBngX7SmgPzbCjrzwt4sPIOUlQ/K9p3mvau+o0mGnDxYTTik7ODOjXBDalpsZacaa8eSnPoEFw=="
+        "resolved": "1.4.0",
+        "contentHash": "oMftmeCsDPXbBgYQsVG4yuedvTVwSkZZHkKH1F4CpBkS9O99GrAV2sA8t7cC5CoVFPprmAFZThJMXjwu3ybgNg=="
       },
       "TimeZoneConverter": {
         "type": "Transitive",
